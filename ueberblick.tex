@@ -1,0 +1,80 @@
+\documentclass[
+  a4paper,
+  11pt,
+]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[cm, headings]{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\renewcommand{\O}{\mathcal{O}}
+
+\usepackage{color}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+% Für Zeilenumbrüche ohne Indentations
+\setlength{\parindent}{0pt}
+
+\lstset{%
+  basicstyle=\ttfamily,
+  keywordstyle=\color{blue},
+  commentstyle=\color{mygray},
+  language=C,
+  showstringspaces=false,
+}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+
+\fancyhead[L]{%
+  Seminar: Public-Key-Kryptographie
+}
+\fancyhead[R]{%
+}
+%\fancyfoot[L]{}
+\fancyfoot[C]{\thepage}
+
+\title{}
+
+\author{}
+
+\begin{document}
+
+\section*{Themen}
+\label{sec:Themen}
+
+\subsection*{Theorie}
+\label{sub:Theorie}
+
+\begin{itemize}
+  \item Gruppentheorie
+  \item Eulersche $\phi$-Funktion
+  \item Multiplikative Gruppe modulo $p$
+  \item Untergruppen
+  \item Zyklische Gruppen
+  \item primitive Wurzeln und wie man sie findet
+\end{itemize}
+
+\subsection*{Praxis}
+\label{sub:Praxis}
+
+\begin{itemize}
+  \item $a^b \mod n$ schnell berechnen, Square and Multiply
+  \item Berechnung vom diskreten Logarithmus (einfach und schneller – siehe
+    Babystep-Giantstep-Algorithmus)
+  \item DH-Schlüsselaustausch
+  \item Verschlüsselung mittels diskretem Logarithmus (was ist der öffentliche
+    und der private Schlüssel?)
+  \item Gebräuchlichkeit?
+\end{itemize}
+
+
+\end{document}
