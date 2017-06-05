@@ -42,6 +42,9 @@
 %\fancyfoot[L]{}
 \fancyfoot[C]{\thepage}
 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\ggT}{\text{ggT}}
+
 \title{}
 
 \author{}
@@ -55,9 +58,38 @@
 \label{sub:Theorie}
 
 \begin{itemize}
+  \item Division mit Rest, Modulo
+
   \item Gruppentheorie
+
+    Was ist eine Gruppe?
+
+      Eine Gruppe ist ein Tupel $(G, *)$ mit einer Menge $G$ und einer
+      Verknüpfung $*: G \times G \to G$ bzw. $(a, b) \mapsto a * b$, welche
+      folgende Axiome erfüllt:
+      \begin{enumerate}
+        \item Assoziativgesetz: für alle $a,b,c \in G$ gilt: $(a * b) * c = a
+          * (b * c)$.
+        \item neutrales Element: es gibt ein Element $e \in G$, so dass für
+          alle $a \in G$ gilt: $a * e = e * a = a$.
+        \item inverse Elemente: für alle $a \in G$ existiert ein inverses
+          Element $a^{-1}$, sodass gilt $a * a^{-1} = a^{-1} * a = e$
+      \end{enumerate}
+
   \item Multiplikative Gruppe modulo $p$
+
   \item Eulersche $\phi$-Funktion
+
+    Die Eulersche $\phi$-Funktion gibt für jede natürliche Zahl $n$ an, wie
+    viele zu $n$ teilerfremde Zahlen es gibt, die nicht größer als $n$ sind:
+    \begin{align*}\label{eq:euler_phi_function_definition}
+      \phi(n) & := \left|
+        \left\{
+          a \in \N \mid 1 \leq a \leq n \land \ggT(a, n) = 1
+        \right\}
+      \right|
+    \end{align*}
+
   \item primitive Wurzeln und wie man sie findet
 \end{itemize}
 
