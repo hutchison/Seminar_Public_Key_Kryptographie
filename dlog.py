@@ -142,3 +142,19 @@ def dlog(root, modulus, value):
             return i
     else:
         return None
+
+
+def exponents(root, modulus, start=1):
+    width = len(str(modulus)) + 1
+    width_root = len(str(root))
+    fstr = '{:>' + str(width) + '}'
+
+    print(bold_text((width_root+2)*' ' + 'n:'), end='')
+    for n in range(start, modulus):
+        print(bold_text(fstr.format(n)), end='')
+
+    print()
+
+    print(bold_text(fstr.format(str(root) + '**n:')), end='')
+    for n in range(start, modulus):
+        print(fstr.format(pow(root, n, modulus)), end='')
