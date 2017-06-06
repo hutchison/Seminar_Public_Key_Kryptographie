@@ -27,25 +27,25 @@ def order(element, modulus):
         return 0
 
 
-def _table(op, modulus):
+def _table(op, modulus, start=0):
     width = len(str(modulus)) + 1
     fstr = '{:>' + str(width) + '}'
 
     print(fstr.format(' '), end='')
-    for h in range(modulus):
+    for h in range(start, modulus):
         print(bold_text(fstr.format(h)), end='')
     print()
 
-    for x in range(modulus):
+    for x in range(start, modulus):
         print(bold_text(fstr.format(x)), end='')
-        for y in range(modulus):
+        for y in range(start, modulus):
             result = op(x, y) % modulus
             print(fstr.format(result), end='')
         print()
 
 
 def multiplication_table(modulus):
-    _table(mul, modulus)
+    _table(mul, modulus, start=1)
 
 
 def addition_table(modulus):
