@@ -137,7 +137,7 @@ def is_primitive_root_even_better(g, p):
 
 
 def dlog(root, modulus, value):
-    for i in range(modulus):
+    for i in range(1, modulus):
         if pow(root, i, modulus) == value:
             return i
     else:
