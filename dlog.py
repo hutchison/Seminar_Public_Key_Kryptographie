@@ -144,7 +144,7 @@ def dlog(root, modulus, value):
         return None
 
 
-def exponents(root, modulus, start=1):
+def powers(root, modulus, start=1):
     width = len(str(modulus)) + 1
     width_root = len(str(root))
     fstr = '{:>' + str(width) + '}'
