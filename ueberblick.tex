@@ -15,6 +15,7 @@
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{booktabs}
 
 % Für Zeilenumbrüche ohne Indentations
 \setlength{\parindent}{0pt}
@@ -43,6 +44,7 @@
 \fancyfoot[C]{\thepage}
 
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
 \newcommand{\ggT}{\text{ggT}}
 
 \title{}
@@ -76,9 +78,69 @@
           Element $a^{-1}$, sodass gilt $a * a^{-1} = a^{-1} * a = e$
       \end{enumerate}
 
-  \item Beispiel: multiplikative Gruppe modulo $p$
+  \item Beispiel: multiplikative Gruppe modulo $n$
+
+    Wir betrachten $\Z/5\Z$ mit der Multiplikation modulo $5$. Dann ergibt sich
+    folgende Multiplikationstabelle:
+    \begin{center}
+      \begin{tabular}{r|cccc}
+        $\cdot$ & $1$ & $2$ & $3$ & $4$\\\hline
+          $1$   & $1$ & $2$ & $3$ & $4$\\
+          $2$   & $2$ & $4$ & $1$ & $3$\\
+          $3$   & $3$ & $1$ & $4$ & $2$\\
+          $4$   & $4$ & $3$ & $2$ & $1$
+      \end{tabular}
+    \end{center}
+    Die $0$ wird aus $\Z/5\Z$ ausgeschlossen, da für die $0$ kein inverses
+    Element existiert und damit ein Gruppenaxiom verletzt würde.
+
+    Betrachten wir ein Negativbeispiel: $\Z/6\Z$ mit der Multiplikation modulo
+    $6$. Dies ist keine Gruppe, da für $2$ kein inverses Element existiert. Dies
+    kann man an der Multiplikationstabelle erkennen:
+    \begin{center}
+      \begin{tabular}{r|ccccc}
+        $\cdot$ & $1$ & $2$ & $3$ & $4$ & $5$\\\hline
+        $1$     & $1$ & $2$ & $3$ & $4$ & $5$\\
+        $2$     & $2$ & $4$ & $0$ & $2$ & $4$\\
+        $3$     & $3$ & $0$ & $3$ & $0$ & $3$\\
+        $4$     & $4$ & $2$ & $0$ & $4$ & $2$\\
+        $5$     & $5$ & $4$ & $3$ & $2$ & $1$
+      \end{tabular}
+    \end{center}
+
+    Wir schreiben $\Z_n^*$ für die multiplikative Gruppe modulo $n$.
 
   \item Erzeuger, zyklische Gruppe
+
+    Sei $(G, \cdot)$ eine Gruppe. Wenn es ein Element $a \in G$ gibt, dessen
+    Potenzen $a^n$ für $n \in \Z$ alle Elemente aus $G$ erzeugt, dann nennt man
+    $a$ einen Erzeuger und $(G, \cdot)$ eine \emph{zyklische} Gruppe.
+
+    Wir schreiben $\left\langle a \right\rangle := \left\{ a^n \mid n \in \Z
+    \right\}$, um $a$ als erzeugendes Element zu kennzeichnen.
+
+    In einer multiplikativen Gruppe modulo $n$ heißen die Erzeuger
+    \emph{Primitivwurzeln} modulo $n$.
+
+  \item Beispiel: Erzeuger
+
+    In $\Z_5^*$ sind $2$ und $3$ Erzeuger, wie man durch Ausprobieren nachprüfen
+    kann:
+    \begin{center}
+      \begin{tabular}{r|rrrr}
+        $n$   & $1$ & $2$ & $3$ & $4$\\\hline
+        $2^n$ & $2$ & $4$ & $1$ & $3$\\
+        $3^n$ & $3$ & $4$ & $2$ & $1$
+      \end{tabular}
+    \end{center}
+    Die $4$ hingegen ist kein Erzeuger:
+    \begin{center}
+      \begin{tabular}{r|rrrr}
+        $n$   & $1$ & $2$ & $3$ & $4$\\\hline
+        $4^n$ & $4$ & $1$ & $4$ & $1$
+      \end{tabular}
+    \end{center}
+
 \end{itemize}
 
 \subsection*{Praxis}
