@@ -111,6 +111,10 @@ def is_prime(n):
             return True
 
 
+def is_strong_prime(n):
+    return is_prime(n) and is_prime((n-1)//2)
+
+
 def prime_factors(n):
     return {d for d in range(1, n) if n % d == 0 and is_prime(d)}
 
