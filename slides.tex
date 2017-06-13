@@ -12,6 +12,8 @@
 
 \usepackage{microtype}
 \usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
 
 \usepackage{tikz}
 
@@ -141,5 +143,53 @@
 
 \section{Praktische Anwendung}
 \label{sec:praktische_anwendung}
+
+\subsection{Diffie-Hellman-Merkle-Schlüsselaustausch}
+\label{sub:diffie_hellman_merkle_schlusselaustausch}
+
+\begin{frame}{\insertsubsectionhead}
+  \begin{center}
+    \begin{tabularx}{\textwidth}{Xcl}
+      \textbf{Alice} & & \textbf{Bob}\\\midrule
+      wähle: Primzahl $p$\\
+      finde: Erzeuger $g: g^n \mod p \to \{1, \ldots, p-1\}$\\
+      wähle geheimen Schlüssel: $a \in \{1, \ldots, p-1\}$\\
+      berechne öffentlichen Schlüssel: $A \equiv g^a \mod p$\\
+      sende: $(p, g, A)$ an Bob & $\to$
+    \end{tabularx}
+  \end{center}
+
+  \pause
+
+  \begin{center}
+    \begin{tabularx}{\textwidth}{lcX}
+      \textbf{Alice} &  & \textbf{Bob}\\\midrule
+      & & wähle: geheimen Schlüssel: $b\in \{ 0 ,\ldots , p - 1 \}$\\
+      & & berechne öffentlichen Schlüssel: $B = g^b \mod p$\\
+      & & berechne geheimen gemeinsamen Schlüssel: $K = A^b \mod p$\\
+      & $\leftarrow$ & sende: $B$ an Alice
+    \end{tabularx}
+  \end{center}
+
+  \pause
+
+  \begin{center}
+    \begin{tabularx}{\textwidth}{Xcl}
+      \textbf{Alice} &  & \textbf{Bob}\\\midrule
+      berechne geheimen gemeinsamen Schlüssel: $K = B^a \mod p$
+    \end{tabularx}
+  \end{center}
+\end{frame}
+
+\begin{frame}{\insertsubsectionhead}
+  \begin{center}
+    \includegraphics[width=\textwidth]{Diffie-Hellman-Schluesselaustausch2.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}[t]{Gleichheit der beiden Schlüssel}
+  Beweis: siehe Tafel
+\end{frame}
+
 
 \end{document}

@@ -143,6 +143,50 @@
     Publikumsfrage: gegeben $\Z_{47}^*$ als Gruppe und $5$ als Erzeuger. Was ist
     $5^x \equiv 41 \mod 47$? Antwort: $y = 13$. Das ist schwierig.
 
+  \item Diffie-Hellman-Schlüsselaustausch:
+
+    Alice:
+    \begin{itemize}
+      \item wähle Primzahl $p = 17$
+      \item wähle $g = 5$ als Erzeuger
+      \item wähle geheimen Schlüssel $a = 10$
+      \item berechne öffentlichen Schlüssel
+        \begin{align*}
+          A & \equiv g^a \mod p\\
+            & \equiv 5^{10} \mod 17\\
+            & \equiv 9
+        \end{align*}
+      \item sende $(p, g, A) = (17, 5, 9)$ an Bob
+    \end{itemize}
+
+    Bob:
+    \begin{itemize}
+      \item wähle geheimen Schlüssel $b = 7$
+      \item berechne öffentlichen Schlüssel
+        \begin{align*}
+          B & \equiv g^b \mod p\\
+            & \equiv 5^7 \mod 17\\
+            & \equiv 10
+        \end{align*}
+      \item berechne geheimen gemeinsamen Schlüssel
+        \begin{align*}
+          K & \equiv A^b \mod p\\
+            & \equiv 9^7 \mod 17\\
+            & \equiv 2
+        \end{align*}
+      \item sende $B = 10$ an Alice
+    \end{itemize}
+
+    Alice:
+    \begin{itemize}
+      \item berechne geheimen gemeinsamen Schlüssel
+        \begin{align*}
+          K & \equiv B^a \mod p\\
+            & \equiv 10^{10} \mod 17\\
+            & \equiv 2
+        \end{align*}
+    \end{itemize}
+
 \end{itemize}
 
 \end{document}
