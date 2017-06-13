@@ -151,6 +151,40 @@ Hat: (p, g, A, a, B, c)\\
 An dieser stelle sei darauf verwiesen, dass zusätzliche Maßnahmen getroffen werden müssen, da jeder Buchstabe auf die selbe Zahl verschlüsselt wird.
 Z.B.: Mehrere Buchstaben zusammenfassen
 
+\subsection*{Verschluesselung: Beweis, Korrektheit}
+\label{sub:Verschluesselung: Beweis, Korrektheit}
+
+%\subsubsection*{Theorie}
+%\label{subsub:Theorie}
+%
+%$c=A^b\cdot m\mod p$\\
+%$m=B^{-a}\cdot c\mod p$\\
+%
+%\subsubsection*{Beweis, Korrektheit}
+%\label{subsub:Beweis, Korrektheit}
+
+\begin{center}
+
+\begin{tabular}{rl}
+	Chiffre Text:	&	$c=A^b\cdot m\mod p$\\
+	Message:		&	$m=B^{-a}\cdot c\mod p$\\
+\end{tabular}
+
+\ \\ \ \\
+
+\begin{tabular}{rcl}
+	$m$		&	$=$ &	$B^{-a}\cdot c\mod p$\\
+			&	$=$	&	$(g^b)^{-a}\cdot c\mod p$\\
+			&	$=$	&	$g^{b\cdot (-a)}\cdot c\mod p$\\			
+			&	$=$	&	$g^{-ab}\cdot c\mod p$\\
+			&	$=$	&	$g^{-ab}\cdot A^b\cdot m\mod p$\\
+			&	$=$	&	$g^{-ab}\cdot (g^a)^b\cdot m\mod p$\\
+			&	$=$	&	$g^{-ab}\cdot g^{ab}\cdot m\mod p$\\
+			&	$=$	&	$g^{-ab+ab}\cdot m\mod p$\\
+			&	$=$	&	$m$\\
+\end{tabular}
+\end{center}
+
 
 
 
