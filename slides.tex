@@ -176,7 +176,7 @@
   \begin{center}
     \begin{tabularx}{\textwidth}{Xcl}
       \textbf{Alice} &  & \textbf{Bob}\\\midrule
-      berechne geheimen gemeinsamen Schlüssel: $K = B^a \mod p$
+      $\cdot$ berechne geheimen gemeinsamen Schlüssel: $K = B^a \mod p$
     \end{tabularx}
   \end{center}
 \end{frame}
@@ -191,5 +191,43 @@
   Beweis: siehe Tafel
 \end{frame}
 
+\subsection{Verschlüsselung mittels DHKE}
+\label{sub:verschlusselung_mittels_dhke}
+
+\begin{frame}{\insertsubsectionhead}
+  Bob möchte eine Nachricht $m \in \N^n$ an Alice verschicken.
+
+  \pause
+
+  \begin{center}
+    \begin{tabularx}{\textwidth}{Xcl}
+      \textbf{Alice} & & \textbf{Bob}\\\midrule
+      $\cdot$ erzeuge: öffentlichen Schlüssel $(p, g, A)$\\
+      $\cdot$ sende: $(p, g, A)$ an Bob & $\to$
+    \end{tabularx}
+  \end{center}
+
+  \pause
+
+  \begin{center}
+    \begin{tabularx}{\textwidth}{lcX}
+      \textbf{Alice} &  & \textbf{Bob}\\\midrule
+      & & $\cdot$ wähle: geheimen Schlüssel: $b\in \{ 0 ,\ldots , p - 1 \}$\\
+      & & $\cdot$ berechne öffentlichen Schlüssel: $B = g^b \mod p$\\
+      & & $\cdot$ verschlüssele: $c_i \equiv A^b \cdot m_i \mod p$\\
+      & $\leftarrow$ & $\cdot$ sende: $(B, c)$ an Alice
+    \end{tabularx}
+  \end{center}
+
+  \pause
+
+  \begin{center}
+    \begin{tabularx}{\textwidth}{Xcl}
+      \textbf{Alice} &  & \textbf{Bob}\\\midrule
+      $\cdot$ entschlüssele: $m_i \equiv B^{-a} \cdot c_i \mod p$\\
+      $m_i \equiv B^{(p-1)-a} \cdot c_i \mod p$
+    \end{tabularx}
+  \end{center}
+\end{frame}
 
 \end{document}
