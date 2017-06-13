@@ -170,7 +170,7 @@
         \end{align*}
       \item berechne geheimen gemeinsamen Schlüssel
         \begin{align*}
-          K & \equiv A^b \mod p\\
+          K_2 & \equiv A^b \mod p\\
             & \equiv 9^7 \mod 17\\
             & \equiv 2
         \end{align*}
@@ -181,11 +181,23 @@
     \begin{itemize}
       \item berechne geheimen gemeinsamen Schlüssel
         \begin{align*}
-          K & \equiv B^a \mod p\\
+          K_1 & \equiv B^a \mod p\\
             & \equiv 10^{10} \mod 17\\
             & \equiv 2
         \end{align*}
     \end{itemize}
+
+  \item Beweis für Gleichheit der Schlüssel:
+
+    \begin{align*}
+      K_1 & \equiv B^a \mod p\\
+      & \equiv (g^b)^a \mod p\\
+      & \equiv g^{ba} \mod p\\
+      & \equiv g^{ab} \mod p\\
+      & \equiv (g^a)^b \mod p\\
+      & \equiv A^b \mod p\\
+      & \equiv K_2\\
+    \end{align*}
 
   \item Verschlüsselung mittels DHKE:
 
@@ -229,6 +241,8 @@
           \text{enc(KOMME MORGEN)} & \to (7, 1, 4, 4, 16, 30, 4, 1, 20, 13, 16,
           26) = c
         \end{align*}
+        Zur Verbesserung der Sicherheit, kann Bob für jeden Buchstaben $c_i$ ein
+        anderes $b$ wählen und den Chiffretext buchstabenweise übermitteln.
       \item sende $(B, c)$ an Alice
     \end{itemize}
 
@@ -254,6 +268,19 @@
               & \vdots
         \end{align*}
     \end{itemize}
+
+  \item Beweis für Korrektheit:
+    \begin{align*}
+      m  & \equiv B^{-a} \cdot c \mod p\\
+      & \equiv (g^b)^{-a} \cdot c \mod p\\
+      & \equiv g^{b \cdot (-a)} \cdot c \mod p\\
+      & \equiv g^{-ab} \cdot c \mod p\\
+      & \equiv g^{-ab} \cdot A^b \cdot m \mod p\\
+      & \equiv g^{-ab} \cdot (g^a)^b \cdot m \mod p\\
+      & \equiv g^{-ab} \cdot g^{ab} \cdot m \mod p\\
+      & \equiv g^{-ab+ab} \cdot m \mod p\\
+      & \equiv m
+    \end{align*}
 
 \end{itemize}
 
