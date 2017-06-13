@@ -170,15 +170,15 @@ Z.B.: Mehrere Buchstaben zusammenfassen
 \ \\ \ \\
 
 \begin{tabular}{rcl}
-	$m$		&	$=$ &	$B^{-a}\cdot c\mod p$\\
-			&	$=$	&	$(g^b)^{-a}\cdot c\mod p$\\
-			&	$=$	&	$g^{b\cdot (-a)}\cdot c\mod p$\\			
-			&	$=$	&	$g^{-ab}\cdot c\mod p$\\
-			&	$=$	&	$g^{-ab}\cdot A^b\cdot m\mod p$\\
-			&	$=$	&	$g^{-ab}\cdot (g^a)^b\cdot m\mod p$\\
-			&	$=$	&	$g^{-ab}\cdot g^{ab}\cdot m\mod p$\\
-			&	$=$	&	$g^{-ab+ab}\cdot m\mod p$\\
-			&	$=$	&	$m$\\
+	$m$		&	$\equiv$ &	$B^{-a}\cdot c\mod p$\\
+			&	$\equiv$	&	$(g^b)^{-a}\cdot c\mod p$\\
+			&	$\equiv$	&	$g^{b\cdot (-a)}\cdot c\mod p$\\
+			&	$\equiv$	&	$g^{-ab}\cdot c\mod p$\\
+			&	$\equiv$	&	$g^{-ab}\cdot A^b\cdot m\mod p$\\
+			&	$\equiv$	&	$g^{-ab}\cdot (g^a)^b\cdot m\mod p$\\
+			&	$\equiv$	&	$g^{-ab}\cdot g^{ab}\cdot m\mod p$\\
+			&	$\equiv$	&	$g^{-ab+ab}\cdot m\mod p$\\
+			&	$\equiv$	&	$m$\\
 \end{tabular}
 \end{center}
 
@@ -187,20 +187,26 @@ Z.B.: Mehrere Buchstaben zusammenfassen
 
 Diskreter Logarithmus: $DL(y, g, p) = x$ für $g^x=y\mod p$\\
 - kein direktes Verfahren: Brute Force über $\{1, \ldots, x\}\in \mathcal O(x)$\\
-- Länge von x in bit: n $\rightarrow \mathcal O(2^n)$\\\\
+- Länge von $x$ in bit: $n \rightarrow \mathcal O(2^n)$\\\\
 
 Angenommen:\\
-- Ein Prozessor mit 10 GHz ($= 10^{10}Hz$),\\
-kann mit jedem Schritt eine modulare Potenz berechnen: $y=exp(x,g,p)=g^x\mod p$\\
-- Anzahl Prozessoren: $k=10^{10} \rightarrow 10^{20}$ modulare Potenzen pro Sekunde $\approx 2^{67} s^{-1}$\\
-- Die Zeit zur Berechnung aller modularen Potenzen: $t=2^n/(2^{67}\cdot s^{-1})=2^{n-67}\cdot s$\\\\
+\begin{itemize}
+  \item Ein Prozessor mit 10 GHz ($= 10^{10}Hz$),
 
-Man kann $x=2^n$ so setzen, dass $t>t_{alter des Universum}$:\\
-$t_{alter des Universum}=14\cdot 10^9y=14\cdot 10^9\cdot 365\cdot 24\cdot 60\cdot 60\cdot s\approx 2^{59}\cdot s$\\
-$59=n-67\rightarrow n=59+67\rightarrow n=126$
+    kann mit jedem Schritt eine modulare Potenz berechnen: $y=exp(x,g,p)=g^x\mod
+    p$
+  \item Anzahl Prozessoren: $k=10^{10} \rightarrow 10^{20}$ modulare Potenzen
+    pro Sekunde $\approx 2^{67} s^{-1}$
+  \item Die Zeit zur Berechnung aller modularen Potenzen: $t=\frac{2^n}{2^{67}\cdot
+    s^{-1}}=2^{n-67}\cdot s$
+\end{itemize}
 
-
-
-
+Man kann $x=2^n$ so setzen, dass $t>t_{\text{Alter des Universums}}$:
+\begin{align*}
+  t_{\text{Alter des Universums}} & = 14 \cdot 10^9y \\
+  & = 14 \cdot 10^9 \cdot 365 \cdot 24 \cdot 60\cdot 60\cdot s\\
+  & \approx 2^{59}\cdot s\\
+  59 & = n-67 \rightarrow n = 59+67\rightarrow n=126$
+\end{align*}
 
 \end{document}
