@@ -4,6 +4,12 @@ ueberblick.pdf: ueberblick.tex
 ueberblick.pdf-live: ueberblick.tex
 	latexmk -pdf -pvc $<
 
+beispiele.pdf: beispiele.tex
+	latexmk -pdf $<
+
+beispiele.pdf-live: beispiele.tex
+	latexmk -pdf -pvc $<
+
 slides.pdf: slides.tex
 	latexmk -pdf $<
 

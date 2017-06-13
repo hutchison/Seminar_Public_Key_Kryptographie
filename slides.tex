@@ -11,6 +11,7 @@
 \usepackage{amssymb}
 
 \usepackage{microtype}
+\usepackage{graphicx}
 
 \usepackage{tikz}
 
@@ -19,6 +20,10 @@
 \floatname{algorithm}{Algorithmus}
 
 \usepackage[square,sort,comma,numbers]{natbib}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ggT}{\text{ggT}}
 
 \begin{document}
 
@@ -36,5 +41,105 @@
   \tableofcontents
 \end{frame}
 
+\section{Motivation}
+\label{sec:motivation}
+
+\begin{frame}{\insertsectionhead}
+  \begin{center}
+    \includegraphics[width=\textwidth]{log_discLog.png}
+  \end{center}
+\end{frame}
+
+\section{Mathematische Grundlagen}
+\label{sec:mathematische_grundlagen}
+
+\subsection{Kongruenz}
+\label{sub:kongruenz}
+
+\begin{frame}{\insertsubsectionhead}
+  Zwei ganze Zahlen $a, b$ sind \emph{kongruent} bezüglich eines Moduls $m$,
+  wenn sie bei der Division durch $m$ denselben Rest haben. Alternativ kann man
+  Kongruenz auch auf den Teilbarkeitsbegriff zurückführen:
+  \begin{align*}
+    a \equiv b \mod m \Leftrightarrow m \mid (a - b)
+  \end{align*}
+\end{frame}
+
+\begin{frame}{\insertsubsectionhead}
+  \begin{center}
+    \includegraphics[width=\textwidth]{Modulus.png}
+  \end{center}
+\end{frame}
+
+\subsection{Gruppe}
+\label{sub:gruppe}
+
+\begin{frame}{\insertsubsectionhead}
+  Eine Gruppe ist ein Tupel $(G, *)$ mit einer Menge $G$ und einer
+  Verknüpfung $*: G \times G \to G$ bzw. $(a, b) \mapsto a * b$, welche
+  folgende Axiome erfüllt:
+  \begin{enumerate}
+    \item Assoziativgesetz: für alle $a,b,c \in G$ gilt: $(a * b) * c = a
+      * (b * c)$.
+    \item neutrales Element: es gibt ein Element $e \in G$, so dass für
+      alle $a \in G$ gilt: $a * e = e * a = a$.
+    \item inverse Elemente: für alle $a \in G$ existiert ein inverses
+      Element $a^{-1}$, sodass gilt $a * a^{-1} = a^{-1} * a = e$
+  \end{enumerate}
+\end{frame}
+
+\subsection{Multiplikative Gruppe modulo $p$}
+\label{sub:multiplikative_gruppe_modulo_p}
+
+\begin{frame}{\insertsubsectionhead}
+  \begin{itemize}
+    \item Wir betrachten die Menge $\{1, \dots, p-1\}$ mit der Multiplikation
+      modulo $p$. Dies ist genau dann eine Gruppe, wenn $p$ eine Primzahl ist.
+    \item Wir schreiben diese Gruppe als $\Z_p^*$.
+  \end{itemize}
+\end{frame}
+
+\subsection{Erzeuger, zyklische Gruppe}
+\label{sub:erzeuger_zyklische_gruppe}
+
+\begin{frame}{\insertsubsectionhead}
+  \begin{itemize}
+    \item Sei $(G, \cdot)$ eine Gruppe. Wenn es ein Element $a \in G$ gibt,
+      dessen Potenzen $a^n$ für $n \in \Z$ alle Elemente aus $G$ erzeugt, dann
+      nennt man $a$ einen Erzeuger und $(G, \cdot)$ eine \emph{zyklische}
+      Gruppe.
+
+    \item Wir schreiben $\left\langle a \right\rangle := \left\{ a^n \mid n \in
+      \Z \right\}$, um $a$ als erzeugendes Element zu kennzeichnen.
+
+    \item In einer multiplikativen Gruppe modulo $p$ heißen die Erzeuger auch
+      \emph{Primitivwurzeln} modulo $p$.
+  \end{itemize}
+\end{frame}
+
+\subsection{Diskrete Exponentiation und diskreter Logarithmus}
+\label{sub:diskrete_exponentiation}
+
+\begin{frame}{\insertsubsectionhead}
+  \begin{itemize}
+    \item Sei $(G, \cdot)$ eine endliche zyklische Gruppe der Ordnung $n$ und
+      $g$ ein Erzeuger von $G$.
+    \item Die \emph{diskrete Exponentiation} ist definiert durch
+      \begin{align*}
+        \exp_g: \quad \Z/n\Z \setminus \{ 0 \} & \to G\\
+        x & \mapsto g^x
+      \end{align*}
+      Dabei ist $\Z/n\Z \setminus \{ 0 \} = \{1, \dots, n-1\}$.
+    \item Die dazugehörige Umkehrfunktion heißt \emph{diskreter Logarithmus} und
+      ist definiert durch
+      \begin{align*}
+        \log_g: \quad G & \to \Z/n\Z \setminus \{ 0 \}\\
+        a & \mapsto \log_g a
+      \end{align*}
+  \end{itemize}
+\end{frame}
+
+\section{Praktische Anwendung}
+\label{sec:praktische_anwendung}
 
 \end{document}

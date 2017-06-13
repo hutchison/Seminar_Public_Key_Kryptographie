@@ -1,0 +1,148 @@
+\documentclass[
+  a4paper,
+  11pt,
+]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[cm, headings]{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\renewcommand{\O}{\mathcal{O}}
+
+\usepackage{color}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+
+% Für Zeilenumbrüche ohne Indentations
+\setlength{\parindent}{0pt}
+
+\lstset{%
+  basicstyle=\ttfamily,
+  keywordstyle=\color{blue},
+  commentstyle=\color{mygray},
+  language=C,
+  showstringspaces=false,
+}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+
+\fancyhead[L]{%
+  Seminar: Public-Key-Kryptographie
+}
+\fancyhead[R]{%
+  Beispiele
+}
+%\fancyfoot[L]{}
+\fancyfoot[C]{\thepage}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ggT}{\text{ggT}}
+
+\title{}
+
+\author{}
+
+\begin{document}
+
+\begin{itemize}
+  \item Kongruenz:
+    \begin{align*}
+      18 & \equiv 3 \mod 15\\
+      -10 & \equiv 20 \equiv 5 \mod 15\\
+      16 & \not\equiv 2 \mod 15
+    \end{align*}
+
+  \item Gruppe:
+
+    Sind das hier Gruppen?
+    \begin{itemize}
+      \item $(\Z, +)$
+      \item $(\Q \setminus \{ 0 \}, \cdot)$
+      \item $(\Z, \cdot)$
+    \end{itemize}
+
+  \item multiplikative Gruppen modulo $p$:
+
+  Wir betrachten $\Z_5^*$. Dann ergibt sich folgende Multiplikationstabelle:
+  \begin{center}
+    \begin{tabular}{r|cccc}
+      $\cdot$ & $1$ & $2$ & $3$ & $4$\\\hline
+        $1$   & $1$ & $2$ & $3$ & $4$\\
+        $2$   & $2$ & $4$ & $1$ & $3$\\
+        $3$   & $3$ & $1$ & $4$ & $2$\\
+        $4$   & $4$ & $3$ & $2$ & $1$
+    \end{tabular}
+  \end{center}
+
+  Negativbeispiel: $\Z_4^*$. Dies ist keine Gruppe, da für $2$ kein inverses
+    Element existiert. Dies kann man an der Multiplikationstabelle erkennen:
+  \begin{center}
+    \begin{tabular}{r|ccccc}
+      $\cdot$ & $1$ & $2$ & $3$\\\hline
+      $1$     & $1$ & $2$ & $3$\\
+      $2$     & $2$ & $0$ & $2$\\
+      $3$     & $3$ & $2$ & $1$
+    \end{tabular}
+  \end{center}
+
+  \item Erzeuger:
+
+    In $\Z_5^*$ sind $2$ und $3$ Erzeuger, wie man durch Ausprobieren nachprüfen
+    kann:
+    \begin{center}
+      \begin{tabular}{r|rrrr}
+        $n$   & $1$ & $2$ & $3$ & $4$\\\hline
+        $2^n$ & $2$ & $4$ & $3$ & $1$\\
+        $3^n$ & $3$ & $4$ & $2$ & $1$
+      \end{tabular}
+    \end{center}
+    Die $4$ hingegen ist kein Erzeuger:
+    \begin{center}
+      \begin{tabular}{r|rrrr}
+        $n$   & $1$ & $2$ & $3$ & $4$\\\hline
+        $4^n$ & $4$ & $1$ & $4$ & $1$
+      \end{tabular}
+    \end{center}
+
+  \item diskrete Exponentiation:
+
+    Wir wählen $\Z_{11}^*$ als Gruppe und $7$ als Erzeuger. Dann erhalten wir
+    für $\exp_7$ die folgende Wertetabelle:
+    \begin{center}
+      \begin{tabular}{r|rrrrrrrrrr}
+        $x$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$\\\hline
+        $7^x$ & $7$ & $5$ & $2$ & $3$ & $10$ & $4$ & $6$ & $9$ & $8$ & $1$
+      \end{tabular}
+    \end{center}
+
+    Publikumsfrage: gegeben $\Z_{47}^*$ als Gruppe und $5$ als Erzeuger. Was ist
+    $5^{11} \equiv y \mod 47$? Antwort: $y = 13$. Das ist einfach.
+
+  \item diskreter Logarithmus:
+
+    Wir wählen wieder $\Z_{11}^*$ als Gruppe und $7$ als Erzeuger. Dann erhalten
+    wir für $\log_7$ die folgende Wertetabelle:
+    \begin{center}
+      \begin{tabular}{r|rrrrrrrrrr}
+        $a$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$\\\hline
+        $\log_7 a$ & $10$ & $3$ & $4$ & $6$ & $2$ & $7$ & $1$ & $9$ & $8$ & $5$
+      \end{tabular}
+    \end{center}
+
+    Publikumsfrage: gegeben $\Z_{47}^*$ als Gruppe und $5$ als Erzeuger. Was ist
+    $5^x \equiv 41 \mod 47$? Antwort: $y = 13$. Das ist schwierig.
+
+\end{itemize}
+
+\end{document}

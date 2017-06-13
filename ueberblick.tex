@@ -60,7 +60,7 @@
 \label{sub:Theorie}
 
 \begin{itemize}
-  \item Division mit Rest, Modulo
+  \item Kongruenz
 
   \item Gruppentheorie
 
@@ -78,7 +78,7 @@
           Element $a^{-1}$, sodass gilt $a * a^{-1} = a^{-1} * a = e$
       \end{enumerate}
 
-  \item Beispiel: multiplikative Gruppe modulo $n$
+  \item Beispiel: multiplikative Gruppe modulo $p$
 
     Wir betrachten $\Z/5\Z$ mit der Multiplikation modulo $5$. Dann ergibt sich
     folgende Multiplikationstabelle:
@@ -94,21 +94,19 @@
     Die $0$ wird aus $\Z/5\Z$ ausgeschlossen, da für die $0$ kein inverses
     Element existiert und damit ein Gruppenaxiom verletzt würde.
 
-    Betrachten wir ein Negativbeispiel: $\Z/6\Z$ mit der Multiplikation modulo
-    $6$. Dies ist keine Gruppe, da für $2$ kein inverses Element existiert. Dies
+    Betrachten wir ein Negativbeispiel: $\Z/4\Z$ mit der Multiplikation modulo
+    $4$. Dies ist keine Gruppe, da für $2$ kein inverses Element existiert. Dies
     kann man an der Multiplikationstabelle erkennen:
     \begin{center}
       \begin{tabular}{r|ccccc}
-        $\cdot$ & $1$ & $2$ & $3$ & $4$ & $5$\\\hline
-        $1$     & $1$ & $2$ & $3$ & $4$ & $5$\\
-        $2$     & $2$ & $4$ & $0$ & $2$ & $4$\\
-        $3$     & $3$ & $0$ & $3$ & $0$ & $3$\\
-        $4$     & $4$ & $2$ & $0$ & $4$ & $2$\\
-        $5$     & $5$ & $4$ & $3$ & $2$ & $1$
+        $\cdot$ & $1$ & $2$ & $3$\\\hline
+        $1$     & $1$ & $2$ & $3$\\
+        $2$     & $2$ & $0$ & $2$\\
+        $3$     & $3$ & $2$ & $1$
       \end{tabular}
     \end{center}
 
-    Wir schreiben $\Z_n^*$ für die multiplikative Gruppe modulo $n$.
+    Wir schreiben $\Z_p^*$ für die multiplikative Gruppe modulo $p$.
 
   \item Erzeuger, zyklische Gruppe
 
@@ -140,6 +138,8 @@
         $4^n$ & $4$ & $1$ & $4$ & $1$
       \end{tabular}
     \end{center}
+
+  \item Diskrete Exponentiation und diskreter Logarithmus
 
 \end{itemize}
 
