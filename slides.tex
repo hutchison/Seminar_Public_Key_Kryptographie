@@ -48,7 +48,7 @@
 
 \begin{frame}{\insertsectionhead}
   \begin{center}
-    \includegraphics[width=\textwidth]{log_discLog.png}
+    \includegraphics[width=\textwidth]{verschluesselung.png}
   \end{center}
 \end{frame}
 
@@ -124,27 +124,43 @@
 
 \begin{frame}{\insertsubsectionhead}
   \begin{itemize}
-    \item Sei $(G, \cdot)$ eine endliche zyklische Gruppe der Ordnung $n$ und
+    \item Sei $(G, \cdot)$ eine endliche zyklische Gruppe der Ordnung $p$ und
       $g$ ein Erzeuger von $G$.
     \item Die \emph{diskrete Exponentiation} ist definiert durch
       \begin{align*}
-        \exp_g: \quad \Z/n\Z \setminus \{ 0 \} & \to G\\
+        \exp_g: \quad \Z_p & \to G\\
         x & \mapsto g^x
       \end{align*}
-      Dabei ist $\Z/n\Z \setminus \{ 0 \} = \{1, \dots, n-1\}$.
+      Dabei ist $\Z_p = \{1, \dots, p-1\}$.
     \item Die dazugehörige Umkehrfunktion heißt \emph{diskreter Logarithmus} und
       ist definiert durch
       \begin{align*}
-        \log_g: \quad G & \to \Z/n\Z \setminus \{ 0 \}\\
+        \log_g: \quad G & \to \Z_p\\
         a & \mapsto \log_g a
       \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\insertsubsectionhead}
+  \begin{center}
+    \includegraphics[width=\textwidth]{log_discLog.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Diskretes Logarithmusproblem}
+  \begin{itemize}
+    \item Sei $p$ eine Primzahl, $g$ ein Erzeuger von $\Z_p^*$ und $y \in
+      \Z_p^*$.
+
+      Finde ein $x$ mit $1 \leq x \leq p-1$, so dass $g^x \equiv y \mod
+      p$ gilt.
   \end{itemize}
 \end{frame}
 
 \section{Praktische Anwendung}
 \label{sec:praktische_anwendung}
 
-\subsection{Diffie-Hellman-Merkle-Schlüsselaustausch}
+\subsection{Diffie-Hellman-Merkle-Schlüsselaustausch (DHKE)}
 \label{sub:diffie_hellman_merkle_schlusselaustausch}
 
 \begin{frame}{\insertsubsectionhead}
@@ -163,10 +179,10 @@
 
   \begin{center}
     \begin{tabularx}{\textwidth}{lcX}
-      \textbf{Alice} &  & \textbf{Bob}\\\midrule
-      & & $\cdot$ wähle: geheimen Schlüssel: $b\in \{ 0 ,\ldots , p - 1 \}$\\
-      & & $\cdot$ berechne öffentlichen Schlüssel: $B = g^b \mod p$\\
-      & & $\cdot$ berechne geheimen gemeinsamen Schlüssel: $K = A^b \mod p$\\
+      \textbf{Alice} &  & \multicolumn{1}{r}{\textbf{Bob}}\\\midrule
+      & & $\cdot$ wähle: geheimen Schlüssel: $b\in \{ 1 ,\ldots , p - 1 \}$\\
+      & & $\cdot$ berechne öffentlichen Schlüssel: $B \equiv g^b \mod p$\\
+      & & $\cdot$ berechne geheimen gemeinsamen Schlüssel: $K \equiv A^b \mod p$\\
       & $\leftarrow$ & $\cdot$ sende: $B$ an Alice
     \end{tabularx}
   \end{center}
@@ -176,7 +192,7 @@
   \begin{center}
     \begin{tabularx}{\textwidth}{Xcl}
       \textbf{Alice} &  & \textbf{Bob}\\\midrule
-      $\cdot$ berechne geheimen gemeinsamen Schlüssel: $K = B^a \mod p$
+      $\cdot$ berechne geheimen gemeinsamen Schlüssel: $K \equiv B^a \mod p$
     \end{tabularx}
   \end{center}
 \end{frame}
@@ -185,10 +201,7 @@
   \begin{center}
     \includegraphics[width=\textwidth]{Diffie-Hellman-Schluesselaustausch2.png}
   \end{center}
-\end{frame}
-
-\begin{frame}[t]{Gleichheit der beiden Schlüssel}
-  Beweis: siehe Tafel
+  Beweis für Gleichheit der beiden Schlüssel: siehe Tafel
 \end{frame}
 
 \subsection{Verschlüsselung mittels DHKE}
@@ -203,7 +216,7 @@
     \begin{tabularx}{\textwidth}{Xcl}
       \textbf{Alice} & & \textbf{Bob}\\\midrule
       $\cdot$ erzeuge: öffentlichen Schlüssel $(p, g, A)$\\
-      $\cdot$ sende: $(p, g, A)$ an Bob & $\to$
+      $\cdot$ veröffentliche $(p, g, A)$
     \end{tabularx}
   \end{center}
 
@@ -211,9 +224,9 @@
 
   \begin{center}
     \begin{tabularx}{\textwidth}{lcX}
-      \textbf{Alice} &  & \textbf{Bob}\\\midrule
-      & & $\cdot$ wähle: geheimen Schlüssel: $b\in \{ 0 ,\ldots , p - 1 \}$\\
-      & & $\cdot$ berechne öffentlichen Schlüssel: $B = g^b \mod p$\\
+      \textbf{Alice} &  & \multicolumn{1}{r}{\textbf{Bob}}\\\midrule
+      & & $\cdot$ wähle: geheimen Schlüssel: $b\in \{ 1 ,\ldots , p - 1 \}$\\
+      & & $\cdot$ berechne öffentlichen Schlüssel: $B \equiv g^b \mod p$\\
       & & $\cdot$ verschlüssele: $c_i \equiv A^b \cdot m_i \mod p$\\
       & $\leftarrow$ & $\cdot$ sende: $(B, c)$ an Alice
     \end{tabularx}
