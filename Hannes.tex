@@ -1,0 +1,124 @@
+\documentclass[
+  a4paper,
+  11pt,
+]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[cm, headings]{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\renewcommand{\O}{\mathcal{O}}
+
+\usepackage{color}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+
+% Für Zeilenumbrüche ohne Indentations
+\setlength{\parindent}{0pt}
+
+\lstset{%
+  basicstyle=\ttfamily,
+  keywordstyle=\color{blue},
+  commentstyle=\color{mygray},
+  language=C,
+  showstringspaces=false,
+}
+
+
+% Grafikpaket laden
+\usepackage{graphicx}
+\usepackage{float}
+
+% tabelle auf textbreite
+\usepackage{tabularx}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+
+\fancyhead[L]{%
+  Seminar: Public-Key-Kryptographie
+}
+\fancyhead[R]{%
+}
+%\fancyfoot[L]{}
+\fancyfoot[C]{\thepage}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ggT}{\text{ggT}}
+
+\title{}
+
+\author{}
+
+\begin{document}
+
+\section*{Verschluesselung}
+\label{sec:Verschluesselung}
+
+Diskreter Logarithmus:
+\\\\
+source: Übersetzung aus HAC97 Seite 103
+\\\\
+Definition:
+\\\\
+The discrete logarithm problem (DLP) is the following:
+
+%$Z_p^* = \{ 0 ,\ldots , p - 1 \} , {a,b\in \{0,\ldots ,p-1\},\,}$\\
+%$g^{{ab}}$			%g hoch a*b
+%$a\equiv b\mod m$	%kongruenz
+
+$Z_p^* = \{ 0 ,\ldots , p - 1 \}$
+
+given a prime p, a generator ${a\in Z_p^*}$, and an element ${b\in Z_p^*}$,
+find the integer x, $0\leq x\leq p-2$, such that
+a hoch x kongruent b (mod p)
+\\\\
+Das Diskrete-Logarithmus-Problem:
+Für eine Primzahl p, eine multiplikative Gruppe $Z_p^* = \{ 0 ,\ldots , p - 1 \}$, einen Generator ${a\in Z_p^*}$ und ein ${b\in Z_p^*}$,
+finde ${x\in N}$, $0\leq x\leq p-2$ (oder auch $1\leq x\le p-1$, zyklische Gruppe),
+so dass a hoch %$x\equiv b\mod p$.
+
+\subsection*{Diffie-Hellman-Merkle Schluesselaustausch}
+\label{sub:Diffie-Hellman-Merkle Schluesselaustausch}
+
+	Alice\\
+	1.\\
+	Wähle:	Primzahl $p$\\
+	Finde:	Erzeuger $g$:\\
+			$g^n\text{ }mod\text{ }p \rightarrow \{ 0 ,\ldots , p - 1 \}$\\
+	Wähle:	Geheimen Schlüssel: $a\in \{ 0 ,\ldots , p - 1 \}$\\
+	Berechne:	Öffentlichen Schlüssel: $A=g^a\text{ }mod\text{ }p$\\
+	Sende: (p, g, A) an Bob\\\\
+
+	Bob\\
+	2.\\
+	Wähle:	Geheimen Schlüssel: $b\in \{ 0 ,\ldots , p - 1 \}$\\
+	Berechne:	Öffentlichen Schlüssel: $B=g^b\text{ }mod\text{ }p$\\
+	Berechne:	Geheimen gemeinsamen Schlüssel: $K=A^b\text{ }mod\text{ }p$\\
+	Sende: (B) an Alice\\\\
+	
+	Alice\\
+	3.\\
+	Berechne:	Geheimen gemeinsamen Schlüssel: $K=B^a\text{ }mod\text{ }p$\\
+	
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Diffie-Hellman-Schluesselaustausch2.png}
+	\caption{Diffie-Hellman-Merkle Schluesselaustausch}
+	\label{img:grafik-dummy}
+\end{figure}
+
+
+
+
+\end{document}
