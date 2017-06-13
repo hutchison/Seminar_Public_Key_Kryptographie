@@ -160,6 +160,36 @@
 \section{Praktische Anwendung}
 \label{sec:praktische_anwendung}
 
+\subsection{Komplexität}
+\label{sub:komplexitat}
+
+\begin{frame}{\insertsubsectionhead}
+  Diskreter Logarithmus: $DL(y, g, p) = x$ für $g^x \equiv y \mod p$
+  \begin{itemize}
+    \item kein direktes Verfahren: Brute Force über $\{1, \ldots, x\}\in
+      \mathcal O(x)$
+    \item Länge von $x$ in bit: $n \Rightarrow \mathcal{O}(2^n)$
+  \end{itemize}
+
+  Angenommen:
+  \begin{itemize}
+    \item Ein Prozessor mit 10 GHz ($= 10^{10}Hz$), kann mit jedem Schritt eine
+      modulare Potenz berechnen: $y \equiv \exp(x,g,p) \equiv g^x\mod p$
+    \item Anzahl Prozessoren: $k=10^{10} \Rightarrow 10^{20}$ modulare Potenzen
+      pro Sekunde $\approx 2^{67} s^{-1}$
+    \item Die Zeit zur Berechnung aller modularen Potenzen: $t=\frac{2^n}{2^{67}\cdot
+      s^{-1}}=2^{n-67}\cdot s$
+  \end{itemize}
+
+  Man kann $x=2^n$ so setzen, dass $t>t_{\text{Alter des Universums}}$:
+  \begin{align*}
+    t_{\text{Alter des Universums}} & = 14 \cdot 10^9y \\
+    & = 14 \cdot 10^9 \cdot 365 \cdot 24 \cdot 60\cdot 60\cdot s\\
+    & \approx 2^{59}\cdot s\\
+    59 & = n-67 \Rightarrow n = 59+67 \Rightarrow n=126
+  \end{align*}
+\end{frame}
+
 \subsection{Diffie-Hellman-Merkle-Schlüsselaustausch (DHKE)}
 \label{sub:diffie_hellman_merkle_schlusselaustausch}
 
