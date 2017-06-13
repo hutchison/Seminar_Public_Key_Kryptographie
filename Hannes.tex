@@ -191,9 +191,9 @@ Diskreter Logarithmus: $DL(y, g, p) = x$ für $g^x=y\mod p$\\
 
 Angenommen:\\
 - Ein Prozessor mit 10 GHz ($= 10^{10}Hz$),\\
-kann mit jedem Schritt eine modulare Potenz berechnen: $exp(x,g,p)=g^x\mod p$\\
-- Anzahl Prozessoren: $k=10^{10} \rightarrow 10^{20}$ modulare Potenzen pro Sekunde $\approx 2^{67} 1/s$\\
-- Die Zeit zur Berechnung aller modularen Potenzen: $t=2^n/(2^{67}\cdot s^{-1})$\\\\
+kann mit jedem Schritt eine modulare Potenz berechnen: $y=exp(x,g,p)=g^x\mod p$\\
+- Anzahl Prozessoren: $k=10^{10} \rightarrow 10^{20}$ modulare Potenzen pro Sekunde $\approx 2^{67} s^{-1}$\\
+- Die Zeit zur Berechnung aller modularen Potenzen: $t=2^n/(2^{67}\cdot s^{-1})=2^{n-67}\cdot s$\\\\
 
 Man kann $x=2^n$ so setzen, dass $t>t_{alter des Universum}$:\\
 $t_{alter des Universum}=14\cdot 10^9y=14\cdot 10^9\cdot 365\cdot 24\cdot 60\cdot 60\cdot s\approx 2^{59}\cdot s$\\
