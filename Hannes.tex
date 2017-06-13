@@ -33,9 +33,6 @@
 \usepackage{graphicx}
 \usepackage{float}
 
-% tabelle auf textbreite
-\usepackage{tabularx}
-
 % coole Kopf- und Fußzeilen:
 \usepackage{fancyhdr}
 % Seitenstil ist natürlich fancy:
@@ -150,6 +147,58 @@ Hat: (p, g, A, a, B, c)\\
 	
 An dieser stelle sei darauf verwiesen, dass zusätzliche Maßnahmen getroffen werden müssen, da jeder Buchstabe auf die selbe Zahl verschlüsselt wird.
 Z.B.: Mehrere Buchstaben zusammenfassen
+
+\subsection*{Verschluesselung: Beweis, Korrektheit}
+\label{sub:Verschluesselung: Beweis, Korrektheit}
+
+%\subsubsection*{Theorie}
+%\label{subsub:Theorie}
+%
+%$c=A^b\cdot m\mod p$\\
+%$m=B^{-a}\cdot c\mod p$\\
+%
+%\subsubsection*{Beweis, Korrektheit}
+%\label{subsub:Beweis, Korrektheit}
+
+\begin{center}
+
+\begin{tabular}{rl}
+	Chiffre Text:	&	$c=A^b\cdot m\mod p$\\
+	Message:		&	$m=B^{-a}\cdot c\mod p$\\
+\end{tabular}
+
+\ \\ \ \\
+
+\begin{tabular}{rcl}
+	$m$		&	$=$ &	$B^{-a}\cdot c\mod p$\\
+			&	$=$	&	$(g^b)^{-a}\cdot c\mod p$\\
+			&	$=$	&	$g^{b\cdot (-a)}\cdot c\mod p$\\			
+			&	$=$	&	$g^{-ab}\cdot c\mod p$\\
+			&	$=$	&	$g^{-ab}\cdot A^b\cdot m\mod p$\\
+			&	$=$	&	$g^{-ab}\cdot (g^a)^b\cdot m\mod p$\\
+			&	$=$	&	$g^{-ab}\cdot g^{ab}\cdot m\mod p$\\
+			&	$=$	&	$g^{-ab+ab}\cdot m\mod p$\\
+			&	$=$	&	$m$\\
+\end{tabular}
+\end{center}
+
+\subsection*{Komplexitaet}
+\label{sub:Komplexitaet}
+
+Diskreter Logarithmus: $DL(y, g, p) = x$ für $g^x=y\mod p$\\
+- kein direktes Verfahren: Brute Force über $\{1, \ldots, x\}\in \mathcal O(x)$\\
+- Länge von x in bit: n $\rightarrow \mathcal O(2^n)$\\\\
+
+Angenommen:\\
+- Ein Prozessor mit 10 GHz ($= 10^{10}Hz$),\\
+kann mit jedem Schritt eine modulare Potenz berechnen: $y=exp(x,g,p)=g^x\mod p$\\
+- Anzahl Prozessoren: $k=10^{10} \rightarrow 10^{20}$ modulare Potenzen pro Sekunde $\approx 2^{67} s^{-1}$\\
+- Die Zeit zur Berechnung aller modularen Potenzen: $t=2^n/(2^{67}\cdot s^{-1})=2^{n-67}\cdot s$\\\\
+
+Man kann $x=2^n$ so setzen, dass $t>t_{alter des Universum}$:\\
+$t_{alter des Universum}=14\cdot 10^9y=14\cdot 10^9\cdot 365\cdot 24\cdot 60\cdot 60\cdot s\approx 2^{59}\cdot s$\\
+$59=n-67\rightarrow n=59+67\rightarrow n=126$
+
 
 
 
