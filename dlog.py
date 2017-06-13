@@ -162,3 +162,14 @@ def powers(root, modulus, start=1):
     print(bold_text(fstr.format(str(root) + '**n:')), end='')
     for n in range(start, modulus):
         print(fstr.format(pow(root, n, modulus)), end='')
+
+
+def encode_char(c):
+    if c == ' ':
+        return 27
+    else:
+        return ord(c.upper()) - ord('A') + 1
+
+
+def encode_text(text):
+    return [encode_char(c) for c in text]
