@@ -187,6 +187,74 @@
         \end{align*}
     \end{itemize}
 
+  \item Verschlüsselung mittels DHKE:
+
+    Alice:
+    \begin{itemize}
+      \item erzeuge öffentlichen Schlüssel:
+        \begin{align*}
+          p & = 47\\
+          g & = 5\\
+          a & = 9\\
+          A & \equiv  5^9 \mod 47\\
+            & \equiv 40
+        \end{align*}
+      \item sende $(p, g, A) = (47, 5, 40)$ an Bob
+    \end{itemize}
+
+    Bob:
+    \begin{itemize}
+      \item erzeuge öffentlichen Schlüssel:
+        \begin{align*}
+          b & = 13\\
+          B & \equiv g^b \mod p\\
+            & \equiv 5^{13} \mod 47\\
+            & \equiv 43
+        \end{align*}
+      \item codiere Klartext „KOMME MORGEN“ als Zahlen:
+        \begin{align*}
+          \text{A} \mapsto 1, \text{B} \mapsto 2, & \ldots, \text{Z} \mapsto 26,
+          \textvisiblespace \mapsto 27\\
+          \text{KOMME MORGEN} & \to (11, 15, 13, 13, 5, 27, 13, 15, 18, 7, 5, 14)
+        \end{align*}
+      \item verschlüssele Klartext:
+        \begin{align*}
+          c_1 & \equiv A^b \cdot m_1 \mod p\\
+              & \equiv 22 \cdot 11 \mod 47\\
+              & \equiv 7\\
+          c_2 & \equiv 22 \cdot 15 \mod 47\\
+              & \equiv 1\\
+          c_3 & \equiv 22 \cdot 13 \mod 47\\
+              & \equiv 4\\
+          \text{enc(KOMME MORGEN)} & \to (7, 1, 4, 4, 16, 30, 4, 1, 20, 13, 16,
+          26) = c
+        \end{align*}
+      \item sende $(B, c)$ an Alice
+    \end{itemize}
+
+    Alice:
+    \begin{itemize}
+      \item kennt folgende Informationen:
+        \begin{align*}
+          p & = 47 \quad g = 5 \quad a = 9 \quad A = 40\\
+          B & = 43\\
+          c & = (7, 1, 4, 4, 16, 30, 4, 1, 20, 13, 16, 26)
+        \end{align*}
+      \item entschlüsselt den Chiffretext:
+        \begin{align*}
+          m_1 & \equiv B^{-a} \cdot c_1 \mod p\\
+              & \equiv B^{(p-1)-a} \cdot c_1 \mod p\\
+              & \equiv 43^{(47-1)-9} \cdot 7 \mod 47\\
+              & \equiv 15 \cdot 7 \mod 47\\
+              & \equiv 11 = \text{K}\\
+          m_2 & \equiv 15 \cdot 1 \mod 47\\
+              & \equiv 15 = \text{O}\\
+          m_3 & \equiv 15 \cdot 4 \mod 47\\
+              & \equiv 13 = \text{M}\\
+              & \vdots
+        \end{align*}
+    \end{itemize}
+
 \end{itemize}
 
 \end{document}
