@@ -2,3 +2,4 @@ Identifier; Titel; Author; Year
 
 HAC97; Handbook of applied cryptography; Alfred J. Menezes, Paul C. van Oorschot, Scott A. Vanstone; 1997
 WIKIDHS; https://commons.wikimedia.org/wiki/File:Diffie-Hellman-Schl%C3%BCsselaustausch.png
+SYMV; https://blog.doubleslash.de/wp-content/uploads/2015/08/verschl%C3%BCsselung1.png
