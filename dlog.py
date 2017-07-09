@@ -1,5 +1,7 @@
 from math import gcd, sqrt
 from operator import add, mul
+from typing import List, Tuple
+from itertools import combinations
 
 
 class color:
@@ -73,7 +75,90 @@ def divisors(n):
     return ds
 
 
-def euler_phi(n):
+def are_coprime(a: int, b: int) -> bool:
+    return gcd(a, b) == 1
+
+
+def extended_gcd(a: int, b: int) -> Tuple[int, int]:
+    if b == 0:
+        return (1, 0)
+    else:
+        (q, r) = divmod(a, b)
+        (s, t) = extended_gcd(b, r)
+        return (t, s-q*t)
+
+
+def crt(congruences: List[Tuple[int, int]]) -> int:
+    """
+    Sei congruences eine Liste von Zahlenpaaren:
+        [(a_1, m_1), (a_2, m_2), …]
+    dann löst die Funktion mittels Chinesischem Restsatz das System linearer
+    Kongruenzen:
+        x ≡ a_1 mod m_1
+        x ≡ a_2 mod m_2
+        ⋮
+    """
+
+    """
+    Zuerst checken wir, ob die Eingabedaten in Ordnung sind:
+    """
+    assert {len(t) for t in congruences} == {2}, (
+        'Eins der Tupel hat nicht die Länge 2!'
+    )
+
+    """
+    Die Moduli m_1, m_2, … müssen alle relativ prim sein:
+    """
+    moduli = [m for (_, m) in congruences]
+    for i, j in combinations(moduli, 2):
+        assert are_coprime(i, j), 'Zwei Moduli sind nicht relativ prim!'
+
+    """
+    Auf geht's mit dem Finden der Lösung.
+
+    Erst berechnen wir M = m_1 * m_2 * …
+    """
+    M = 1
+    for m in moduli:
+        M *= m
+
+    """
+    Und dann zu jedem m_i:
+        M_i = M / m_i
+    """
+    coprime_ms = [M // m_i for m_i in moduli]
+    assert len(moduli) == len(coprime_ms), (
+        'Jetzt ist richtig was in die Hose gegangen. '
+        'moduli und coprime_ms sind nicht gleich lang!'
+    )
+
+    """
+    Jetzt bestimmten wir die multiplikativen Inversen zu jedem (m_i, M_i)
+    Pärchen (diese existieren, weil m_i und M_i teilerfremd sind).
+    """
+    inverses = []
+    for m_i, M_i in zip(moduli, coprime_ms):
+        _, s = extended_gcd(m_i, M_i)
+        e = s * M_i
+        inverses.append(e)
+
+    """
+    Und jetzt können wir schon die Lösung berechnen:
+        x = a_1 * e_1 + a_2 * e_2 + …
+    wobei die e_i alle aus inverses sind.
+    """
+    x = 0
+    rests = [a for (a, _) in congruences]
+    for a, e in zip(rests, inverses):
+        x += a * e
+
+    """
+    Wir geben die Lösung zurück, die aus [0, M) ist:
+    """
+    return x % M
+
+
+def euler_phi(n: int) -> int:
     k = 0
 
     for i in range(1, n+1):
