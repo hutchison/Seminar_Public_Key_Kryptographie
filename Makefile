@@ -16,5 +16,11 @@ slides.pdf: slides.tex
 slides.pdf-live: slides.tex
 	latexmk -pdf -pvc $<
 
+ausarbeitung.pdf: ausarbeitung.tex
+	latexmk -pdf $<
+
+ausarbeitung.pdf-live: ausarbeitung.tex
+	latexmk -pdf -pvc $<
+
 clean:
 	rm -f *.aux *.log *.fls *.out *.fdb_latexmk *.toc

@@ -1,0 +1,104 @@
+\documentclass[
+  a4paper,
+  11pt,
+]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[cm, headings]{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{satz}{Satz}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{beispiel}{Beispiel}
+
+\usepackage{color}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+
+% Für Zeilenumbrüche ohne Indentations
+\setlength{\parindent}{0pt}
+
+\lstset{%
+  basicstyle=\ttfamily,
+  keywordstyle=\color{blue},
+  commentstyle=\color{mygray},
+  language=python,
+  showstringspaces=false,
+}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+
+\fancyhead[L]{%
+  Seminar: Public-Key-Kryptographie
+}
+\fancyhead[R]{%
+}
+%\fancyfoot[L]{}
+\fancyfoot[C]{\thepage}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ggT}{\text{ggT}}
+
+\title{Diskrete Logarithmen}
+
+\subtitle{Seminar: Public-Key-Kryptographie}
+
+\author{%
+  Martin Darmüntzel \and Hannes Kleinwort
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Mathematische Grundlagen}
+\label{sec:mathematische_grundlagen}
+
+\begin{definition}[Kongruenz]
+  Zwei ganze Zahlen $a, b$ sind \emph{kongruent} bezüglich eines Moduls
+  $m \in \Z$, wenn sie bei der Division durch $m$ denselben Rest haben.
+  Alternativ kann man Kongruenz auch auf den Teilbarkeitsbegriff zurückführen:
+  \begin{align*}
+    a \equiv b \mod m \Leftrightarrow m \mid (a - b)
+  \end{align*}
+\end{definition}
+
+\begin{definition}[Gruppe]
+  Eine \emph{Gruppe} ist ein Tupel $(G, *)$ mit einer Menge $G$ und einer
+  Verknüpfung $*: G \times G \to G$ bzw. $(a, b) \mapsto a * b$, welche
+  folgende Axiome erfüllt:
+  \begin{enumerate}
+    \item Assoziativgesetz: für alle $a, b, c \in G$ gilt:
+      $(a * b) * c = a * (b * c)$.
+    \item neutrales Element: es gibt ein Element $e \in G$, so dass für
+      alle $a \in G$ gilt: $a * e = e * a = a$.
+    \item inverse Elemente: für alle $a \in G$ existiert ein inverses
+      Element $a^{-1}$, sodass gilt $a * a^{-1} = a^{-1} * a = e$
+  \end{enumerate}
+\end{definition}
+
+\section{Anwendung: Ver- und Entschlüsselung}
+\label{sec:anwendung_ver_und_entschlusselung}
+
+\section{Berechnung von diskreten Logarithmen}
+\label{sec:berechnung_von_diskreten_logarithmen}
+
+
+
+
+\end{document}
