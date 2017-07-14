@@ -79,16 +79,16 @@
 \end{definition}
 
 \begin{definition}[Gruppe]
-  Eine \emph{Gruppe} ist ein Tupel $(G, *)$ mit einer Menge $G$ und einer
-  Verknüpfung $*: G \times G \to G$ bzw. $(a, b) \mapsto a * b$, welche
+  Eine \emph{Gruppe} ist ein Tupel $(G, \circ)$ mit einer Menge $G$ und einer
+  Verknüpfung $\circ: G \times G \to G$ bzw. $(a, b) \mapsto a \circ b$, welche
   folgende Axiome erfüllt:
   \begin{enumerate}
     \item Assoziativgesetz: für alle $a, b, c \in G$ gilt:
-      $(a * b) * c = a * (b * c)$.
+      $(a \circ b) \circ c = a \circ (b \circ c)$.
     \item neutrales Element: es gibt ein Element $e \in G$, so dass für
-      alle $a \in G$ gilt: $a * e = e * a = a$.
+      alle $a \in G$ gilt: $a \circ e = e \circ a = a$.
     \item inverse Elemente: für alle $a \in G$ existiert ein inverses
-      Element $a^{-1}$, sodass gilt $a * a^{-1} = a^{-1} * a = e$
+      Element $a^{-1}$, sodass gilt $a \circ a^{-1} = a^{-1} \circ a = e$
   \end{enumerate}
 \end{definition}
 
