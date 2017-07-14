@@ -92,6 +92,41 @@
   \end{enumerate}
 \end{definition}
 
+\begin{definition}[Erzeuger, zyklische Gruppe]
+  Sei $(G, \cdot)$ eine Gruppe. Wenn es ein Element $a \in G$ gibt, dessen
+  Potenzen $a^n$ für $n \in \Z$ alle Elemente aus $G$ erzeugt, dann nennt man
+  $a$ einen Erzeuger und $(G, \cdot)$ eine \emph{zyklische} Gruppe.
+
+  Wir schreiben
+  $\left\langle a \right\rangle := \left\{ a^n \mid n \in \Z \right\}$,
+  um $a$ als erzeugendes Element zu kennzeichnen.
+
+  In einer multiplikativen Gruppe modulo $p$ heißen die Erzeuger auch
+  \emph{Primitivwurzeln} modulo $p$.
+\end{definition}
+
+\begin{definition}[Diskreter Logarithmus]
+  Es sei $(G, \circ)$ eine endliche zyklische Gruppe mit Erzeuger $g$ der
+  Ordnung $n$. Dann ist die diskrete Exponentiation
+  \begin{align*}
+    \exp_g: \quad \Z/n\Z & \to G\\
+    x \mapsto g^x
+  \end{align*}
+  ein Gruppenisomorphismus. Die dazugehörige Umkehrfunktion
+  \begin{align*}
+    \log_g: \quad G & \to \Z/n\Z\\
+    x & \mapsto \log_g x
+  \end{align*}
+  heißt \emph{diskreter Logarithmus} zur Basis $g$ und ist ebenfalls ein
+  Gruppenisomorphismus.
+\end{definition}
+
+\begin{definition}[Diskretes Logarithmusproblem]
+  Sei $p$ eine Primzahl, $g$ ein Erzeuger von $\Z_p^*$ und $y \in \Z_p^*$.
+
+  Finde ein $x$ mit $1 \leq x \leq p-1$, so dass $g^x \equiv y \mod p$ gilt.
+\end{definition}
+
 \section{Anwendung: Ver- und Entschlüsselung}
 \label{sec:anwendung_ver_und_entschlusselung}
 
