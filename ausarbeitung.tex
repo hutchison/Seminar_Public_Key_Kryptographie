@@ -70,56 +70,44 @@
 \section{Mathematische Grundlagen}
 \label{sec:mathematische_grundlagen}
 
-\begin{definition}[Kongruenz]
-  Zwei ganze Zahlen $a, b$ sind \emph{kongruent} bezüglich eines Moduls
-  $m \in \Z$, wenn sie bei der Division durch $m$ denselben Rest haben.
-  Alternativ kann man Kongruenz auch auf den Teilbarkeitsbegriff zurückführen:
+\begin{definition}[Prime Restklassengruppe]
+  Die \emph{prime Restklassengruppe} ist die multiplikative Gruppe der
+  Restklassen bezüglich eines Moduls $p$, die zu $p$ teilerfremd sind. Sie wird
+  als $\Z_p^*$ notiert.
+\end{definition}
+
+Die Bedingung der Teilerfremdheit der einzelnen Elemente $a \in \Z_p^*$ zum
+Modul $p$ drückt sich durch $\ggT(a, p) = 1$ für alle $a \in \Z_p^*$ aus. Durch
+diese Bedingung und dem Lemma von Bézout hat jedes Element ein multiplikatives
+Inverses in $\Z_p^*$. Falls $p$ eine Primzahl ist, dann besteht $\Z_p^*$ aus
+der Menge $\left\{1, \ldots, p-1\right\}$, da alle Zahlen aus dieser Menge
+teilerfremd zu $p$ sind. Im Allgemeinen ist die Ordnung von $\Z_p^*$ durch die
+Eulersche $\varphi$-Funktion bestimmt:
+\begin{align*}
+  \left| \Z_p^* \right| = \varphi(p)
+\end{align*}
+Dies ergibt sich direkt aus der Definition der Eulerschen $\varphi$-Funktion.
+
+\begin{definition}[Erzeuger]
+  Wenn es ein Element $a \in \Z_p^*$ gibt, dessen Potenzen $a^n$ für
+  $n \in \Z_p^*$ alle Elemente aus $\Z_p^*$ erzeugt, dann nennt man $a$ einen
+  Erzeuger. In $\Z_p^*$ heißen die Erzeuger auch \emph{Primitivwurzeln} modulo
+  $p$.
+\end{definition}
+
+\begin{definition}[Diskrete Exponentiation, diskreter Logarithmus]
+  Sei $g$ ein Erzeuger von $\Z_p^*$. Die diskrete Exponentiation zur Basis $g$
+  ist eine Abbildung von $\Z_p^* \to \Z_p^*$ und definiert durch:
   \begin{align*}
-    a \equiv b \mod m \Leftrightarrow m \mid (a - b)
-  \end{align*}
-\end{definition}
-
-\begin{definition}[Gruppe]
-  Eine \emph{Gruppe} ist ein Tupel $(G, \circ)$ mit einer Menge $G$ und einer
-  Verknüpfung $\circ: G \times G \to G$ bzw. $(a, b) \mapsto a \circ b$, welche
-  folgende Axiome erfüllt:
-  \begin{enumerate}
-    \item Assoziativgesetz: für alle $a, b, c \in G$ gilt:
-      $(a \circ b) \circ c = a \circ (b \circ c)$.
-    \item neutrales Element: es gibt ein Element $e \in G$, so dass für
-      alle $a \in G$ gilt: $a \circ e = e \circ a = a$.
-    \item inverse Elemente: für alle $a \in G$ existiert ein inverses
-      Element $a^{-1}$, sodass gilt $a \circ a^{-1} = a^{-1} \circ a = e$
-  \end{enumerate}
-\end{definition}
-
-\begin{definition}[Erzeuger, zyklische Gruppe]
-  Sei $(G, \cdot)$ eine Gruppe. Wenn es ein Element $a \in G$ gibt, dessen
-  Potenzen $a^n$ für $n \in \Z$ alle Elemente aus $G$ erzeugt, dann nennt man
-  $a$ einen Erzeuger und $(G, \cdot)$ eine \emph{zyklische} Gruppe.
-
-  Wir schreiben
-  $\left\langle a \right\rangle := \left\{ a^n \mid n \in \Z \right\}$,
-  um $a$ als erzeugendes Element zu kennzeichnen.
-
-  In einer multiplikativen Gruppe modulo $p$ heißen die Erzeuger auch
-  \emph{Primitivwurzeln} modulo $p$.
-\end{definition}
-
-\begin{definition}[Diskreter Logarithmus]
-  Es sei $(G, \circ)$ eine endliche zyklische Gruppe mit Erzeuger $g$ der
-  Ordnung $n$. Dann ist die diskrete Exponentiation
-  \begin{align*}
-    \exp_g: \quad \Z/n\Z & \to G\\
+    \exp_g: \quad \Z_p^* \to \Z_p^*\\
     x \mapsto g^x
   \end{align*}
-  ein Gruppenisomorphismus. Die dazugehörige Umkehrfunktion
+  Die dazugehörige Umkehrfunktion
   \begin{align*}
-    \log_g: \quad G & \to \Z/n\Z\\
+    \log_g: \quad \Z_p^* & \to \Z_p^*\\
     x & \mapsto \log_g x
   \end{align*}
-  heißt \emph{diskreter Logarithmus} zur Basis $g$ und ist ebenfalls ein
-  Gruppenisomorphismus.
+  heißt \emph{diskreter Logarithmus} zur Basis $g$.
 \end{definition}
 
 \begin{definition}[Diskretes Logarithmusproblem]\label{def:diskretes_logarithmusproblem}
