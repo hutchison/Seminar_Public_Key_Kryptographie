@@ -17,10 +17,10 @@ slides.pdf-live: slides.tex
 	latexmk -pdf -pvc $<
 
 ausarbeitung.pdf: ausarbeitung.tex
-	latexmk -pdf $<
+	latexmk -pdf -shell-escape $<
 
 ausarbeitung.pdf-live: ausarbeitung.tex
-	latexmk -pdf -pvc $<
+	latexmk -pdf -pvc -shell-escape $<
 
 clean:
 	rm -f *.aux *.log *.fls *.out *.fdb_latexmk *.toc

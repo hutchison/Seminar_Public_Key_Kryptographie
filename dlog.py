@@ -4,6 +4,14 @@ from typing import List, Tuple
 from itertools import combinations
 
 
+def dlog_naive(root, modulus, value):
+    for x in range(1, modulus):
+        if pow(root, x, modulus) == value:
+            return x
+    else:
+        return None
+
+
 class color:
     PURPLE = '\033[95m'
     CYAN = '\033[96m'
@@ -223,14 +231,6 @@ def is_primitive_root_even_better(g, p):
             return False
     else:
         return True
-
-
-def dlog(root, modulus, value):
-    for i in range(1, modulus):
-        if pow(root, i, modulus) == value:
-            return i
-    else:
-        return None
 
 
 def powers(root, modulus, start=1):

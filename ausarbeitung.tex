@@ -4,7 +4,10 @@
 ]{scrartcl}
 
 \usepackage[utf8]{inputenc}
-\usepackage[cm, headings]{fullpage}
+\usepackage[
+  %cm,
+  headings
+]{fullpage}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -17,23 +20,18 @@
 \theoremstyle{remark}
 \newtheorem{beispiel}{Beispiel}
 
-\usepackage{color}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\usepackage{minted}
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{booktabs}
 
+\usepackage[]{algorithm}
+\usepackage[]{algorithmic}
+\floatname{algorithm}{Algorithmus}
+
 % Für Zeilenumbrüche ohne Indentations
 \setlength{\parindent}{0pt}
-
-\lstset{%
-  basicstyle=\ttfamily,
-  keywordstyle=\color{blue},
-  commentstyle=\color{mygray},
-  language=python,
-  showstringspaces=false,
-}
 
 % coole Kopf- und Fußzeilen:
 \usepackage{fancyhdr}
@@ -50,8 +48,11 @@
 %\fancyfoot[L]{}
 \fancyfoot[C]{\thepage}
 
+\usepackage{todonotes}
+
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\P}{\mathbb{P}}
 \newcommand{\ggT}{\text{ggT}}
 
 \title{Diskrete Logarithmen}
@@ -121,7 +122,7 @@
   Gruppenisomorphismus.
 \end{definition}
 
-\begin{definition}[Diskretes Logarithmusproblem]
+\begin{definition}[Diskretes Logarithmusproblem]\label{def:diskretes_logarithmusproblem}
   Sei $p$ eine Primzahl, $g$ ein Erzeuger von $\Z_p^*$ und $y \in \Z_p^*$.
 
   Finde ein $x$ mit $1 \leq x \leq p-1$, so dass $g^x \equiv y \mod p$ gilt.
@@ -133,7 +134,42 @@
 \section{Berechnung von diskreten Logarithmen}
 \label{sec:berechnung_von_diskreten_logarithmen}
 
+\subsection{Naive Berechnung}
+\label{sub:naive_berechnung}
 
+Die einfachste Möglichkeit für die Berechnung des diskreten Logarithmus ist das
+Durchprobieren. Wir erinnern uns an das \todo{verlinken} diskrete
+Logarithmusproblem: gegeben sei eine Primzahl $p$, ein
+Erzeuger $g$ der Gruppe $\Z_p^*$ und ein Element $y$ aus dieser Gruppe. Wir
+suchen den Exponenten $x \in \Z_p^*$ für den gilt:
+\begin{align*}
+  g^x \equiv y \mod p
+\end{align*}
+Da $\Z_p^*$ nur endlich viele Element enthält, können wir für jedes $x$
+überprüfen, ob es die Kongruenz erfüllt.
 
+\begin{algorithm}
+  \caption{naiver Berechnungsalgorithmus}
+  \begin{algorithmic}
+    \REQUIRE{$p \in \P, \left\langle g \right\rangle \in \Z_p^*, y \in \Z_p^*$}
+    \FORALL{$x \in \left\{1, \ldots, p-1\right\}$}
+      \IF{$g^x \equiv y \mod p$}
+        \RETURN{$x$}
+      \ELSE{}
+        \STATE{$x \leftarrow x + 1$}
+      \ENDIF{}
+    \ENDFOR{}
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{listing}[H]
+  \caption{Implementation des naiven Berechnungsalgorithmus’}
+  \begin{minted}{python}
+    def dlog_naive(root, modulus, value):
+        for x in range(1, modulus):
+            if pow(root, x, modulus) == value:
+                return x
+  \end{minted}
+\end{listing}
 
 \end{document}
