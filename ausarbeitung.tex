@@ -20,7 +20,7 @@
 \theoremstyle{remark}
 \newtheorem{beispiel}{Beispiel}
 
-\usepackage{minted}
+%\usepackage{minted}
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -253,15 +253,15 @@ Da $\Z_p^*$ nur endlich viele Element enthält, können wir für jedes $x$
   \end{algorithmic}
 \end{algorithm}
 
-\begin{listing}[H]
-  \caption{Implementation des naiven Berechnungsalgorithmus’}
-  \begin{minted}{python}
-    def dlog_naive(root, modulus, value):
-        for x in range(1, modulus):
-            if pow(root, x, modulus) == value:
-                return x
-  \end{minted}
-\end{listing}
+%\begin{listing}[H]
+%  \caption{Implementation des naiven Berechnungsalgorithmus’}
+%  \begin{minted}{python}
+%    def dlog_naive(root, modulus, value):
+%        for x in range(1, modulus):
+%            if pow(root, x, modulus) == value:
+%                return x
+%  \end{minted}
+%\end{listing}
 
 \subsection{Pohlig-Hellman-Algorithmus}
 \label{sub:pohlig_hellman_algorithmus}
