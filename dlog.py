@@ -28,6 +28,16 @@ def prime_powers(n):
     return ppowers
 
 
+def roots_of_unity(modulus, root):
+    ppowers = prime_powers(modulus-1)
+    r = dict()
+
+    for q in ppowers:
+        r[q] = [pow(root, j*(modulus-1)//q, modulus) for j in range(q)]
+
+    return r
+
+
 class color:
     PURPLE = '\033[95m'
     CYAN = '\033[96m'
