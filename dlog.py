@@ -12,6 +12,22 @@ def dlog_naive(modulus, root, value):
         return None
 
 
+def prime_powers(n):
+    ppowers = dict()
+
+    while n > 1:
+        for p in range(2, n+1):
+            if n % p == 0:
+                if p not in ppowers:
+                    ppowers[p] = 1
+                else:
+                    ppowers[p] += 1
+                n = n // p
+                break
+
+    return ppowers
+
+
 class color:
     PURPLE = '\033[95m'
     CYAN = '\033[96m'
