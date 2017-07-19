@@ -263,4 +263,82 @@ Da $\Z_p^*$ nur endlich viele Element enthält, können wir für jedes $x$
   \end{minted}
 \end{listing}
 
+\subsection{Pohlig-Hellman-Algorithmus}
+\label{sub:pohlig_hellman_algorithmus}
+
+Wenn die Ordnung von $\Z_p^*$ in viele kleine Primfaktoren zerfällt, dann kann
+man diesen Umstand zur Berechnung des diskreten Logarithmus nutzen und diese
+beschleunigen.
+
+Sei $p-1 = \prod\limits_q q^k$ die Primfaktorzerlegung der Gruppenordnung von
+$\Z_p^*$. Zunächst berechnen wir die $q$-ten Einheitswurzeln vom erzeugenden
+Element $g$:
+\begin{align*}
+  r_{q, j} &
+    \equiv g^{\frac{j(p-1)}{q}} \mod p &
+    \text{ für alle } j = 0, 1, \ldots, q-1
+\end{align*}
+
+Wir müssen nun das $x \in \Z_p^*$ finden, für das $g^x \equiv y \mod p$ gilt.
+Mit der Primfaktorzerlegung von $p-1$ brauchen wir nur $x \Mod{q^k}$ für jeden
+Primfaktor $q$ von $p-1$ zu bestimmen, da sich $x$ dann aus dem Chinesischen
+Restsatz ergibt. Wir fixieren jetzt einen Primfaktor $q$ von $p-1$ und zeigen,
+wie sich daraus die Kongruenz $x \Mod{q^k}$ ergibt.
+
+Angenommen
+\begin{align*}
+  x & \equiv x_0 + x_1 q + \cdots + x_{k-1} q^{k-1} \mod q^k
+    & \text{ mit } 0 \leq x_i < q
+\end{align*}
+Für $x_0$ berechnen wir $y^{\frac{p-1}{q}}$. Da $y^{p-1} \equiv 1 \Mod{p}$,
+erhalten wir eine $q$-te Wurzel von $1$. Aus $y = g^x$ folgt
+\begin{align*}
+  y^{\frac{p-1}{q}} &
+    = g^{\frac{x(p-1)}{q}}
+    = g^{\frac{x_0 (p-1)}{q}}
+    = r_{q, x_0}
+\end{align*}
+Also vergleichen wir $y^{\frac{p-1}{q}}$ mit den zuvor berechneten Wurzeln
+$r_{q, j}$ und setzen $x_0$ auf den Wert von $j$ für den
+$y^{\frac{p-1}{q}} = r_{q, j}$ gilt.
+
+Um danach $x_1$ zu finden, ersetzen wir $y$ durch $y_1 = \frac{y}{g^{x_0}}$,
+denn $y_1$ hat dann den disk. Logarithmus
+\begin{align*}
+  x - x_0 \equiv x_1 q + \cdots + x_{k-1} q^{k-1} \mod q^k
+\end{align*}
+Da $y_1$ eine Potenz von $q$ ist, erhalten wir
+$y_1^{\frac{p-1}{q}} \equiv 1 \Mod{p}$ und
+\begin{align*}
+  y_1^{\frac{p-1}{q^2}} &
+    = g^{\frac{(x-x_0) (p-1)}{q^2}}
+    = g^{\frac{(x_1 + x_2 q + \cdots) (p-1)}{q}}
+    = g^{\frac{x_1 (p-1)}{q}}
+    = r_{q, x_1}.
+\end{align*}
+Also vergleichen wir $y_1^{\frac{p-1}{q^2}}$ mit den berechneten Wurzeln
+$r_{q, j}$ und setzen $x_1$ auf den Wert von $j$ für den
+$y_1^{\frac{p-1}{q^2}} = r_{q, j}$ gilt.
+
+Dieses Verfahren setzen wir induktiv fort. Für jedes $i = 1, 2, \ldots, k-1$
+setzen wir
+\begin{align*}
+  y_i & = \frac{y}{g^{x_0 + x_1 q + \cdots x_{i-1} q^{i-1}}}.
+\end{align*}
+Dieses $y_i$ hat den disk. Logarithmus
+$x_i q^i + \cdots + x_{k-1} q^{k-1} \Mod{q^k}$. Da $y_i$ eine Potenz von $q^i$
+ist, erhalten wir $y_i^{(p-1)/q^i} \equiv 1$ und
+\begin{align*}
+  y_i^{\frac{p-1}{q^{i+1}}} &
+    = g^{\frac{(x_i + x_{i+1} q + \cdots) (p-1)}{q}}
+    = g^{\frac{x_i (p-1)}{q}}
+    = r_{q, x_i}
+\end{align*}
+Wir setzen $x_i$ auf den Wert von $j$ für den
+$y_i^{\frac{p-1}{q^{i+1}}} = r_{q, j}$ ist.
+
+Abschließend erhalten wir die Kongruenz $x \Mod{q^k}$. Wenn wir dieses Verfahren
+für jeden Primfaktor von $p-1$ durchgeführt haben, nutzen wir den Chinesischen
+Restsatz um $x$ zu bestimmen.
+
 \end{document}
