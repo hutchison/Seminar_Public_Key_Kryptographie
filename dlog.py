@@ -188,9 +188,13 @@ def generators(n):
 
 
 def generators2(n):
-    for g in range(2, n):
+    gs = set()
+
+    for g in range(n):
         if is_primitive_root_even_better(g, n):
-            yield g
+            gs.add(g)
+
+    return gs
 
 
 def is_prime(n):
