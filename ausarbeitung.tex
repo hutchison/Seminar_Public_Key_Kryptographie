@@ -119,29 +119,85 @@ Dies ergibt sich direkt aus der Definition der Eulerschen $\varphi$-Funktion.
     \end{tabular}
   \end{center}
 \end{beispiel}
-\begin{definition}[Diskrete Exponentiation, diskreter Logarithmus]
-  Sei $g$ ein Erzeuger von $\Z_p^*$. Die diskrete Exponentiation zur Basis $g$
-  ist eine Abbildung von $\Z_p^* \to \Z_p^*$ und definiert durch:
+
+Um herauszufinden, ob ein Element $a \in \Z_p^*$ eine Primitivwurzel ist, müsste
+man testen, ob die Potenzen $a^x$ mit $x \in \Z_p^*$ wieder alle Elemente von
+$\Z_p^*$ ergeben. Dies ist für große Moduli jedoch sehr aufwändig. Wir können
+diesen Test abkürzen, indem wir uns folgende Beobachtung aus
+Beispiel~\ref{bsp:erzeuger} zunutze machen: nach dem kleinen Satz von Fermat
+muss für jedes Element $a$ aus $\Z_p^*$ die Kongruenz
+\begin{align*}
+  a^{p-1} \equiv 1 \mod p
+\end{align*}
+gelten. Für das Element $3 \in \Z_{13}^*$ gilt sie jedoch auch für die
+Exponenten $3, 6$ und $9$. Wir müssen demnach nur für bestimmte Exponenten $x$
+prüfen, ob $a^x \equiv 1 \mod p$ gilt und falls das der Fall ist, kann $a$ keine
+Primitivwurzel sein. Welche Exponenten dies sind, zeigt der folgende Satz.
+
+\begin{satz}\label{satz:primitivwurzeltest}
+  Sei $p$ eine Primzahl größer als $2$ und
+  $p-1 = q_1^{k_1} \cdot \ldots \cdot q_r^{k_r}$ die Primfaktorzerlegung von
+  $p-1$. Eine ganze Zahl $a$ mit $p \nmid a$ ist genau dann Primitivwurzel
+  modulo $p$, wenn
   \begin{align*}
-    \exp_g: \quad \Z_p^* \to \Z_p^*\\
-    x \mapsto g^x
+    a^{(p-1)/q_i} & \not\equiv 1 \mod p \qquad \text{ für alle } i \in \left\{1, \ldots, r\right\}.
   \end{align*}
-  Die dazugehörige Umkehrfunktion
-  \begin{align*}
-    \log_g: \quad \Z_p^* & \to \Z_p^*\\
-    x & \mapsto \log_g x
-  \end{align*}
-  heißt \emph{diskreter Logarithmus} zur Basis $g$.
-\end{definition}
 
-\begin{definition}[Diskretes Logarithmusproblem]\label{def:diskretes_logarithmusproblem}
-  Sei $p$ eine Primzahl, $g$ ein Erzeuger von $\Z_p^*$ und $y \in \Z_p^*$.
+  \begin{proof}
+    \begin{itemize}
+      \item[„$\Rightarrow$“] Durch die Definition der Primitivwurzel modulo $p$
+        und dem kleinen Satz von Fermat darf eine Potenz $a^n$ mit
+        $n \in \Z_p^*$ nur für den Fall $n = p-1$ kongruent zu $1$ sein. Wäre
+        sie es für ein anderes $n$, dann wäre $a$ keine Primitivwurzel.
+      \item[„$\Leftarrow$“] Sei $m$ die Ordnung von $a \Mod{p}$ in $\Z_p^*$.
+        Nach dem Satz von Lagrange gilt $m \mid (p-1)$. Wenn $m < p-1$ wäre,
+        dann müsste es einen Primteiler $q_i \mid (p-1)$ geben, so dass
+        $m \mid (p-1)/q_i$, woraus folgt $a^{(p-1)/q_i} \equiv 1 \Mod{p}$. Dies
+        ist ein Widerspruch zur Voraussetzung. Demnach hat $a$ die Ordnung
+        $m = (p-1)$ und ist Primitivwurzel.
+    \end{itemize}
+  \end{proof}
+\end{satz}
 
-  Finde ein $x$ mit $1 \leq x \leq p-1$, so dass $g^x \equiv y \mod p$ gilt.
-\end{definition}
+Mit Satz~\ref{satz:primitivwurzeltest} können wir effizienter eine
+Primitivwurzel finden. Wenn wir eine solche gefunden haben, können wir sogar
+alle anderen Primitivwurzeln mit dem folgenden Satz bestimmen.
 
-\section{Anwendung: Ver- und Entschlüsselung}
-\label{sec:anwendung_ver_und_entschlusselung}
+\begin{satz}\label{satz:primitivwurzeln_durch_potenzen}
+  Sei $a$ eine Primitivwurzel von $\Z_p^*$. Es ist $a^k$ genau dann eine
+  Primitivwurzel von $\Z_p^*$, wenn $k$ und $p-1$ (die Ordnung von $\Z_p^*$)
+  teilerfremd sind.
+
+  \begin{proof}
+    \begin{itemize}
+      \item[„$\Rightarrow$“] Wir setzen $b := a^k$ und nehmen an, dass $k$ und
+        $p-1$ teilerfremd sind. Dann gibt es nach dem Lemma von Bézout ganze
+        Zahlen $s, t$ mit $s k + t (p-1) = 1$. Daraus folgt
+        \begin{align*}
+          b^s \equiv a^{k s} \equiv a^{1 - t (p-1)} \equiv a \mod p,
+        \end{align*}
+        da
+        \begin{align*}
+          a^{- t (p-1)} \equiv {\left(a^{(p-1)}\right)}^{-t} \equiv 1^{-t} \equiv 1 \mod p
+        \end{align*}
+        Mittels $b$ kann demnach die Primitivwurzel $a$ erzeugt werden, sodass
+        $b$ selbst alle Elemente von $\Z_p^*$ erzeugen kann. Damit ist $b$ eine
+        Primitivwurzel.
+      \item[„$\Leftarrow$“] Sei wieder $b := a^k$. Wir nehmen an, dass $b$ eine
+        Primitivwurzel von $\Z_p^*$ ist. Dann gibt es ein Element
+        $s \in \Z_p^*$, so dass $b^s \equiv a \Mod{p}$. Also ist
+        $a^{ks} \equiv a \Mod{p}$, woraus $a^{ks - 1} \equiv 1 \Mod{p}$ folgt.
+        Demnach muss $ks-1$ ein Vielfaches der Gruppenordnung $p-1$ sein, sodass
+        es eine ganze Zahl $t$ mit
+        \begin{align*}
+          ks - 1 = t(p-1)
+        \end{align*}
+        geben muss. Dies bedeutet aber, dass $k$ und $p-1$ teilerfremd sein
+        müssen.
+    \end{itemize}
+  \end{proof}
+\end{satz}
+
 
 \section{Berechnung von diskreten Logarithmen}
 \label{sec:berechnung_von_diskreten_logarithmen}
