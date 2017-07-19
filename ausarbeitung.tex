@@ -198,6 +198,29 @@ alle anderen Primitivwurzeln mit dem folgenden Satz bestimmen.
   \end{proof}
 \end{satz}
 
+\begin{definition}[Diskrete Exponentiation, diskreter Logarithmus]
+  Sei $g$ ein Erzeuger von $\Z_p^*$. Die diskrete Exponentiation zur Basis $g$
+  ist eine Abbildung von $\Z_p^* \to \Z_p^*$ und definiert durch:
+  \begin{align*}
+    \exp_g: \quad \Z_p^* \to \Z_p^*\\
+    x \mapsto g^x
+  \end{align*}
+  Die dazugehörige Umkehrfunktion
+  \begin{align*}
+    \log_g: \quad \Z_p^* & \to \Z_p^*\\
+    x & \mapsto \log_g x
+  \end{align*}
+  heißt \emph{diskreter Logarithmus} zur Basis $g$.
+\end{definition}
+
+\begin{definition}[Diskretes Logarithmusproblem]\label{def:diskretes_logarithmusproblem}
+  Sei $p$ eine Primzahl, $g$ ein Erzeuger von $\Z_p^*$ und $y \in \Z_p^*$.
+
+  Finde ein $x$ mit $1 \leq x \leq p-1$, so dass $g^x \equiv y \mod p$ gilt.
+\end{definition}
+
+\section{Anwendung: Ver- und Entschlüsselung}
+\label{sec:anwendung_ver_und_entschlusselung}
 
 \section{Berechnung von diskreten Logarithmen}
 \label{sec:berechnung_von_diskreten_logarithmen}
