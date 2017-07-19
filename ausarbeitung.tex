@@ -95,6 +95,29 @@ Dies ergibt sich direkt aus der Definition der Eulerschen $\varphi$-Funktion.
   $p$.
 \end{definition}
 
+\begin{beispiel}[Erzeuger]\label{bsp:erzeuger}
+  Betrachten wir $\Z_{13}^*$. In dieser Gruppe ist $2$ ein Erzeuger, was man
+  durch das Ausrechnen der einzelnen Potenzen überprüfen kann:
+  \begin{center}
+    \begin{tabular}{r*{12}{r}}
+      \toprule
+      $x$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$\\
+      \midrule
+      $2^x \Mod{13}$ & $2$ & $4$ & $8$ & $3$ & $6$ & $12$ & $11$ & $9$ & $5$ & $10$ & $7$ & $1$\\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  Das Element $3$ ist hingegen kein Erzeuger:
+  \begin{center}
+    \begin{tabular}{r*{12}{r}}
+      \toprule
+      $x$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$\\
+      \midrule
+      $3^x \Mod{13}$ & $3$ & $9$ & $1$ & $3$ & $9$ & $1$ & $3$ & $9$ & $1$ & $3$ & $9$ & $1$\\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+\end{beispiel}
 \begin{definition}[Diskrete Exponentiation, diskreter Logarithmus]
   Sei $g$ ein Erzeuger von $\Z_p^*$. Die diskrete Exponentiation zur Basis $g$
   ist eine Abbildung von $\Z_p^* \to \Z_p^*$ und definiert durch:
