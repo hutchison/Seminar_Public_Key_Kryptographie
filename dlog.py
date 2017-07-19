@@ -96,6 +96,11 @@ def extended_gcd(a: int, b: int) -> Tuple[int, int]:
         return (t, s-q*t)
 
 
+def modular_inverse(a: int, modulus: int) -> int:
+    (s, _) = extended_gcd(a, modulus)
+    return s % modulus
+
+
 def crt(congruences: List[Tuple[int, int]]) -> int:
     """
     Sei congruences eine Liste von Zahlenpaaren:
