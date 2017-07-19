@@ -4,7 +4,7 @@ from typing import List, Tuple
 from itertools import combinations
 
 
-def dlog_naive(root, modulus, value):
+def dlog_naive(modulus, root, value):
     for x in range(1, modulus):
         if pow(root, x, modulus) == value:
             return x
