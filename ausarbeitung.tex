@@ -408,7 +408,7 @@ Restsatz um $x$ zu bestimmen.
 \label{sub:komplexitaet_naiver_algorithmus}
 
 Zur Berechnung des diskreten Logarithmus $\text{DL}(y,g,p) = x$ als Lösung der Gleichung\\
-$g^x \equiv y \mod p$ ist kein effizientes Verfahren bekannt. Alle bekannten
+$y \equiv g^x \mod p$ ist kein effizientes Verfahren bekannt. Alle bekannten
 Verfahren beruhen im Grunde auf einer Brute-Force-Suche über die Menge der
 möglichen Lösungen $\Z_p^* = \{1, 2, \ldots, p-1\}$ mit der Komplexität
 $\mathcal{O}(p)$.
@@ -473,7 +473,7 @@ und auf der Seite von Bob mit
 	K \equiv A^b \mod p \text{.}
 \end{align*}
 
-\begin{figure}[!htb]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{Diffie-Hellman-Schluesselaustausch2.png}
   \caption{Diffie-Hellman-Merkle-Schlüsselaustausch}
@@ -534,7 +534,7 @@ K_1 & \equiv B^a \mod p\\
 \subsubsection{Beispiel: Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
 \label{sub:dhke_beispiel}
 \begin{beispiel}[Diffie-Hellman-Merkle Schlüsselaustausch]\label{bsp:dhke}
-Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen Schlüssel $K$ über einen unsicheren Kanal aus.
+Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen Schlüssel $K$ über einen unsicheren Kanal aus (zu Anschauungszwecken mit kleinen Primzahlen).
 	\begin{center}
 	    \begin{tabularx}{\textwidth}{lXr}
 	    	\textbf{Alice} & \text{ } & \textbf{Bob}\\\midrule
@@ -543,7 +543,8 @@ Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen
 	    	\textbf{Schritt 1:} & & & & \\
 	    	$\cdot$ wähle Primzahl: $\underline{p = 17}$ & & & & \\
 	    	$\cdot$ finde Erzeuger: $\underline{g = 5}$ & & & & \\
-	    	$\cdot$ wähle geheimen Schlüssel: $a \in \Z_p^*$ & & & & \\
+	    	$\cdot$ wähle geheimen Schlüssel: & & & & \\
+	    	$a \in \{1, \dots, p-2\}$ & & & & \\
 	    	$\underline{a = 10}$ & & & & \\
 	    	$\cdot$ berechne öffentlichen Schlüssel: & & & & \\
 	    	$A \equiv g^a \mod p$ & & & & \\
@@ -551,7 +552,8 @@ Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen
 	    	$\underline{A = 9}$ & & & & \\
 	    	$\cdot$ sende: $(g = 5, p = 17, A = 9)$ an Bob & & $\to$ & & \\\midrule
 	    	& & & & \textbf{Schritt 2}:\\
-	    	& & & & $\cdot$ wähle geheimen Schlüssel: $b \in \Z_p^*$\\
+	    	& & & & $\cdot$ wähle geheimen Schlüssel:\\
+	    	& & & & $b \in \{1, \dots, p-2\}$\\
 			& & & & $\underline{b=7}$\\
 	    	& & & & $\cdot$ berechne öffentlichen Schlüssel:\\
 	    	& & & & $B \equiv g^b \mod p$\\
@@ -568,6 +570,7 @@ Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen
 	    	& & $\doubleunderline{K_1 = K = K_2}$ & &
 	    \end{tabularx}
 	\end{center}
+Der geheime Schlüssel $K$, den nur Alice und Bob kennen, ist für einen Mithörer der öffentlichen Kommunikation nur schwierig zu Ermitteln, da dieser den diskreten Logarithmus $\text{DL}(A,g,p) = a$ als Lösung der Gleichung $A \equiv g^a \mod p$ bzw. $\text{DL}(B,g,p) = b$ als Lösung der Gleichung $B \equiv g^b \mod p$ berechnen muss, um $K_1 \equiv B^a \mod p$ oder $K_2 \equiv A^b \mod p$, $K = K_1 = K_2$, ermitteln zu können.\\
 \end{beispiel}
 
 \subsection{Verschlüsselung mit DHKE}
