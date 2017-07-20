@@ -52,21 +52,21 @@ def dlog_ph(modulus, root, value):
     inv = modular_inverse(root, modulus)
     congruences = []
 
-    for p in F:
-        exp = F[p]
+    for q in F:
+        exp = F[q]
         cs = []
         y = value
 
         for e in range(exp):
-            v = pow(y, (modulus-1) // p**(e+1), modulus)
-            c = r[p].index(v)
+            v = pow(y, (modulus-1) // q**(e+1), modulus)
+            c = r[q].index(v)
             cs.append(c)
 
-            y = (y * pow(inv, c * p**e, modulus)) % modulus
+            y = (y * pow(inv, c * q**e, modulus)) % modulus
 
-        crt_modulus = p**exp
+        crt_modulus = q**exp
         congruences.append(
-            (generating_list(p, cs), crt_modulus)
+            (generating_list(q, cs), crt_modulus)
         )
 
     return crt(congruences)
