@@ -90,7 +90,7 @@ Eulersche $\varphi$-Funktion bestimmt:
 \end{align*}
 Dies ergibt sich direkt aus der Definition der Eulerschen $\varphi$-Funktion.
 
-\begin{definition}[Erzeuger]
+\begin{definition}[Erzeuger]\label{def:erzeuger}
   Wenn es ein Element $a \in \Z_p^*$ gibt, dessen Potenzen $a^n$ für
   $n \in \Z_p^*$ alle Elemente aus $\Z_p^*$ erzeugt, dann nennt man $a$ einen
   Erzeuger. In $\Z_p^*$ heißen die Erzeuger auch \emph{Primitivwurzeln} modulo
@@ -403,7 +403,7 @@ Restsatz um $x$ zu bestimmen.
 \subsection{Komplexität Naiver Algorithmus}
 \label{sub:komplexitaet_naiver_algorithmus}
 
-Zur Berechnung des diskreten Logarithmus $DL(y,g,p) = x$ als Lösung der Gleichung\\
+Zur Berechnung des diskreten Logarithmus $\text{DL}(y,g,p) = x$ als Lösung der Gleichung\\
 $g^x \equiv y \mod p$ ist kein effizientes Verfahren bekannt. Alle bekannten
 Verfahren beruhen im Grunde auf einer Brute-Force-Suche über die Menge der
 möglichen Lösungen $\Z_p^* = \{1, 2, \ldots, p-1\}$ mit der Komplexität
@@ -417,7 +417,7 @@ exponentielle Komplexität $\mathcal{O}(2^n)$. Dazu ein Rechenbeispiel:
   $(y, g, p)$, d.\,h. man probiert alle möglichen Lösungen aus $\Z_p^*$ durch,
   bis man die Lösung gefunden hat. Zusätzlich stehen einem dazu die
   Rechenleistung von einer Anzahl von $10^{10}$ Prozessoren zur Verfügung,
-  welche jeweils mit einer Frequenz von $10 \text{\,GHz} = 10^{10} \cdot s^{-1}$
+  welche jeweils mit einer Frequenz von $10 \text{\,GHz}$ ($= 10^{10} \cdot s^{-1}$)
   operieren und jeweils mit jedem Berechnungsschritt eine modulare Potenz, also
   die Funktion $f(x, g, p) = g^x \mod p$, berechnen können. Dann hätte man eine
   Rechenleistung von $10^{20}$ modularen Potenzen pro Sekunde. Mit
@@ -449,6 +449,35 @@ exponentielle Komplexität $\mathcal{O}(2^n)$. Dazu ein Rechenbeispiel:
   $n_{\text{neu}} = n_{\text{alt}} + d$. Würde die Rechenleistung sich also
   z.\,B. verzehnfachen, wäre also $x=10$, so würde eine konstante Vergrößerung
   der Bitlänge von $d=4$ dies wieder ausgleichen.
+\end{beispiel}
+
+\subsection{Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
+\label{sub:diffie_hellman_key_exchange}
+
+Der auf der Schwierigkeit des Diskreten-Logarithmus-Problems beruhende Diffie-Hellman-Merkle Schlüsselaustausch, englisch: \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (\textbf{DHKE}), hat den folgenden Ablauf:
+Zwei Kommunikationspartner, hier Alice und Bob, kommunizieren über einen unsicheren Kanal und wollen einen Schlüssel für eine sichere Kommunikation, z.B. durch eine symmetrische Verschlüsselung, austauschen.
+
+Im ersten Schritt wählt Alice eine ausreichend große und den \todo{bekannte Schwachstellen rausnehmen?}bekannten Schwachstellen des Verfahrens ausweichende Primzahl $p$, mit $p = 2 \cdot q + 1$, $q$ prim. Ausreichend groß bedeutet hierbei, dass die Bitlänge $n$ der Primzahl $p$ so groß ist, dass die Berechnung des diskreten Logarithmus $\text{DL}(y,g,p)$ mit bekannten Algorithmen und aktueller Hardware auf absehbare Zeit nicht möglich sein wird (siehe Abschnitt  \ref{sub:komplexitaet_naiver_algorithmus}). Weiterhin sucht Alice einen \todo{ist die Formulierung bei Erzeuger korrekt?}Erzeuger $g \in \Z_p^*$, $\Z_p^* = \{1, 2, \ldots, p-1\}$, welcher $g^k \mod p$, $k \in \N \backslash \{0\}$, zyklisch ohne Untergruppen auf $\Z_p^*$ abbildet (siehe Abschnitt  \ref{def:erzeuger}). Dann wählt Alice ihren geheimen privaten Schlüssel $a \in \Z_p^*$,  berechnet ihren öffentlichen Schlüssel $A$ mit $A \equiv g^a \mod p$ und sendet ($p$, $g$, $A$) über den unsicheren Kanal an Bob.
+
+Im zweiten Schritt wählt Bob seinen geheimen privaten Schlüssel $b \in \Z_p^*$, berechnet seinen öffentlichen Schlüssel $B$ mit $B \equiv g^b \mod p$ und sendet $B$ über den unsicheren Kanal an Alice.
+Der gemeinsame geheime Schlüssel $K$ ergibt sich nun auf der Seite von Alice mit
+\begin{align*}
+	K \equiv B^a \mod p
+\end{align*}
+und auf der Seite von Bob mit
+\begin{align*}
+	K \equiv A^b \mod p \text{.}
+\end{align*}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{Diffie-Hellman-Schluesselaustausch2.png}
+  \caption{Diffie-Hellman-Merkle-Schlüsselaustausch}
+  \label{fig:dhke}
+\end{figure}
+
+\begin{beispiel}
+
 \end{beispiel}
 
 \end{document}
