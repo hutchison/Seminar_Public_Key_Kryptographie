@@ -486,11 +486,12 @@ Wir suchen den Exponenten $x \in \Z_p^*$ für den gilt:
   g^x \equiv y \mod p
 \end{align*}
 Da $\Z_p^*$ nur endlich viele Element enthält, können wir für jedes $x$
-überprüfen, ob es die Kongruenz erfüllt.
+überprüfen, ob es die Kongruenz erfüllt. Algorithmus~\ref{alg:dlog_naive}
+beschreibt die Vorgehensweise in Pseudocode.
 
-\begin{algorithm}\label{alg:dlog_naive}
+\begin{algorithm}
   \caption{naiver Berechnungsalgorithmus}
-  \begin{algorithmic}
+  \begin{algorithmic}\label{alg:dlog_naive}
     \REQUIRE{$p \in \P, \left\langle g \right\rangle \in \Z_p^*, y \in \Z_p^*$}
     \FORALL{$x \in \left\{1, \ldots, p-1\right\}$}
       \IF{$g^x \equiv y \mod p$}
@@ -646,6 +647,41 @@ $y_i^{\frac{p-1}{q^{i+1}}} = r_{q, j}$ ist.
 Abschließend erhalten wir die Kongruenz $x \Mod{q^k}$. Wenn wir dieses Verfahren
 für jeden Primfaktor von $p-1$ durchgeführt haben, nutzen wir den Chinesischen
 Restsatz um $x$ zu bestimmen.
+
+\begin{algorithm}
+  \caption{Pohlig-Hellman-Algorithmus}
+  \begin{algorithmic}\label{alg:dlog_ph}
+    \REQUIRE{$p \in \P, \left\langle g \right\rangle \in \Z_p^*, y \in \Z_p^*$}
+    \STATE{$F \leftarrow$ Primfaktorzerlegung$(p-1)$}
+    \COMMENT{z.\,B. als Menge von Tupeln $\{(q_1, k_1), (q_2, k_2), \ldots\}$}
+    \FORALL{$q \mid (p-1)$}
+      \FOR{$j = 0$ \TO $q-1$}
+        \STATE{$r_{q, j} \leftarrow g^{j(p-1)/q}$}
+        \COMMENT{Berechnung der Einheitswurzeln}
+      \ENDFOR{}
+    \ENDFOR{}
+    \STATE{berechne $g^{-1}$ mit dem erw. Euklidischen Algorithmus}
+    \STATE{$C \leftarrow \varnothing$}
+    \COMMENT{Die Menge, die später alle Kongruenzen enthält.}
+    \FORALL{$(q, k) \in F$}
+      \STATE{$z \leftarrow y$}
+      \FOR{$i = 0$ \TO $k-1$}
+        \STATE{$v \leftarrow z^{(p-1)/q^{i+1}} \Mod{p}$}
+        \STATE{$c_{q, i} \leftarrow j$ mit $r_{q,j} = v$}
+        \STATE{$z \leftarrow z \cdot \left(g^{-q^i}\right) \Mod{p}$}
+      \ENDFOR{}
+      \STATE{$C \leftarrow C \cup \left\{ \left(
+          \sum\limits_{i=0}^{k-1} c_{q, i} \cdot q^i,
+          q^k
+        \right) \right\}
+      $}
+      \COMMENT{Eine Kongruenz ist dabei ein Tupel $(a, n)$ und bedeutet $x
+      \equiv a \Mod{n}$}
+    \ENDFOR{}
+    \STATE{bestimme die Lösung $x$ mit dem Chinesischen Restsatz aus den
+    Kongruenzen in $C$}
+  \end{algorithmic}
+\end{algorithm}
 
 \begin{beispiel}[Pohlig-Hellman-Algorithmus]
   Wir betrachten $\Z_p^*$ mit $p = 1801$ und dem Erzeuger $g = 13$. Gesucht ist
