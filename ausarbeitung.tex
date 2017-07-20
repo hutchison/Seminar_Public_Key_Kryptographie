@@ -277,43 +277,36 @@ $\varphi(\varphi(p))$ Primitivwurzeln.
 
 \begin{definition}[Diskretes Logarithmusproblem]\label{def:diskretes_logarithmusproblem}
   Sei $p$ eine Primzahl, $g$ ein Erzeuger von $\Z_p^*$ und $y \in \Z_p^*$.
-
   Finde ein $x$ mit $1 \leq x \leq p-1$, so dass $g^x \equiv y \mod p$ gilt.
 \end{definition}
 
-Zum Schluss noch ein Satz zur Kongruenzrechnung, der später beim
+Zum Schluss noch zwei Sätze zur Kongruenzrechnung, die später beim
 Diffie-Hellman-Schlüsselaustausch (Abschnitt~\ref{sub:dhke_proof}) benötigt
-wird:
-\begin{satz}\label{satz:potenzen_bei_kongruenzen}
-  Seien $a \in \Z$ und $k, u, n \in \N \setminus \{ 0 \}$, dann gilt
-  ${(a^k \Mod{n})}^u \equiv a^{k\cdot u} \mod n$.
+werden.
+
+\begin{satz}\label{satz:multiplikation_modulo}
+  Seien $a,b,c,d \in \Z$ und $m \in \N$ mit $a \equiv b \mod m$ und $c \equiv d
+  \mod m$. Dann gilt
+  \begin{align*}
+    a \cdot c \equiv b \cdot d \mod m
+  \end{align*}
   \begin{proof}
-    \todo{quelle einfügen [Menezes, S.68 2.112(V)]}
-    Seien $a, a_1, b, b_1 \in \Z$ und $n \in \N \setminus \{0\}$ und gelte $a
-    \equiv a_1 \Mod{n}$ und $b \equiv b_1 \Mod{n}$.
-    \begin{align*}
-      a \cdot b & \equiv a_1 \cdot b_1 \mod n
-    \end{align*}
-    Angenommen $a=b$, also
-    \begin{align*}
-      a \cdot a & \equiv a_1 \cdot a_1 \mod n
-    \end{align*}
-    dann folgt
-    \begin{align*}
-      a^k & \equiv a_1^k \mod n \quad \text{ mit } k \in \N \setminus \{ 0 \}
-    \end{align*}
-    und daraus
-    \begin{align*}
-      {(a^k)}^u & \equiv {(a_1^k)}^u \mod n \quad \text{ mit } u \in \N \setminus \{ 0 \}
-    \end{align*}
-    womit sich ergibt, dass
-    \begin{align*}
-      {(a_1^k \Mod{n})}^u & \equiv {(a_1^k)}^u \mod n
-    \end{align*}
-    und
-    \begin{align*}
-      {(a_1^k \Mod{n})}^u & \equiv a_1^{k\cdot u} \mod n
-    \end{align*}
+    Aus $a \equiv b \Mod{m}$ und $c \equiv d \Mod{m}$ folgt aus der Definition
+    der Kongruenz, dass $x, y \in \Z$ mit $b = a+mx$ und $d = c+my$ existieren.
+    Dann ist $bd = ac + (ay + cx + mxy) \cdot m$, woraus $ac \equiv bd \Mod{m}$
+    folgt.
+  \end{proof}
+\end{satz}
+
+\begin{satz}\label{satz:potenzen_bei_kongruenzen}
+  Seien $a, b \in \Z$ und $m \in \N$ mit $a \equiv b \Mod{m}$, dann gilt für
+  alle $k \in \N$ mit $k \geq 1$:
+  \begin{align*}
+    a^k \equiv b^k \mod m
+  \end{align*}
+  \begin{proof}
+    Ergibt sich aus der wiederholten Anwendung von
+    Satz~\ref{satz:multiplikation_modulo} mit $c = a$ und $d = b$.
   \end{proof}
 \end{satz}
 
