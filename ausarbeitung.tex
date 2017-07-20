@@ -349,7 +349,7 @@ bekannten Fallstricken des Verfahrens ausweicht, z.B. mit $p = c \cdot q+1$, $c
 Ausreichend groß bedeutet hierbei, dass die Bitlänge $n$ der Primzahl $p$ so
 groß ist, dass die Berechnung des diskreten Logarithmus $\text{DL}(y,g,p)$ mit
 bekannten Algorithmen und aktueller Hardware auf absehbare Zeit nicht möglich
-sein wird (siehe Abschnitt \ref{sub:komplexitaet_naiver_algorithmus}). Zur Zeit
+sein wird (siehe Abschnitt~\ref{ssub:komplexitaet_naiver_algorithmus}). Zur Zeit
 (Jahr 2017) kann für $p$ eine Bitlänge von $n_p = 2048$ und für $q$ eine
 Bitlänge von $n_q = 256$ als
 sicher \todo{source:
@@ -357,7 +357,7 @@ https://security.stackexchange.com/questions/112313/what-is-the-current-security
 werden. Weiterhin sucht Alice einen \todo{ist die Formulierung bei Erzeuger
 korrekt?}Erzeuger $g \in \Z_p^*$, $(2 \leq g \leq p-2)$, welcher $g^k \Mod{p}$,
 $k \in \N \backslash \{0\}$, zyklisch ohne Untergruppen auf $\Z_p^*$ abbildet
-(siehe Abschnitt \ref{def:erzeuger}). Dann wählt Alice ihren geheimen privaten
+(siehe Abschnitt~\ref{def:erzeuger}). Dann wählt Alice ihren geheimen privaten
 Schlüssel $a \in \Z_p^*$, $(1 \leq a \leq p-2)$,  berechnet ihren öffentlichen
 Schlüssel $A$ mit $A \equiv g^a \Mod{p}$ und sendet ($g$, $p$, $A$) über den
 unsicheren Kanal an Bob.
