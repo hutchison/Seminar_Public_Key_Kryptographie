@@ -38,6 +38,41 @@ def roots_of_unity(modulus, root):
     return r
 
 
+def generating_list(p, xs):
+    r = 0
+
+    for i, x in enumerate(xs):
+        r += x * p**i
+
+    return r
+
+
+def dlog_ph(modulus, root, value):
+    ppowers = prime_powers(modulus-1)
+    r = roots_of_unity(modulus, root)
+    inv = modular_inverse(root, modulus)
+    congruences = []
+
+    for p in ppowers:
+        exp = ppowers[p]
+        cs = []
+        y = value
+
+        for e in range(exp):
+            v = pow(y, (modulus-1) // p**(e+1), modulus)
+            c = r[p].index(v)
+            cs.append(c)
+
+            y = (y * pow(inv, c * p**e, modulus)) % modulus
+
+        crt_modulus = p**exp
+        congruences.append(
+            (generating_list(p, cs), crt_modulus)
+        )
+
+    return crt(congruences)
+
+
 class color:
     PURPLE = '\033[95m'
     CYAN = '\033[96m'
