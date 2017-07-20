@@ -151,11 +151,11 @@ diesen Test abkürzen, indem wir uns folgende Beobachtung aus
 Beispiel~\ref{bsp:erzeuger} zunutze machen: nach dem kleinen Satz von Fermat
 muss für jedes Element $a$ aus $\Z_p^*$ die Kongruenz
 \begin{align*}
-  a^{p-1} \equiv 1 \mod p
+  a^{p-1} \equiv 1 \Mod{p}
 \end{align*}
 gelten. Für das Element $3 \in \Z_{13}^*$ gilt sie jedoch auch für die
 Exponenten $3, 6$ und $9$. Wir müssen demnach nur für bestimmte Exponenten $x$
-prüfen, ob $a^x \equiv 1 \mod p$ gilt und falls das der Fall ist, kann $a$ keine
+prüfen, ob $a^x \equiv 1 \Mod{p}$ gilt und falls das der Fall ist, kann $a$ keine
 Primitivwurzel sein. Welche Exponenten dies sind, zeigt der folgende Satz.
 
 \begin{satz}\label{satz:primitivwurzeltest}
@@ -164,7 +164,7 @@ Primitivwurzel sein. Welche Exponenten dies sind, zeigt der folgende Satz.
   $p-1$. Eine ganze Zahl $a$ mit $p \nmid a$ ist genau dann Primitivwurzel
   modulo $p$, wenn
   \begin{align*}
-    a^{(p-1)/q_i} & \not\equiv 1 \mod p \qquad \text{ für alle } i \in \left\{1, \ldots, r\right\}.
+    a^{(p-1)/q_i} & \not\equiv 1 \Mod{p} \qquad \text{ für alle } i \in \left\{1, \ldots, r\right\}.
   \end{align*}
 
   \begin{proof}
@@ -192,21 +192,21 @@ Primitivwurzel sein. Welche Exponenten dies sind, zeigt der folgende Satz.
     \item[$r_1 = 2$:]
       \begin{align*}
         2^{72/2}
-        & \equiv 2^{36} \equiv 1 \mod p
+        & \equiv 2^{36} \equiv 1 \Mod{p}
       \end{align*}
       Damit ist $2$ keine Primitivwurzel.
     \item[$r_2 = 3$:]
       \begin{align*}
         3^{72/2}
-        & \equiv 3^{36} \equiv 1 \mod p
+        & \equiv 3^{36} \equiv 1 \Mod{p}
       \end{align*}
       Damit ist auch $3$ keine Primitivwurzel.
     \item[$r_3 = 5$:]
       \begin{align*}
         5^{72/2}
-        & \equiv 5^{36} \equiv 72 \mod p\\
+        & \equiv 5^{36} \equiv 72 \Mod{p}\\
         5^{72/3}
-        & \equiv 5^{24} \equiv 8 \mod p\\
+        & \equiv 5^{24} \equiv 8 \Mod{p}\\
       \end{align*}
       Damit ist $5$ eine Primitivwurzel modulo $73$.
   \end{description}
@@ -227,11 +227,11 @@ alle anderen Primitivwurzeln mit dem folgenden Satz bestimmen.
         $p-1$ teilerfremd sind. Dann gibt es nach dem Lemma von Bézout ganze
         Zahlen $s, t$ mit $s k + t (p-1) = 1$. Daraus folgt
         \begin{align*}
-          b^s \equiv a^{k s} \equiv a^{1 - t (p-1)} \equiv a \mod p,
+          b^s \equiv a^{k s} \equiv a^{1 - t (p-1)} \equiv a \Mod{p},
         \end{align*}
         da
         \begin{align*}
-          a^{- t (p-1)} \equiv {\left(a^{(p-1)}\right)}^{-t} \equiv 1^{-t} \equiv 1 \mod p
+          a^{- t (p-1)} \equiv {\left(a^{(p-1)}\right)}^{-t} \equiv 1^{-t} \equiv 1 \Mod{p}
         \end{align*}
         Mittels $b$ kann demnach die Primitivwurzel $a$ erzeugt werden, sodass
         $b$ selbst alle Elemente von $\Z_p^*$ erzeugen kann. Damit ist $b$ eine
@@ -266,14 +266,14 @@ $\varphi(\varphi(p))$ Primitivwurzeln.
   \end{align*}
   Damit erhalten wir die Primitivwurzeln:
   \begin{align*}
-    3^1 & \equiv 3 \mod 17\\
-    3^3 & \equiv 10 \mod 17\\
-    3^5 & \equiv 5 \mod 17\\
-    3^7 & \equiv 11 \mod 17\\
-    3^9 & \equiv 14 \mod 17\\
-    3^{11} & \equiv 7 \mod 17\\
-    3^{13} & \equiv 12 \mod 17\\
-    3^{15} & \equiv 6 \mod 17\\
+    3^1 & \equiv 3 \Mod{17}\\
+    3^3 & \equiv 10 \Mod{17}\\
+    3^5 & \equiv 5 \Mod{17}\\
+    3^7 & \equiv 11 \Mod{17}\\
+    3^9 & \equiv 14 \Mod{17}\\
+    3^{11} & \equiv 7 \Mod{17}\\
+    3^{13} & \equiv 12 \Mod{17}\\
+    3^{15} & \equiv 6 \Mod{17}\\
   \end{align*}
   Die Menge der Primitivwurzeln von $\Z_{17}^*$ ist somit
   $\left\{ 3, 5, 6, 7, 10, 11, 12, 14 \right\}$.
@@ -296,7 +296,7 @@ $\varphi(\varphi(p))$ Primitivwurzeln.
 
 \begin{definition}[Diskretes Logarithmusproblem]\label{def:diskretes_logarithmusproblem}
   Sei $p$ eine Primzahl, $g$ ein Erzeuger von $\Z_p^*$ und $y \in \Z_p^*$.
-  Finde ein $x$ mit $1 \leq x \leq p-1$, so dass $g^x \equiv y \mod p$ gilt.
+  Finde ein $x$ mit $1 \leq x \leq p-1$, so dass $g^x \equiv y \Mod{p}$ gilt.
 \end{definition}
 
 Zum Schluss noch zwei Sätze zur Kongruenzrechnung, die später beim
@@ -336,46 +336,49 @@ benötigt werden.
 \label{sub:diffie_hellman_key_exchange}
 
 Der auf der Schwierigkeit des Diskreten-Logarithmus-Problems beruhende
-Dif"-fie-Hell"-man-Merk"-le-Schlüs"-sel"-aus"-tausch, englisch:
+Diffie-Hellman-Merkle Schlüsselaustausch, englisch:
 \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (\textbf{DHKE}),
 hat den folgenden Ablauf:
 Zwei Kommunikationspartner, hier Alice und Bob, kommunizieren über einen
-unsicheren Kanal und wollen einen Schlüssel für eine sichere Kommunikation,
-z.\,B. durch eine symmetrische Verschlüsselung, austauschen.
+unsicheren Kanal und wollen einen Schlüssel für eine sichere Kommunikation, z.B.
+durch eine symmetrische Verschlüsselung, austauschen.
 
 Im ersten Schritt wählt Alice eine ausreichend große Primzahl $p$, welche den
-bekannten Fallstricken des Verfahrens ausweicht, z.\,B. mit $p = c \cdot q+1$,
-$c \in \N \setminus \{ 0 \}$, $q$ prim, $q$ möglichst groß (etwa
-$p = 2 \cdot q + 1$).
-Ausreichend groß bedeutet hierbei, dass die Bitlänge $n$ der Primzahl $p$
-so groß ist, dass die Berechnung des diskreten Logarithmus $\text{DL}(y,g,p)$
-mit bekannten Algorithmen und aktueller Hardware auf absehbare Zeit nicht
-möglich sein wird (siehe Abschnitt~\ref{ssub:komplexitaet_naiver_algorithmus}).
-Zur Zeit kann für $p$ eine Bitlänge von $n_p = 2048$ und für $q$ eine Bitlänge
-von $n_q = 256$ als sicher angenommen werden.
-Weiterhin bestimmt Alice eine Primitivwurzel $g \in \Z_p^*$ (siehe
-Abschnitt~\ref{def:erzeuger}).
-Dann wählt Alice ihren geheimen privaten Schlüssel
-$a \in \Z_p^*$, $(1 \leq a \leq p-2)$, berechnet ihren öffentlichen Schlüssel
-$A$ mit $A \equiv g^a \mod p$ und sendet $(g, p, A)$ über den unsicheren Kanal
-an Bob.
+bekannten Fallstricken des Verfahrens ausweicht, z.B. mit $p = c \cdot q+1$, $c
+\in \N\backslash\{0\}$, $q$ prim, $q$ möglichst groß (etwa $p = 2 \cdot q + 1$).
+Ausreichend groß bedeutet hierbei, dass die Bitlänge $n$ der Primzahl $p$ so
+groß ist, dass die Berechnung des diskreten Logarithmus $\text{DL}(y,g,p)$ mit
+bekannten Algorithmen und aktueller Hardware auf absehbare Zeit nicht möglich
+sein wird (siehe Abschnitt \ref{sub:komplexitaet_naiver_algorithmus}). Zur Zeit
+(Jahr 2017) kann für $p$ eine Bitlänge von $n_p = 2048$ und für $q$ eine
+Bitlänge von $n_q = 256$ als
+sicher \todo{source:
+https://security.stackexchange.com/questions/112313/what-is-the-current-security-status-of-diffie-hellman-key-exchange}angenommen
+werden. Weiterhin sucht Alice einen \todo{ist die Formulierung bei Erzeuger
+korrekt?}Erzeuger $g \in \Z_p^*$, $(2 \leq g \leq p-2)$, welcher $g^k \Mod{p}$,
+$k \in \N \backslash \{0\}$, zyklisch ohne Untergruppen auf $\Z_p^*$ abbildet
+(siehe Abschnitt \ref{def:erzeuger}). Dann wählt Alice ihren geheimen privaten
+Schlüssel $a \in \Z_p^*$, $(1 \leq a \leq p-2)$,  berechnet ihren öffentlichen
+Schlüssel $A$ mit $A \equiv g^a \Mod{p}$ und sendet ($g$, $p$, $A$) über den
+unsicheren Kanal an Bob.
 
 Im zweiten Schritt wählt Bob seinen geheimen privaten Schlüssel $b \in \Z_p^*$,
-$(1 \leq b \leq p-2)$, berechnet seinen öffentlichen Schlüssel $B$ mit
-$B \equiv g^b \mod p$ und sendet $B$ über den unsicheren Kanal an Alice.
+$(1 \leq b \leq p-2)$, berechnet seinen öffentlichen Schlüssel $B$ mit $B \equiv
+g^b \Mod{p}$ und sendet $B$ über den unsicheren Kanal an Alice.
 Der gemeinsame geheime Schlüssel $K$ ergibt sich nun auf der Seite von Alice mit
 \begin{align*}
-	K \equiv B^a \mod p
+  K \equiv B^a \Mod{p}
 \end{align*}
 und auf der Seite von Bob mit
 \begin{align*}
-	K \equiv A^b \mod p \text{.}
+  K \equiv A^b \Mod{p}
 \end{align*}
 
-\begin{figure}[H]\label{fig:dhke}
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{Diffie-Hellman-Schluesselaustausch2.png}
   \caption{Diffie-Hellman-Merkle-Schlüsselaustausch}
+  \label{fig:dhke}
 \end{figure}
 
 \subsubsection{Korrektheit: Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
@@ -383,16 +386,15 @@ und auf der Seite von Bob mit
 Zur Korrektheit des Diffie-Hellman-Merkle Schlüsselaustausches: Beide
 Kommunikationspartner haben den gleichen Schlüssel $K = K_1 = K_2$:
 
-Mit der Kongruenz aus Satz~\ref{satz:potenzen_bei_kongruenzen} lässt sich nun
-einfach zeigen, dass die Schlüssel $K_1$ von Alice und $K_2$ von Bob kongruent
-sind:
+Mit der Kongruenz aus Satz~\ref{satz:potenzen_bei_kongruenzen} lässt sich
+zeigen, dass die Schlüssel $K_1$ von Alice und $K_2$ von Bob kongruent sind:
 \begin{align*}
-  K_1 & \equiv B^a \mod p\\
-  & \equiv {(g^b)}^a \mod p\\
-  & \equiv g^{b \cdot a} \mod p\\
-  & \equiv g^{a \cdot b} \mod p\\
-  & \equiv {(g^a)}^b \mod p\\
-  & \equiv A^b \mod p\\
+  K_1 & \equiv B^a \Mod{p}\\
+  & \equiv {(g^b)}^a \Mod{p}\\
+  & \equiv g^{b \cdot a} \Mod{p}\\
+  & \equiv g^{a \cdot b} \Mod{p}\\
+  & \equiv {(g^a)}^b \Mod{p}\\
+  & \equiv A^b \Mod{p}\\
   & \equiv K_2
 \end{align*}
 
@@ -415,8 +417,8 @@ sind:
       $a \in \{1, \dots, p-2\}$ & & & & \\
       $\underline{a = 10}$ & & & & \\
       $\cdot$ berechne öffentlichen Schlüssel: & & & & \\
-      $A \equiv g^a \mod p$ & & & & \\
-      $A = 5^{10} \mod 17$ & & & & \\
+      $A \equiv g^a \Mod{p}$ & & & & \\
+      $A = 5^{10} \Mod{17}$ & & & & \\
       $\underline{A = 9}$ & & & & \\
       $\cdot$ sende: $(g = 5, p = 17, A = 9)$ an Bob & & $\to$ & & \\\midrule
       & & & & \textbf{Schritt 2}:\\
@@ -424,16 +426,16 @@ sind:
       & & & & $b \in \{1, \dots, p-2\}$\\
       & & & & $\underline{b=7}$\\
       & & & & $\cdot$ berechne öffentlichen Schlüssel:\\
-      & & & & $B \equiv g^b \mod p$\\
-      & & & & $B = 5^7 \mod 17$\\
+      & & & & $B \equiv g^b \Mod{p}$\\
+      & & & & $B = 5^7 \Mod{17}$\\
       & & & & $\underline{B = 10}$\\
       & & $\leftarrow$ & & $\cdot$ sende: $B$ an Alice\\\midrule
     \end{tabularx}
     \begin{tabularx}{\textwidth}{lXcXl}
       & & \textbf{Schritt 3}: & & \\
       & & $\cdot$ berechne geheimen Schlüssel $K$: & & \\
-      $K_1 \equiv B^a \mod p$ & & & & $K_2 \equiv A^b \mod p$\\
-      $K_1 = 10^{10} \mod 17$ & & & & $K_2 = 9^7 \mod 17$\\
+      $K_1 \equiv B^a \Mod{p}$ & & & & $K_2 \equiv A^b \Mod{p}$\\
+      $K_1 = 10^{10} \Mod{17}$ & & & & $K_2 = 9^7 \Mod{17}$\\
       $\doubleunderline{K_1 = 2}$ & & & & $\doubleunderline{K_2 = 2}$\\
       & & $\doubleunderline{K_1 = K = K_2}$ & &
     \end{tabularx}
@@ -441,9 +443,9 @@ sind:
   Der geheime Schlüssel $K$, den nur Alice und Bob kennen, ist für einen
   Mithörer der öffentlichen Kommunikation nur schwierig zu ermitteln, da dieser
   den diskreten Logarithmus $\text{DL}(A,g,p) = a$ als Lösung der Gleichung
-  $A \equiv g^a \mod p$ bzw. $\text{DL}(B,g,p) = b$ als Lösung der Gleichung
-  $B \equiv g^b \mod p$ berechnen muss, um $K_1 \equiv B^a \mod p$ oder
-  $K_2 \equiv A^b \mod p$, $K = K_1 = K_2$, ermitteln zu können.
+  $A \equiv g^a \Mod{p}$ bzw. $\text{DL}(B,g,p) = b$ als Lösung der Gleichung
+  $B \equiv g^b \Mod{p}$ berechnen muss, um $K_1 \equiv B^a \Mod{p}$ oder
+  $K_2 \equiv A^b \Mod{p}$ ermitteln zu können.
 \end{beispiel}
 
 \subsection{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
@@ -451,25 +453,43 @@ sind:
 Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen
 anderen Kommunikationspartner (Alice) über einen unsicheren Kanal durch
 Verschlüsselung mittels
-\textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE).
-Bevor, möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte,
-muss diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem
-Schlüsselserver veröffentlichen, wie z.\,B. \url{https://sks-keyservers.net}.
-Des weiteren gleichen sich die Verfahren des DHKE und die Verschlüsselung
-mittels DHKE, wobei Bob den öffentlichen Schlüssel von Alice beim
-Schlüsselserver erfragt und an der Stelle der Erzeugung des geheimen Schlüssels
-$K$ bei DHKE wird stattdessen die Nachricht $m$ zum Ciphertext $c$
-verschlüsselt, mit $(c \equiv A^b \cdot m \Mod{p})$, und zusammen mit dem
-öffentlichen Schlüssel $B$ von Bob an ein Postfach von Alice gesendet.
-Alice entschlüsselt die Nachricht dann mit $m = B^{-a}\cdot c \Mod{p}$, was nach
-dem kleinen Satz von Fermat (siehe Abschnitt~\ref{def:erzeuger}) kongruent ist
-zu $m = B^{(p-1)-a} \cdot c \Mod{p}$.
+\textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE). Bevor,
+möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte, muss
+diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem Schlüsselserver
+veröffentlichen, wie z.B. \url{https://sks-keyservers.net}. Des Weiteren
+gleichen sich die Verfahren des DHKE und die Verschlüsselung mittels DHKE, wobei
+Bob den öffentlichen Schlüssel von Alice beim Schlüsselserver erfragt. An der
+Stelle der Erzeugung des geheimen Schlüssels $K$ bei DHKE verschlüsselt Bob dann
+stattdessen die Nachricht $m$ zum Ciphertext $c$, mit $c \equiv A^b \cdot m
+\Mod{p}$, und sendet $c$ zusammen mit seinem öffentlichen Schlüssel $B$ an ein
+Postfach von Alice. Alice entschlüsselt die Nachricht dann mit $m \equiv
+B^{-a}\cdot c  \Mod{p}$, was nach dem kleinen Satz von Fermat (siehe Abschnitt
+\ref{def:erzeuger}) kongruent ist zu $m \equiv B^{(p-1)-a}\cdot c \Mod{p}$.
 
-\begin{figure}[H]\label{fig:enc_with_dhke}
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{DHKE_enc.png}
   \caption{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
+  \label{fig:enc_with_dhke}
 \end{figure}
+
+\subsubsection{Korrektheit: Verschlüsselung mittels Diffie-Hellman-Merkle Schlüsselaustausch}
+\label{sub:enc_with_dhke_proof}
+Beide Kommunikationspartner haben die gleiche Nachricht: $m = m_{\text{Bob}} = m_{\text{Alice}}$
+\begin{proof}
+	Mit der Satz~\ref{satz:potenzen_bei_kongruenzen} lässt sich zeigen, dass
+	\begin{align*}
+      m_{\text{Alice}} & \equiv B^{-a} \cdot c \Mod{p}\\
+      & \equiv (g^b)^{-a} \cdot c \Mod{p}\\
+      & \equiv g^{b \cdot (-a)} \cdot c \Mod{p}\\
+      & \equiv g^{-ab} \cdot c \Mod{p}\\
+      & \equiv g^{-ab} \cdot A^b \cdot m_{\text{Bob}} \Mod{p}\\
+      & \equiv g^{-ab} \cdot (g^a)^b \cdot m_{\text{Bob}} \Mod{p}\\
+      & \equiv g^{-ab} \cdot g^{ab} \cdot m_{\text{Bob}} \Mod{p}\\
+      & \equiv g^{-ab+ab} \cdot m_{\text{Bob}} \Mod{p}\\
+      & \equiv m_{\text{Bob}}
+    \end{align*}
+\end{proof}
 
 \section{Berechnung von diskreten Logarithmen}
 \label{sec:berechnung_von_diskreten_logarithmen}
@@ -483,18 +503,18 @@ Durchprobieren. Wir erinnern uns an das diskrete Logarithmusproblem
 $p$, ein Erzeuger $g$ der Gruppe $\Z_p^*$ und ein Element $y$ aus dieser Gruppe.
 Wir suchen den Exponenten $x \in \Z_p^*$ für den gilt:
 \begin{align*}
-  g^x \equiv y \mod p
+  g^x \equiv y \Mod{p}
 \end{align*}
 Da $\Z_p^*$ nur endlich viele Element enthält, können wir für jedes $x$
 überprüfen, ob es die Kongruenz erfüllt. Algorithmus~\ref{alg:dlog_naive}
 beschreibt die Vorgehensweise in Pseudocode.
 
-\begin{algorithm}
+\begin{algorithm}[H]
   \caption{naiver Berechnungsalgorithmus}
   \begin{algorithmic}\label{alg:dlog_naive}
     \REQUIRE{$p \in \P, \left\langle g \right\rangle \in \Z_p^*, y \in \Z_p^*$}
     \FORALL{$x \in \left\{1, \ldots, p-1\right\}$}
-      \IF{$g^x \equiv y \mod p$}
+      \IF{$g^x \equiv y \Mod{p}$}
         \RETURN{$x$}
       \ELSE{}
         \STATE{$x \leftarrow x + 1$}
@@ -503,23 +523,13 @@ beschreibt die Vorgehensweise in Pseudocode.
   \end{algorithmic}
 \end{algorithm}
 
-%\begin{listing}[H]
-%  \caption{Implementation des naiven Berechnungsalgorithmus’}
-%  \begin{minted}{python}
-%    def dlog_naive(root, modulus, value):
-%        for x in range(1, modulus):
-%            if pow(root, x, modulus) == value:
-%                return x
-%  \end{minted}
-%\end{listing}
-
 \subsubsection{Komplexität des naiven Algorithmus’}
 \label{ssub:komplexitaet_naiver_algorithmus}
 
 Zur Berechnung des diskreten Logarithmus $\text{DL}(y,g,p) = x$ als Lösung der
 Gleichung
 \begin{align*}
-  y \equiv g^x \mod p
+  y \equiv g^x \Mod{p}
 \end{align*}
 ist kein effizientes Verfahren bekannt.
 Alle bekannten Verfahren beruhen im Grunde auf einer Brute-Force-Suche über der
@@ -537,7 +547,7 @@ exponentielle Komplexität $\mathcal{O}(2^n)$. Dazu ein Rechenbeispiel:
   Milliarden $(=10^{10})$ Prozessoren zur Verfügung, welche jeweils mit einer
   Taktfrequenz von $10 \text{\,GHz}$ ($= 10^{10} \cdot s^{-1}$) operieren und
   jeweils mit jedem Taktzyklus eine modulare Potenz, also die Funktion $f(x, g,
-  p) = g^x \mod p$, berechnen können.
+  p) = g^x \Mod{p}$, berechnen können.
   Dann hätte man eine Rechenleistung von $10^{20}$ modularen Potenzen pro
   Sekunde.
   Mit $10^{20} \leq 2^{67}$ ergibt sich die Zeit $t$ zur Berechnung aller
@@ -582,11 +592,11 @@ $\Z_p^*$. Zunächst berechnen wir die $q$-ten Einheitswurzeln vom erzeugenden
 Element $g$:
 \begin{align*}
   r_{q, j} &
-    \equiv g^{\frac{j(p-1)}{q}} \mod p &
+    \equiv g^{\frac{j(p-1)}{q}} \Mod{p} &
     \text{ für alle } j = 0, 1, \ldots, q-1
 \end{align*}
 
-Wir müssen nun das $x \in \Z_p^*$ finden, für das $g^x \equiv y \mod p$ gilt.
+Wir müssen nun das $x \in \Z_p^*$ finden, für das $g^x \equiv y \Mod{p}$ gilt.
 Mit der Primfaktorzerlegung von $p-1$ brauchen wir nur $x \Mod{q^k}$ für jeden
 Primfaktor $q$ von $p-1$ zu bestimmen, da sich $x$ dann aus dem Chinesischen
 Restsatz ergibt. Wir fixieren jetzt einen Primfaktor $q$ von $p-1$ und zeigen,
