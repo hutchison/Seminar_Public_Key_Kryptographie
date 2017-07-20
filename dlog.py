@@ -57,12 +57,12 @@ def dlog_ph(modulus, root, value):
         cs = []
         y = value
 
-        for e in range(exp):
-            v = pow(y, (modulus-1) // q**(e+1), modulus)
+        for i in range(exp):
+            v = pow(y, (modulus-1) // q**(i+1), modulus)
             c = r[q].index(v)
             cs.append(c)
 
-            y = (y * pow(inv, c * q**e, modulus)) % modulus
+            y = (y * pow(inv, c * q**i, modulus)) % modulus
 
         crt_modulus = q**exp
         congruences.append(
