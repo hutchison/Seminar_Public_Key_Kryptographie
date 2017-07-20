@@ -25,6 +25,7 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{booktabs}
+\usepackage{hyperref}
 
 \usepackage[]{algorithm}
 \usepackage[]{algorithmic}
@@ -159,6 +160,35 @@ Primitivwurzel sein. Welche Exponenten dies sind, zeigt der folgende Satz.
   \end{proof}
 \end{satz}
 
+\begin{beispiel}[Primitivwurzel testen]\label{bsp:primitivwurzel_testen}
+  Betrachten wir $p = 73 = 2^3 \cdot 3^2 + 1$ und untersuchen mit
+  Satz~\ref{satz:primitivwurzeltest}, ob $r_1 = 2, r_2 = 3$ und $r_3 = 5$
+  Primitivwurzeln sind.
+
+  \begin{description}
+    \item[$r_1 = 2$:]
+      \begin{align*}
+        2^{72/2}
+        & \equiv 2^{36} \equiv 1 \mod p
+      \end{align*}
+      Damit ist $2$ keine Primitivwurzel.
+    \item[$r_2 = 3$:]
+      \begin{align*}
+        3^{72/2}
+        & \equiv 3^{36} \equiv 1 \mod p
+      \end{align*}
+      Damit ist auch $3$ keine Primitivwurzel.
+    \item[$r_3 = 5$:]
+      \begin{align*}
+        5^{72/2}
+        & \equiv 5^{36} \equiv 72 \mod p\\
+        5^{72/3}
+        & \equiv 5^{24} \equiv 8 \mod p\\
+      \end{align*}
+      Damit ist $5$ eine Primitivwurzel modulo $73$.
+  \end{description}
+\end{beispiel}
+
 Mit Satz~\ref{satz:primitivwurzeltest} können wir effizienter eine
 Primitivwurzel finden. Wenn wir eine solche gefunden haben, können wir sogar
 alle anderen Primitivwurzeln mit dem folgenden Satz bestimmen.
@@ -198,6 +228,34 @@ alle anderen Primitivwurzeln mit dem folgenden Satz bestimmen.
   \end{proof}
 \end{satz}
 
+Da $\Z_p^*$ die Ordnung $\varphi(p) = p-1$ hat und die Anzahl der teilerfremden
+Zahlen zu $p-1$ gleich $\varphi(p-1)$ ist, hat $\Z_p^*$ insgesamt
+$\varphi(\varphi(p))$ Primitivwurzeln.
+
+\begin{beispiel}[weitere Primitivwurzeln finden]
+  Wir betrachten $\Z_{17}^*$ mit dem Erzeuger $3$. Mit
+  Satz~\ref{satz:primitivwurzeln_durch_potenzen} wollen wir weitere
+  Primitivwurzeln bestimmen.
+
+  Die Menge der zu $p-1 = 16$ teilerfremden Zahlen ist
+  \begin{align*}
+    \left\{1, 3, 5, 7, 9, 11, 13, 15 \right\}.
+  \end{align*}
+  Damit erhalten wir die Primitivwurzeln:
+  \begin{align*}
+    3^1 & \equiv 3 \mod 17\\
+    3^3 & \equiv 10 \mod 17\\
+    3^5 & \equiv 5 \mod 17\\
+    3^7 & \equiv 11 \mod 17\\
+    3^9 & \equiv 14 \mod 17\\
+    3^{11} & \equiv 7 \mod 17\\
+    3^{13} & \equiv 12 \mod 17\\
+    3^{15} & \equiv 6 \mod 17\\
+  \end{align*}
+  Die Menge der Primitivwurzeln von $\Z_{17}^*$ ist somit
+  $\left\{ 3, 5, 6, 7, 10, 11, 12, 14 \right\}$.
+\end{beispiel}
+
 \begin{definition}[Diskrete Exponentiation, diskreter Logarithmus]
   Sei $g$ ein Erzeuger von $\Z_p^*$. Die diskrete Exponentiation zur Basis $g$
   ist eine Abbildung von $\Z_p^* \to \Z_p^*$ und definiert durch:
@@ -229,10 +287,10 @@ alle anderen Primitivwurzeln mit dem folgenden Satz bestimmen.
 \label{sub:naive_berechnung}
 
 Die einfachste Möglichkeit für die Berechnung des diskreten Logarithmus ist das
-Durchprobieren. Wir erinnern uns an das \todo{verlinken} diskrete
-Logarithmusproblem: gegeben sei eine Primzahl $p$, ein
-Erzeuger $g$ der Gruppe $\Z_p^*$ und ein Element $y$ aus dieser Gruppe. Wir
-suchen den Exponenten $x \in \Z_p^*$ für den gilt:
+Durchprobieren. Wir erinnern uns an das diskrete Logarithmusproblem
+(Definition~\ref{def:diskretes_logarithmusproblem}): gegeben sei eine Primzahl
+$p$, ein Erzeuger $g$ der Gruppe $\Z_p^*$ und ein Element $y$ aus dieser Gruppe.
+Wir suchen den Exponenten $x \in \Z_p^*$ für den gilt:
 \begin{align*}
   g^x \equiv y \mod p
 \end{align*}

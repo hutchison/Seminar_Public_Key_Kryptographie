@@ -256,7 +256,7 @@ def generators(n):
 def generators2(n):
     gs = set()
 
-    for g in range(n):
+    for g in range(1, n):
         if is_primitive_root_even_better(g, n):
             gs.add(g)
 
