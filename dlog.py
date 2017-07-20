@@ -33,7 +33,7 @@ def roots_of_unity(modulus, root):
     r = dict()
 
     for q in ppowers:
-        r[q] = [pow(root, j*(modulus-1)//q, modulus) for j in range(q)]
+        r[q] = [pow(root, j*(modulus-1) // q, modulus) for j in range(q)]
 
     return r
 
