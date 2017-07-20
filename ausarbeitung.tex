@@ -427,17 +427,37 @@ sind:
     \end{tabularx}
   \end{center}
   Der geheime Schlüssel $K$, den nur Alice und Bob kennen, ist für einen
-  Mithörer der öffentlichen Kommunikation nur schwierig zu Ermitteln, da dieser
+  Mithörer der öffentlichen Kommunikation nur schwierig zu ermitteln, da dieser
   den diskreten Logarithmus $\text{DL}(A,g,p) = a$ als Lösung der Gleichung
   $A \equiv g^a \mod p$ bzw. $\text{DL}(B,g,p) = b$ als Lösung der Gleichung
   $B \equiv g^b \mod p$ berechnen muss, um $K_1 \equiv B^a \mod p$ oder
   $K_2 \equiv A^b \mod p$, $K = K_1 = K_2$, ermitteln zu können.
 \end{beispiel}
 
-\subsection{Verschlüsselung mit DHKE}
+\subsection{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
 \label{sub:enc_with_dhke}
 Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen
-anderen Kommunikationspartner (Alice) über einen unsicheren Kanal.
+anderen Kommunikationspartner (Alice) über einen unsicheren Kanal durch
+Verschlüsselung mittels
+\textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE).
+Bevor, möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte,
+muss diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem
+Schlüsselserver veröffentlichen, wie z.\,B. \url{https://sks-keyservers.net}.
+Des weiteren gleichen sich die Verfahren des DHKE und die Verschlüsselung
+mittels DHKE, wobei Bob den öffentlichen Schlüssel von Alice beim
+Schlüsselserver erfragt und an der Stelle der Erzeugung des geheimen Schlüssels
+$K$ bei DHKE wird stattdessen die Nachricht $m$ zum Ciphertext $c$
+verschlüsselt, mit $(c \equiv A^b \cdot m \Mod{p}$, und zusammen mit dem
+öffentlichen Schlüssel $B$ von Bob an ein Postfach von Alice gesendet.
+Alice entschlüsselt die Nachricht dann mit $m = B^{-a}\cdot c \Mod{p}$, was nach
+dem kleinen Satz von Fermat (siehe Abschnitt~\ref{def:erzeuger}) kongruent ist
+zu $m = B^{(p-1)-a} \cdot c \Mod{p}$.
+
+\begin{figure}[H]\label{fig:enc_with_dhke}
+  \centering
+  \includegraphics[width=\textwidth]{DHKE_enc.png}
+  \caption{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
+\end{figure}
 
 \section{Berechnung von diskreten Logarithmen}
 \label{sec:berechnung_von_diskreten_logarithmen}
@@ -614,185 +634,5 @@ $y_i^{\frac{p-1}{q^{i+1}}} = r_{q, j}$ ist.
 Abschließend erhalten wir die Kongruenz $x \Mod{q^k}$. Wenn wir dieses Verfahren
 für jeden Primfaktor von $p-1$ durchgeführt haben, nutzen wir den Chinesischen
 Restsatz um $x$ zu bestimmen.
-
-\subsection{Komplexität Naiver Algorithmus}
-\label{sub:komplexitaet_naiver_algorithmus}
-
-Zur Berechnung des diskreten Logarithmus $\text{DL}(y,g,p) = x$ als Lösung der Gleichung\\
-$y \equiv g^x \mod p$ ist kein effizientes Verfahren bekannt. Alle bekannten
-Verfahren beruhen im Grunde auf einer Brute-Force-Suche über die Menge der
-möglichen Lösungen $\Z_p^* = \{1, 2, \ldots, p-1\}$ mit der Komplexität
-$\mathcal{O}(p)$.
-Wenn man die Komplexität über die Bitlänge $n$ der Primzahl $p$ darstellt, mit
-$n = \left\lfloor \log_2 p \right\rfloor + 1 \approx \log_2 p$, so ergibt sich
-exponentielle Komplexität $\mathcal{O}(2^n)$. Dazu ein Rechenbeispiel:
-
-\begin{beispiel}
-  Angenommen man sucht mit dem naiven Algorithmus die Lösung $x$ zur Eingabe
-  $(y, g, p)$, d.\,h. man probiert alle möglichen Lösungen aus $\Z_p^*$ durch,
-  bis man die Lösung gefunden hat (siehe Abschnitt \ref{alg:1}). Zusätzlich steht einem dazu die
-  Rechenleistung von einer Anzahl von 10 Milliarden $(=10^{10})$ Prozessoren zur Verfügung,
-  welche jeweils mit einer Taktfrequenz von $10 \text{\,GHz}$ ($= 10^{10} \cdot s^{-1}$)
-  operieren und jeweils mit jedem Taktzyklus eine modulare Potenz, also
-  die Funktion $f(x, g, p) = g^x \mod p$, berechnen können. Dann hätte man eine
-  Rechenleistung von $10^{20}$ modularen Potenzen pro Sekunde. Mit
-  $10^{20} \leq 2^{67}$ ergibt sich die Zeit $t$ zur Berechnung aller modularen
-  Potenzen von allen möglichen Lösungen aus $\Z_p^*$ zu
-  $t \geq \frac{2^n}{2^{67}\cdot s^{-1}}=2^{n-67} s$. Jetzt kann man leicht die
-  Primzahl $p$ bzw. deren Bitlänge $n$ so groß setzen, dass die Zeit $t$ größer
-  wird als das Alter des Universums:
-  \begin{align*}
-    t_{\text{Alter des Universums}} & = 14 \cdot 10^9 y\\
-    & = 14 \cdot 10^9 \cdot 365 \cdot 24 \cdot 60\cdot 60\cdot s\\
-    & \leq 2^{59}\cdot s\\
-    t_{\text{Alter des Universums}} \leq 2^{59}\cdot s & \leq 2^{n-67}\cdot s \leq t\\
-    59 & \leq n-67\\
-    n & \geq 59+67\\
-    n & \geq 126
-  \end{align*}
-  Für eine Primzahl $p$ mit einer Bitlänge $n \geq 126$ dauert die Berechnung
-  aller möglichen modularen Potenzen mit der oben genannten Hardware also länger
-  als das Universum alt ist. Selbst wenn man annimmt, dass im Mittel die Lösung
-  mit dem naiven Algorithmus nach der Hälfte der Rechenschritte gefunden wird,
-  ist diese Zeitspanne unrealistisch. Außerdem kann, z.\,B. bei Verwendung des
-  Diskreten-Logarithmus-Problems in der Verschlüsselung, jede
-  nicht-exponentielle Verbesserung des Algorithmus durch eine kostengünstige
-  Vergrößerung der Bitlänge $n$ der Primzahl $p$ ausgeglichen werden. Sollte
-  sich z.\,B. die gegebene Rechenleistung um den Faktor $x$ vergrößern, so
-  müsste die Bitlänge $n$ der Primzahl $p$ lediglich um den Betrag
-  $d = \left\lfloor \log_2 x \right\rfloor + 1$ vergrößert werden:
-  $n_{\text{neu}} = n_{\text{alt}} + d$. Würde die Rechenleistung sich also
-  z.\,B. verzehnfachen, wäre also $x=10$, so würde eine konstante Vergrößerung
-  der Bitlänge von $d=4$ dies wieder ausgleichen.
-\end{beispiel}
-
-\subsection{Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
-\label{sub:diffie_hellman_key_exchange}
-
-Der auf der Schwierigkeit des Diskreten-Logarithmus-Problems beruhende Diffie-Hellman-Merkle Schlüsselaustausch, englisch: \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (\textbf{DHKE}), hat den folgenden Ablauf:
-Zwei Kommunikationspartner, hier Alice und Bob, kommunizieren über einen unsicheren Kanal und wollen einen Schlüssel für eine sichere Kommunikation, z.B. durch eine symmetrische Verschlüsselung, austauschen.
-
-Im ersten Schritt wählt Alice eine ausreichend große Primzahl $p$, welche den \todo{bekannte Schwachstellen rausnehmen?}bekannten Fallstricken des Verfahrens ausweicht, z.B. mit $p = c \cdot q+1$, $c \in \N\backslash\{0\}$, $q$ prim, $q$ möglichst groß (etwa $p = 2 \cdot q + 1$). Ausreichend groß bedeutet hierbei, dass die Bitlänge $n$ der Primzahl $p$ so groß ist, dass die Berechnung des diskreten Logarithmus $\text{DL}(y,g,p)$ mit bekannten Algorithmen und aktueller Hardware auf absehbare Zeit nicht möglich sein wird (siehe Abschnitt \ref{sub:komplexitaet_naiver_algorithmus}). Zur Zeit (Jahr 2017) kann für $p$ eine Bitlänge von $n_p = 2048$ und für $q$ eine Bitlänge von $n_q = 256$ als sicher \todo{source: https://security.stackexchange.com/questions/112313/what-is-the-current-security-status-of-diffie-hellman-key-exchange}angenommen werden. Weiterhin sucht Alice einen \todo{ist die Formulierung bei Erzeuger korrekt?}Erzeuger $g \in \Z_p^*$, $(2 \leq g \leq p-2)$, welcher $g^k \mod p$, $k \in \N \backslash \{0\}$, zyklisch ohne Untergruppen auf $\Z_p^*$ abbildet (siehe Abschnitt \ref{def:erzeuger}). Dann wählt Alice ihren geheimen privaten Schlüssel $a \in \Z_p^*$, $(1 \leq a \leq p-2)$,  berechnet ihren öffentlichen Schlüssel $A$ mit $A \equiv g^a \mod p$ und sendet ($g$, $p$, $A$) über den unsicheren Kanal an Bob.
-
-Im zweiten Schritt wählt Bob seinen geheimen privaten Schlüssel $b \in \Z_p^*$, $(1 \leq b \leq p-2)$, berechnet seinen öffentlichen Schlüssel $B$ mit $B \equiv g^b \mod p$ und sendet $B$ über den unsicheren Kanal an Alice.
-Der gemeinsame geheime Schlüssel $K$ ergibt sich nun auf der Seite von Alice mit
-\begin{align*}
-	K \equiv B^a \mod p
-\end{align*}
-und auf der Seite von Bob mit
-\begin{align*}
-	K \equiv A^b \mod p \text{.}
-\end{align*}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{Diffie-Hellman-Schluesselaustausch2.png}
-  \caption{Diffie-Hellman-Merkle-Schlüsselaustausch}
-  \label{fig:dhke}
-\end{figure}
-
-\subsubsection{Korrektheit: Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
-\label{sub:dhke_proof}
-Zur Korrektheit des Diffie-Hellman-Merkle Schlüsselaustausches: Beide Kommunikationspartner haben den gleichen Schlüssel $K = K_1 = K_2$:
-\begin{proof}
-Es gilt \todo{quelle einfügen [Menezes, S.68 2.112(V)]}, wenn \todo{Satz in mathematische grundlagen einfügen? }
-\begin{align*}
-a & \equiv a_1 \mod n
-\end{align*}
-und
-\begin{align*}
-b & \equiv b_1 \mod n \text{,}\\
-n & \in \N \backslash \{0\}
-\end{align*}
-dann folgt daraus
-\begin{align*}
-a \cdot b & \equiv a_1 \cdot b_1 \mod n \text{.}
-\end{align*}
-Nimmt man jetzt an, dass $a=b$ also
-\begin{align*}
-a \cdot a & \equiv a_1 \cdot a_1 \mod n
-\end{align*}
-dann folgt
-\begin{align*}
-a^k & \equiv a_1^k \mod n \text{,}\\
-k & \in \N \backslash \{0\}
-\end{align*}
-und daraus
-\begin{align*}
-(a^k)^u & \equiv (a_1^k)^u \mod n \text{,}\\
-u & \in \N \backslash \{0\}\text{,}
-\end{align*}
-womit sich ergibt, dass
-\begin{align*}
-(a_1^k \mod n)^u & \equiv (a_1^k)^u \mod n
-\end{align*}
-und
-\begin{align*}
-(a_1^k \mod n)^u & \equiv a_1^{k\cdot u} \mod n \text{.}
-\end{align*}
-Mit dieser Kongruenz lässt sich nun einfach zeigen, dass die Schlüssel $K_1$ von Alice und $K_2$ von Bob kongruent sind:
-\begin{align*}
-K_1 & \equiv B^a \mod p\\
-& \equiv (g^b)^a \mod p\\
-& \equiv g^{b \cdot a} \mod p\\
-& \equiv g^{a \cdot b} \mod p\\
-& \equiv (g^a)^b \mod p\\
-& \equiv A^b \mod p\\
-& \equiv K_2
-\end{align*}
-\end{proof}
-
-\subsubsection{Beispiel: Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
-\label{sub:dhke_beispiel}
-\begin{beispiel}[Diffie-Hellman-Merkle Schlüsselaustausch]\label{bsp:dhke}
-Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen Schlüssel $K$ über einen unsicheren Kanal aus (zu Anschauungszwecken mit kleinen Primzahlen).
-	\begin{center}
-	    \begin{tabularx}{\textwidth}{lXr}
-	    	\textbf{Alice} & \text{ } & \textbf{Bob}\\\midrule
-	    \end{tabularx}
-	    \begin{tabularx}{\textwidth}{lXcXl}
-	    	\textbf{Schritt 1:} & & & & \\
-	    	$\cdot$ wähle Primzahl: $\underline{p = 17}$ & & & & \\
-	    	$\cdot$ finde Erzeuger: $\underline{g = 5}$ & & & & \\
-	    	$\cdot$ wähle geheimen Schlüssel: & & & & \\
-	    	$a \in \{1, \dots, p-2\}$ & & & & \\
-	    	$\underline{a = 10}$ & & & & \\
-	    	$\cdot$ berechne öffentlichen Schlüssel: & & & & \\
-	    	$A \equiv g^a \mod p$ & & & & \\
-	    	$A = 5^{10} \mod 17$ & & & & \\
-	    	$\underline{A = 9}$ & & & & \\
-	    	$\cdot$ sende: $(g = 5, p = 17, A = 9)$ an Bob & & $\to$ & & \\\midrule
-	    	& & & & \textbf{Schritt 2}:\\
-	    	& & & & $\cdot$ wähle geheimen Schlüssel:\\
-	    	& & & & $b \in \{1, \dots, p-2\}$\\
-			& & & & $\underline{b=7}$\\
-	    	& & & & $\cdot$ berechne öffentlichen Schlüssel:\\
-	    	& & & & $B \equiv g^b \mod p$\\
-	    	& & & & $B = 5^7 \mod 17$\\
-	    	& & & & $\underline{B = 10}$\\
-	    	& & $\leftarrow$ & & $\cdot$ sende: $B$ an Alice\\\midrule
-	    \end{tabularx}
-	    \begin{tabularx}{\textwidth}{lXcXl}
-	    	& & \textbf{Schritt 3}: & & \\
-	    	& & $\cdot$ berechne geheimen Schlüssel $K$: & & \\
-	    	$K_1 \equiv B^a \mod p$ & & & & $K_2 \equiv A^b \mod p$\\
-	    	$K_1 = 10^{10} \mod 17$ & & & & $K_2 = 9^7 \mod 17$\\
-	    	$\doubleunderline{K_1 = 2}$ & & & & $\doubleunderline{K_2 = 2}$\\
-	    	& & $\doubleunderline{K_1 = K = K_2}$ & &
-	    \end{tabularx}
-	\end{center}
-Der geheime Schlüssel $K$, den nur Alice und Bob kennen, ist für einen Mithörer der öffentlichen Kommunikation nur schwierig zu ermitteln, da dieser den diskreten Logarithmus $\text{DL}(A,g,p) = a$ als Lösung der Gleichung $A \equiv g^a \mod p$ bzw. $\text{DL}(B,g,p) = b$ als Lösung der Gleichung $B \equiv g^b \mod p$ berechnen muss, um $K_1 \equiv B^a \mod p$ oder $K_2 \equiv A^b \mod p$, $K = K_1 = K_2$, ermitteln zu können.\\
-\end{beispiel}
-
-\subsection{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
-\label{sub:enc_with_dhke}
-Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen anderen Kommunikationspartner (Alice) über einen unsicheren Kanal durch Verschlüsselung mittels \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE). Bevor, möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte, muss diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem Schlüsselserver veröffentlichen, wie z.B. \url{https://sks-keyservers.net}. Des weiteren gleichen sich die Verfahren des DHKE und die Verschlüsselung mittels DHKE, wobei Bob den öffentlichen Schlüssel von Alice beim Schlüsselserver erfragt und an der Stelle der Erzeugung des geheimen Schlüssels $K$ bei DHKE wird stattdessen die Nachricht $m$ zum Ciphertext $c$ verschlüsselt, mit $(c \equiv A^b \cdot m \mod p$, und zusammen mit dem öffentlichen Schlüssel $B$ von Bob an ein Postfach von Alice gesendet. Alice entschlüsselt die Nachricht dann mit $m = B^{-a}\cdot c  \mod p$, was nach dem kleinen Satz von Fermat (siehe Abschnitt \ref{def:erzeuger}) kongruent ist zu $m = B^{(p-1)-a}\cdot c  \mod p$.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{DHKE_enc.png}
-  \caption{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
-  \label{fig:enc_with_dhke}
-\end{figure}
 
 \end{document}
