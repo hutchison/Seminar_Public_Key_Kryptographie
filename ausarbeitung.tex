@@ -570,12 +570,19 @@ Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen
 	    	& & $\doubleunderline{K_1 = K = K_2}$ & &
 	    \end{tabularx}
 	\end{center}
-Der geheime Schlüssel $K$, den nur Alice und Bob kennen, ist für einen Mithörer der öffentlichen Kommunikation nur schwierig zu Ermitteln, da dieser den diskreten Logarithmus $\text{DL}(A,g,p) = a$ als Lösung der Gleichung $A \equiv g^a \mod p$ bzw. $\text{DL}(B,g,p) = b$ als Lösung der Gleichung $B \equiv g^b \mod p$ berechnen muss, um $K_1 \equiv B^a \mod p$ oder $K_2 \equiv A^b \mod p$, $K = K_1 = K_2$, ermitteln zu können.\\
+Der geheime Schlüssel $K$, den nur Alice und Bob kennen, ist für einen Mithörer der öffentlichen Kommunikation nur schwierig zu ermitteln, da dieser den diskreten Logarithmus $\text{DL}(A,g,p) = a$ als Lösung der Gleichung $A \equiv g^a \mod p$ bzw. $\text{DL}(B,g,p) = b$ als Lösung der Gleichung $B \equiv g^b \mod p$ berechnen muss, um $K_1 \equiv B^a \mod p$ oder $K_2 \equiv A^b \mod p$, $K = K_1 = K_2$, ermitteln zu können.\\
 \end{beispiel}
 
-\subsection{Verschlüsselung mit DHKE}
+\subsection{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
 \label{sub:enc_with_dhke}
-Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen anderen Kommunikationspartner (Alice) über einen unsicheren Kanal.
+Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen anderen Kommunikationspartner (Alice) über einen unsicheren Kanal durch Verschlüsselung mittels \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE). Bevor, möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte, muss diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem Schlüsselserver veröffentlichen, wie z.B. \url{https://sks-keyservers.net}. Des weiteren gleichen sich die Verfahren des DHKE und die Verschlüsselung mittels DHKE, wobei Bob den öffentlichen Schlüssel von Alice beim Schlüsselserver erfragt und an der Stelle der Erzeugung des geheimen Schlüssels $K$ bei DHKE wird stattdessen die Nachricht $m$ zum Ciphertext $c$ verschlüsselt, mit $(c \equiv A^b \cdot m \mod p$, und zusammen mit dem öffentlichen Schlüssel $B$ von Bob an ein Postfach von Alice gesendet. Alice entschlüsselt die Nachricht dann mit $m = B^{-a}\cdot c  \mod p$, was nach dem kleinen Satz von Fermat (siehe Abschnitt \ref{def:erzeuger}) kongruent ist zu $m = B^{(p-1)-a}\cdot c  \mod p$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{DHKE_enc.png}
+  \caption{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
+  \label{fig:enc_with_dhke}
+\end{figure}
 
 
 \end{document}
