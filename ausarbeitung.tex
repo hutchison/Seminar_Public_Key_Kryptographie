@@ -59,6 +59,7 @@
 
 \usepackage{tabularx} % tabellen hannes
 \def\doubleunderline#1{\underline{\underline{#1}}} % doppelt unterstrichen: \doubleunderline{abc}
+\usepackage{changepage} % hannes
 
 \title{Diskrete Logarithmen}
 
@@ -402,63 +403,6 @@ Abschließend erhalten wir die Kongruenz $x \Mod{q^k}$. Wenn wir dieses Verfahre
 für jeden Primfaktor von $p-1$ durchgeführt haben, nutzen wir den Chinesischen
 Restsatz um $x$ zu bestimmen.
 
-\begin{beispiel}[Pohlig-Hellman-Algorithmus]
-  Wir betrachten $\Z_p^*$ mit $p = 1801$ und dem Erzeuger $g = 13$. Gesucht ist
-  jenes $x$ mit $g^x \equiv 111 \Mod{p}$. Die Primfaktorzerlegung von $p-1$ ist
-  $2^3 \cdot 3^2 \cdot 5^2$.
-
-  Wir bestimmen zunächst die Einheitswurzeln
-  $r_{q, j} \equiv g^{\frac{j(p-1)}{q}} \Mod{p}$ zu jedem Primfaktor $q$:
-  \begin{center}
-    \begin{tabular}{rrrrrr}
-      \toprule
-      $j$ & $0$ & $1$ & $2$ & $3$ & $4$\\
-      \midrule
-      $r_{2,j}$ & $1$ & $1800$\\
-      \midrule
-      $r_{3,j}$ & $1$ & $1727$ & $73$\\
-      \midrule
-      $r_{5,j}$ & $1$ & $350$ & $32$ & $394$ & $1024$\\
-      \bottomrule
-    \end{tabular}
-  \end{center}
-  Wir beginnen mit dem Primfaktor $q = 2$ und müssen $x \Mod{2^3}$ finden. Wir
-  schreiben dieses $x$ als $x_0 + 2 x_1 + 4 x_2$. Für $x_0$ berechnen wir
-  $111^{1800/2} \equiv 1 \Mod{1801}$. In der zuvor berechneten Tabelle der
-  Einheitswurzeln schauen wir nach, für welches $j$ der Wert von $r_{2, j} = 1$
-  ist. Dies ist für $j=0$ der Fall, also ist $x_0 = 0$. Danach berechnen wir
-  $111^{1800/4} \equiv 1 \Mod{1801}$, also ist auch $x_1 = 0$. Zuletzt
-  berechnen wir $111^{1800/8} \equiv 1 \Mod{1801}$, woraus $x_2 = 0$ folgt.
-  Damit erhalten wir unsere erste Kongruenz:
-  \begin{align*}
-    x \equiv 0 + 2 \cdot 0 + 4 \cdot 0 \equiv 0 \mod 8
-  \end{align*}
-  Wir fahren fort mit $q = 3$. Das gesuchte $x$ wird dabei als $x_0 + 3 x_1$
-  geschrieben. Für $x_0$ berechnen wir $111^{1800/3} \equiv 1727 \Mod{1801}$,
-  sodass $x_0 = 1$ ist. Da jetzt ein Koeffizient $\neq 0$ aufgetreten ist,
-  müssen wir $111$ durch $g^{x_0}$ teilen. Dazu bestimmen wir das multiplikative
-  Inverse von $g = 13$ modulo $p = 1801$ mit dem erweiterten Euklidischen
-  Algorithmus: $g^{-1} = 1524$. Für $x_1$ rechnen wir
-  ${(111 \cdot 1524)}^{1800/9} \equiv 1727 \Mod{1801}$, sodass auch $x_1 = 1$
-  ist. Dies ergibt die Kongruenz:
-  \begin{align*}
-    x \equiv 1 + 3 \cdot 1 \equiv 4 \mod 9
-  \end{align*}
-  Für die letzte Kongruenz schließen wir ab mit $q = 5$. Wir beginnen mit $x_0$
-  und berechnen $111^{1800/5} \equiv 394 \Mod{1800}$, woraus $x_0 = 3$ folgt.
-  Für $x_1$ berechnen wir
-  ${\left(111 \cdot 1524^3\right)}^{1800/25} \equiv 394 \Mod{1801}$
-  und erhalten $x_1 = 3$, sodass unsere letzte Kongruenz
-  \begin{align*}
-    x \equiv 3 + 5 \cdot 3 \equiv 18 \mod 25
-  \end{align*}
-  lautet. Diese Kongruenzen lassen sich mit dem Chinesischen Restsatz lösen und
-  wir erhalten
-  \begin{align*}
-    x \equiv 1768 \mod 1801
-  \end{align*}
-  als Lösung. Die Probe $13^{1768} \equiv 111 \mod 1801$ bestätigt dies.
-\end{beispiel}
 
 \subsection{Komplexität Naiver Algorithmus}
 \label{sub:komplexitaet_naiver_algorithmus}
@@ -590,7 +534,7 @@ K_1 & \equiv B^a \mod p\\
 \subsubsection{Beispiel: Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
 \label{sub:dhke_beispiel}
 \begin{beispiel}[Diffie-Hellman-Merkle Schlüsselaustausch]\label{bsp:dhke}
-Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen Schlüssel über einen unsicheren Kanal aus.
+Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen Schlüssel $K$ über einen unsicheren Kanal aus.
 \begin{center}
     \begin{tabularx}{\textwidth}{lXr}
     	\textbf{Alice} & \text{ } & \textbf{Bob}\\\midrule
@@ -616,8 +560,8 @@ Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen
     	& & $\leftarrow$ & & $\cdot$ sende: $B$ an Alice\\\midrule
     \end{tabularx}
     \begin{tabularx}{\textwidth}{lXcXl}
-    	& & \textbf{Schritt 3}: && \\
-    	& & $\cdot$ berechne geheimen gemeinsamen Schlüssel $K$: & & \\
+    	& & \textbf{Schritt 3}: & & \\
+    	& & $\cdot$ berechne geheimen Schlüssel $K$: & & \\
     	$K_1 \equiv B^a \mod p$ & & & & $K_2 \equiv A^b \mod p$\\
     	$K_1 = 10^{10} \mod 17$ & & & & $K_2 = 9^7 \mod 17$\\
     	$\doubleunderline{K_1 = 2}$ & & & & $\doubleunderline{K_2 = 2}$\\
