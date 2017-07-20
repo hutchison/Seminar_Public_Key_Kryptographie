@@ -514,7 +514,7 @@ exponentielle Komplexität $\mathcal{O}(2^n)$. Dazu ein Rechenbeispiel:
 Der auf der Schwierigkeit des Diskreten-Logarithmus-Problems beruhende Diffie-Hellman-Merkle Schlüsselaustausch, englisch: \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (\textbf{DHKE}), hat den folgenden Ablauf:
 Zwei Kommunikationspartner, hier Alice und Bob, kommunizieren über einen unsicheren Kanal und wollen einen Schlüssel für eine sichere Kommunikation, z.B. durch eine symmetrische Verschlüsselung, austauschen.
 
-Im ersten Schritt wählt Alice eine ausreichend große und den \todo{bekannte Schwachstellen rausnehmen?}bekannten Schwachstellen des Verfahrens ausweichende Primzahl $p$, mit $p = 2 \cdot q + 1$, $q$ prim. Ausreichend groß bedeutet hierbei, dass die Bitlänge $n$ der Primzahl $p$ so groß ist, dass die Berechnung des diskreten Logarithmus $\text{DL}(y,g,p)$ mit bekannten Algorithmen und aktueller Hardware auf absehbare Zeit nicht möglich sein wird (siehe Abschnitt  \ref{sub:komplexitaet_naiver_algorithmus}). Weiterhin sucht Alice einen \todo{ist die Formulierung bei Erzeuger korrekt?}Erzeuger $g \in \Z_p^*$, $\Z_p^* = \{1, 2, \ldots, p-1\}$, welcher $g^k \mod p$, $k \in \N \backslash \{0\}$, zyklisch ohne Untergruppen auf $\Z_p^*$ abbildet (siehe Abschnitt  \ref{def:erzeuger}). Dann wählt Alice ihren geheimen privaten Schlüssel $a \in \Z_p^*$,  berechnet ihren öffentlichen Schlüssel $A$ mit $A \equiv g^a \mod p$ und sendet ($p$, $g$, $A$) über den unsicheren Kanal an Bob.
+Im ersten Schritt wählt Alice eine ausreichend große und den \todo{bekannte Schwachstellen rausnehmen?}bekannten Schwachstellen des Verfahrens ausweichende Primzahl $p$, mit $p = 2 \cdot q + 1$, $q$ prim. Ausreichend groß bedeutet hierbei, dass die Bitlänge $n$ der Primzahl $p$ so groß ist, dass die Berechnung des diskreten Logarithmus $\text{DL}(y,g,p)$ mit bekannten Algorithmen und aktueller Hardware auf absehbare Zeit nicht möglich sein wird (siehe Abschnitt  \ref{sub:komplexitaet_naiver_algorithmus}). Weiterhin sucht Alice einen \todo{ist die Formulierung bei Erzeuger korrekt?}Erzeuger $g \in \Z_p^*$, $\Z_p^* = \{1, 2, \ldots, p-1\}$, welcher $g^k \mod p$, $k \in \N \backslash \{0\}$, zyklisch ohne Untergruppen auf $\Z_p^*$ abbildet (siehe Abschnitt  \ref{def:erzeuger}). Dann wählt Alice ihren geheimen privaten Schlüssel $a \in \Z_p^*$,  berechnet ihren öffentlichen Schlüssel $A$ mit $A \equiv g^a \mod p$ und sendet ($g$, $p$, $A$) über den unsicheren Kanal an Bob.
 
 Im zweiten Schritt wählt Bob seinen geheimen privaten Schlüssel $b \in \Z_p^*$, berechnet seinen öffentlichen Schlüssel $B$ mit $B \equiv g^b \mod p$ und sendet $B$ über den unsicheren Kanal an Alice.
 Der gemeinsame geheime Schlüssel $K$ ergibt sich nun auf der Seite von Alice mit
@@ -533,7 +533,58 @@ und auf der Seite von Bob mit
   \label{fig:dhke}
 \end{figure}
 
-\begin{beispiel}
+\subsubsection{Korrektheit: Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
+\label{sub:proof_dhke}
+Zur Korrektheit des Diffie-Hellman-Merkle Schlüsselaustausches: Beide Kommunikationspartner haben den gleichen Schlüssel $K = K_1 = K_2$:
+\begin{proof}
+Es gilt \todo{quelle einfügen [Menezes, S.68 2.112(V)]}, wenn \todo{Satz in mathematische grundlagen einfügen? }
+\begin{align*}
+a & \equiv a_1 \mod n
+\end{align*}
+und
+\begin{align*}
+b & \equiv b_1 \mod n \text{,}\\
+n & \in \N \backslash \{0\}
+\end{align*}
+dann folgt daraus
+\begin{align*}
+a \cdot b & \equiv a_1 \cdot b_1 \mod n \text{.}
+\end{align*}
+Nimmt man jetzt an, dass $a=b$ also
+\begin{align*}
+a \cdot a & \equiv a_1 \cdot a_1 \mod n
+\end{align*}
+dann folgt
+\begin{align*}
+a^k & \equiv a_1^k \mod n \text{,}\\
+k & \in \N \backslash \{0\}
+\end{align*}
+und daraus
+\begin{align*}
+(a^k)^u & \equiv (a_1^k)^u \mod n \text{,}\\
+u & \in \N \backslash \{0\}\text{,}
+\end{align*}
+womit sich ergibt, dass
+\begin{align*}
+(a_1^k \mod n)^u & \equiv (a_1^k)^u \mod n
+\end{align*}
+und
+\begin{align*}
+(a_1^k \mod n)^u & \equiv a_1^{k\cdot u} \mod n \text{.}
+\end{align*}
+Mit dieser Kongruenz lässt sich nun einfach zeigen, dass die Schlüssel $K_1$ von Alice und $K_2$ von Bob kongruent sind:
+\begin{align*}
+K_1 & \equiv B^a \mod p\\
+& \equiv (g^b)^a \mod p\\
+& \equiv g^{b \cdot a} \mod p\\
+& \equiv g^{a \cdot b} \mod p\\
+& \equiv (g^a)^b \mod p\\
+& \equiv A^b \mod p\\
+& \equiv K_2
+\end{align*}
+\end{proof}
+
+\begin{beispiel}\label{bsp:dhke}
 
 \end{beispiel}
 
