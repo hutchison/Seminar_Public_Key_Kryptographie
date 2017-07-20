@@ -26,6 +26,7 @@
 \usepackage{pgfplots}
 \usepackage{booktabs}
 \usepackage{hyperref}
+\usepackage{abstract}
 
 \usepackage[]{algorithm}
 \usepackage[]{algorithmic}
@@ -73,8 +74,26 @@
 
 \maketitle
 
+\begin{abstract}
+  Diese Ausarbeitung gibt einen Überblick über das diskrete Logarithmusproblem
+  und geht dabei auf die wichtigsten mathematischen Grundlagen, die Anwendung
+  beim Schlüsselaustausch bzw. der Verschlüsselung und mögliche
+  Berechnungsmethoden ein.
+\end{abstract}
+
 \section{Mathematische Grundlagen}
 \label{sec:mathematische_grundlagen}
+  Wir setzen voraus, dass die Leser mit den wichtigsten Begriffen und Sätzen der
+  Gruppen- bzw. Zahlentheorie vertraut sind.
+  Dazu zählen wir die Definition der
+  Gruppe und der Kongruenzrechnung,
+  den (erweiterten) Euklidischen Algorithmus,
+  das Lemma von Bézout,
+  die Eulersche $\varphi$-Funktion,
+  den kleinen Satz von Fermat,
+  den Satz von Lagrange
+  und
+  den Chinesischen Restsatz.
 
 \begin{definition}[Prime Restklassengruppe]
   Die \emph{prime Restklassengruppe} ist die multiplikative Gruppe der
@@ -281,8 +300,8 @@ $\varphi(\varphi(p))$ Primitivwurzeln.
 \end{definition}
 
 Zum Schluss noch zwei Sätze zur Kongruenzrechnung, die später beim
-Diffie-Hellman-Schlüsselaustausch (Abschnitt~\ref{sub:dhke_proof}) benötigt
-werden.
+Dif"-fie-Hell"-man-Schlüs"-sel"-aus"-tausch (Abschnitt~\ref{sub:dhke_proof})
+benötigt werden.
 
 \begin{satz}\label{satz:multiplikation_modulo}
   Seien $a,b,c,d \in \Z$ und $m \in \N$ mit $a \equiv b \mod m$ und $c \equiv d
@@ -317,7 +336,7 @@ werden.
 \label{sub:diffie_hellman_key_exchange}
 
 Der auf der Schwierigkeit des Diskreten-Logarithmus-Problems beruhende
-Diffie-Hellman-Merkle Schlüsselaustausch, englisch:
+Dif"-fie-Hell"-man-Merk"-le-Schlüs"-sel"-aus"-tausch, englisch:
 \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (\textbf{DHKE}),
 hat den folgenden Ablauf:
 Zwei Kommunikationspartner, hier Alice und Bob, kommunizieren über einen
@@ -331,7 +350,7 @@ $p = 2 \cdot q + 1$).
 Ausreichend groß bedeutet hierbei, dass die Bitlänge $n$ der Primzahl $p$
 so groß ist, dass die Berechnung des diskreten Logarithmus $\text{DL}(y,g,p)$
 mit bekannten Algorithmen und aktueller Hardware auf absehbare Zeit nicht
-möglich sein wird (siehe Abschnitt~\ref{sub:komplexitaet_naiver_algorithmus}).
+möglich sein wird (siehe Abschnitt~\ref{ssub:komplexitaet_naiver_algorithmus}).
 Zur Zeit kann für $p$ eine Bitlänge von $n_p = 2048$ und für $q$ eine Bitlänge
 von $n_q = 256$ als sicher angenommen werden.
 Weiterhin bestimmt Alice eine Primitivwurzel $g \in \Z_p^*$ (siehe
