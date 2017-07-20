@@ -60,7 +60,6 @@
 
 \usepackage{tabularx} % tabellen hannes
 \def\doubleunderline#1{\underline{\underline{#1}}} % doppelt unterstrichen: \doubleunderline{abc}
-\usepackage{changepage} % hannes
 
 \title{Diskrete Logarithmen}
 
@@ -570,14 +569,16 @@ exponentielle Komplexität $\mathcal{O}(2^n)$. Dazu ein Rechenbeispiel:
   mit dem naiven Algorithmus nach der Hälfte der Rechenschritte gefunden wird,
   ist diese Zeitspanne unrealistisch. Außerdem kann, z.\,B. bei Verwendung des
   Diskreten-Logarithmus-Problems in der Verschlüsselung, jede
-  nicht-exponentielle Verbesserung des Algorithmus durch eine kostengünstige
-  Vergrößerung der Bitlänge $n$ der Primzahl $p$ ausgeglichen werden. Sollte
-  sich z.\,B. die gegebene Rechenleistung um den Faktor $x$ vergrößern, so
+  nicht-exponentielle Verbesserung der Berechnung des diskreten Logarithmus durch eine kostengünstige Vergrößerung der Bitlänge $n$ der Primzahl $p$ ausgeglichen werden.
+  
+  Sollte sich z.\,B. die gegebene Rechenleistung um den Faktor $x$ vergrößern, so
   müsste die Bitlänge $n$ der Primzahl $p$ lediglich um den Betrag
   $d = \left\lfloor \log_2 x \right\rfloor + 1$ vergrößert werden:
   $n_{\text{neu}} = n_{\text{alt}} + d$. Würde die Rechenleistung sich also
   z.\,B. verzehnfachen, wäre also $x=10$, so würde eine konstante Vergrößerung
   der Bitlänge von $d=4$ dies wieder ausgleichen.
+  
+  Analoges gilt für den Fall, dass sich der Algorithmus zur Bestimmung des Diskreten Logarithmus in seiner Komplexität verringert, solange die Verringerung nicht exponentiell ist. Zum Beispiel ist die Komplexität des Baby-Step-Giant-Step-Algorithmus statt $\mathcal{O}(p)$ nur $\mathcal{O}(\sqrt{p})$, d.h. über die Bitlänge $n$ der Primzahl $p$ dargestellt, verringert sich die Komplexität von $\mathcal{O}(2^n)$ zu $\mathcal{O}(\sqrt{2^n})$. Wegen $\sqrt{2^n} = 2^{n/2}$ ergibt sich $\mathcal{O}(2^{n/2})$ und eine Verdoppelung der Bitlänge $n$ gleicht die Verbesserung des Algorithmus wieder aus.
 \end{beispiel}
 
 \subsection{Pohlig-Hellman-Algorithmus}
