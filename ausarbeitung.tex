@@ -57,6 +57,8 @@
 \newcommand{\ggT}{\text{ggT}}
 \newcommand{\Mod}[1]{\ \mathrm{mod}\ #1}
 
+\usepackage{tabularx} % tabellen hannes
+
 \title{Diskrete Logarithmen}
 
 \subtitle{Seminar: Public-Key-Kryptographie}
@@ -477,7 +479,7 @@ und auf der Seite von Bob mit
 \end{figure}
 
 \subsubsection{Korrektheit: Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
-\label{sub:proof_dhke}
+\label{sub:dhke_proof}
 Zur Korrektheit des Diffie-Hellman-Merkle Schlüsselaustausches: Beide Kommunikationspartner haben den gleichen Schlüssel $K = K_1 = K_2$:
 \begin{proof}
 Es gilt \todo{quelle einfügen [Menezes, S.68 2.112(V)]}, wenn \todo{Satz in mathematische grundlagen einfügen? }
@@ -527,8 +529,41 @@ K_1 & \equiv B^a \mod p\\
 \end{align*}
 \end{proof}
 
-\begin{beispiel}\label{bsp:dhke}
+\subsubsection{Beispiel: Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
+\label{sub:dhke_beispiel}
+\begin{beispiel}[Diffie-Hellman-Merkle Schlüsselaustausch]\label{bsp:dhke}
+Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen geheimen Schlüssel über einen unsicheren Kanal aus.
+\begin{center}
+    \begin{tabularx}{\textwidth}{Xcl}
+      \textbf{Alice} & & \textbf{Bob}\\\midrule
+      Schritt 1:\\
+      $\cdot$ wähle Primzahl: $p = 17$\\
+      $\cdot$ finde Erzeuger: $g = 5$\\
+      $\cdot$ wähle geheimen Schlüssel: $a = 10$\\
+      $\cdot$ berechne öffentlichen Schlüssel:\\
+      $A \equiv g^a \mod p$\\
+      $A = 5^{10} \mod 17$\\
+      $A = 9$\\
+      $\cdot$ sende: $(g = 5, p = 17, A = 9)$ an Bob & $\to$\text{                                        }
+    \end{tabularx}
+  \end{center}
 
+  \begin{center}
+    \begin{tabularx}{\textwidth}{lcX}
+      \textbf{Alice} &  & \multicolumn{1}{r}{\textbf{Bob}}\\\midrule
+     \text{       }& \text{       } & $\cdot$ wähle: geheimen Schlüssel: $b\in \{ 1 ,\ldots , p - 1 \}$\\
+      & & $\cdot$ berechne öffentlichen Schlüssel: $B \equiv g^b \mod p$\\
+      & & $\cdot$ berechne geheimen gemeinsamen Schlüssel: $K \equiv A^b \mod p$\\
+      & $\leftarrow$ & $\cdot$ sende: $B$ an Alice
+    \end{tabularx}
+  \end{center}
+
+  \begin{center}
+    \begin{tabularx}{\textwidth}{Xcl}
+      \textbf{Alice} &  & \textbf{Bob}\\\midrule
+      $\cdot$ berechne geheimen gemeinsamen Schlüssel: $K \equiv B^a \mod p$
+    \end{tabularx}
+  \end{center}
 \end{beispiel}
 
 \end{document}
