@@ -12,27 +12,26 @@ def dlog_naive(modulus, root, value):
         return None
 
 
-def prime_powers(n):
-    ppowers = dict()
+def factorize(n):
+    F = dict()
 
     while n > 1:
         for p in range(2, n+1):
             if n % p == 0:
-                if p not in ppowers:
-                    ppowers[p] = 1
+                if p not in F:
+                    F[p] = 1
                 else:
-                    ppowers[p] += 1
+                    F[p] += 1
                 n = n // p
                 break
 
-    return ppowers
+    return F
 
 
-def roots_of_unity(modulus, root):
-    ppowers = prime_powers(modulus-1)
+def roots_of_unity(modulus, root, factorization):
     r = dict()
 
-    for q in ppowers:
+    for q in factorization:
         r[q] = [pow(root, j*(modulus-1) // q, modulus) for j in range(q)]
 
     return r
@@ -48,13 +47,13 @@ def generating_list(p, xs):
 
 
 def dlog_ph(modulus, root, value):
-    ppowers = prime_powers(modulus-1)
-    r = roots_of_unity(modulus, root)
+    F = factorize(modulus-1)
+    r = roots_of_unity(modulus, root, F)
     inv = modular_inverse(root, modulus)
     congruences = []
 
-    for p in ppowers:
-        exp = ppowers[p]
+    for p in F:
+        exp = F[p]
         cs = []
         y = value
 
