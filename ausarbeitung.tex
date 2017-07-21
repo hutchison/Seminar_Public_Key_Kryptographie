@@ -665,8 +665,24 @@ exponentielle Komplexität $\mathcal{O}(2^n)$. Dazu ein Rechenbeispiel:
   z.\,B. verzehnfachen, wäre also $x=10$, so würde eine konstante Vergrößerung
   der Bitlänge von $d=4$ dies wieder ausgleichen.
   
-  Analoges gilt für den Fall, dass sich der Algorithmus zur Bestimmung des Diskreten Logarithmus in seiner Komplexität verringert, solange die Verringerung nicht exponentiell ist. Zum Beispiel ist die Komplexität des Baby-Step-Giant-Step-Algorithmus statt $\mathcal{O}(p)$ nur $\mathcal{O}(\sqrt{p})$, d.h. über die Bitlänge $n$ der Primzahl $p$ dargestellt, verringert sich die Komplexität von $\mathcal{O}(2^n)$ zu $\mathcal{O}(\sqrt{2^n})$. Wegen $\sqrt{2^n} = 2^{n/2}$ ergibt sich $\mathcal{O}(2^{n/2})$ und eine Verdoppelung der Bitlänge $n$ gleicht die Verbesserung des Algorithmus wieder aus.
+  Analoges gilt für den Fall, dass der Algorithmus zur Bestimmung des Diskreten Logarithmus in seiner Komplexität verringert wird, solange die Verringerung nicht exponentiell ist. Zum Beispiel ist die Komplexität des Baby-Step-Giant-Step-Algorithmus statt $\mathcal{O}(p)$ nur $\mathcal{O}(\sqrt{p})$, d.h. über die Bitlänge $n$ der Primzahl $p$ dargestellt, verringert sich die Komplexität von $\mathcal{O}(2^n)$ zu $\mathcal{O}(\sqrt{2^n})$. Wegen $\sqrt{2^n} = 2^{n/2}$ ergibt sich $\mathcal{O}(2^{n/2})$ und eine Verdoppelung der Bitlänge $n$ gleicht die Verbesserung des Algorithmus wieder aus.
   
+  Interessant ist auch die Frage, welche Auswirkung annäherndes Erraten der richtigen Lösung aus 
+  der Menge der möglichen Lösungen auf die Bestimmung des diskreten Logarithmus hat. Angenommen, 
+  aufgrund göttlicher Fügung, rät eine Person oder ein Algorithmus zu Beginn der Berechnung des
+  diskreten Logarithmus zufällig eine Position $a$ auf dem Zahlenstrahl, die von der richtigen 
+  Lösung $b$ lediglich um den 10-Milliardstel Teil ($= 1/10^{10}$) der gesamten Anzahl der 
+  möglichen Lösungen $d = (p-2)/10^{10} \approx p/{10^{10}}$ abweicht, um dann (zufällig) weiter in 
+  die richtige Richtung nach der Lösung zu suchen. Dann wären mit der obigen Rechenleistung von 10 
+  Milliarden speziellen Prozessoren noch rund 14 Jahre nötig, um die richtige Lösung $b$ zu 
+  bestimmen. Man wüsste also auch erst nach 14 Jahren, dass man ''sehr gut'' geraten hat.
+  
+  \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{logRaten.png}
+  \caption{Raten des diskreten Logarithmus’}
+  \label{fig:logRaten}
+\end{figure}
   
 \end{beispiel}
 
