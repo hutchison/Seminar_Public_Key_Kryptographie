@@ -4,7 +4,7 @@
 ]{scrartcl}
 
 \usepackage[utf8]{inputenc}
-\usepackage[\textbf{•}
+\usepackage[
   %cm,
   headings
 ]{fullpage}
@@ -20,6 +20,7 @@
 \theoremstyle{remark}
 \newtheorem{beispiel}{Beispiel}
 
+%\usepackage{minted}
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -441,12 +442,12 @@ sind:
   den diskreten Logarithmus $\text{DL}(A,g,p) = a$ als Lösung der Gleichung
   $A \equiv g^a \Mod{p}$ bzw. $\text{DL}(B,g,p) = b$ als Lösung der Gleichung
   $B \equiv g^b \Mod{p}$ berechnen muss, um $K_1 \equiv B^a \Mod{p}$ oder
-  $K_2 \equiv A^b \Mod{p}$ ermitteln zu können (siehe Abschnitt \ref{ssub:komplexitaet_naiver_algorithmus}).
+  $K_2 \equiv A^b \Mod{p}$ ermitteln zu können (siehe Abschnitt~\ref{ssub:komplexitaet_naiver_algorithmus}).
 \end{beispiel}
 
 \subsection{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
 \label{sub:enc_with_dhke}
-Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen anderen Kommunikationspartner (Alice) über einen unsicheren Kanal durch Verschlüsselung mittels \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE). Bevor, möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte, muss diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem Schlüsselserver veröffentlichen, wie z.B. \url{https://sks-keyservers.net}. Des Weiteren gleichen sich die Verfahren des DHKE und die Verschlüsselung mittels DHKE, wobei Bob den öffentlichen Schlüssel von Alice beim Schlüsselserver erfragt. An der Stelle der Erzeugung des geheimen Schlüssels $K$ bei DHKE verschlüsselt Bob dann stattdessen die Nachricht $m$ zum Ciphertext $c$, mit $c \equiv A^b \cdot m \Mod{p}$, und sendet $c$ zusammen mit seinem öffentlichen Schlüssel $B$ an ein Postfach von Alice. Alice entschlüsselt die Nachricht dann mit $m \equiv  B^{-a}\cdot c  \Mod{p}$, was nach dem kleinen Satz von Fermat (siehe Abschnitt \ref{def:erzeuger}) kongruent ist zu $m \equiv B^{(p-1)-a}\cdot c \Mod{p}$.
+Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen anderen Kommunikationspartner (Alice) über einen unsicheren Kanal durch Verschlüsselung mittels \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE). Bevor, möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte, muss diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem Schlüsselserver veröffentlichen, wie z.B. \url{https://sks-keyservers.net}. Des Weiteren gleichen sich die Verfahren des DHKE und die Verschlüsselung mittels DHKE, wobei Bob den öffentlichen Schlüssel von Alice beim Schlüsselserver erfragt. An der Stelle der Erzeugung des geheimen Schlüssels $K$ bei DHKE verschlüsselt Bob dann stattdessen die Nachricht $m$ zum Ciphertext $c$, mit $c \equiv A^b \cdot m \Mod{p}$, und sendet $c$ zusammen mit seinem öffentlichen Schlüssel $B$ an ein Postfach von Alice. Alice entschlüsselt die Nachricht dann mit $m \equiv  B^{-a}\cdot c  \Mod{p}$, was nach dem kleinen Satz von Fermat (siehe Abschnitt~\ref{def:erzeuger}) kongruent ist zu $m \equiv B^{(p-1)-a}\cdot c \Mod{p}$.
 
 \begin{figure}[H]
   \centering
@@ -636,13 +637,13 @@ ist, erhalten wir $y_i^{(p-1)/q^i} \equiv 1$ und
     = g^{\frac{x_i (p-1)}{q}}
     = r_{q, x_i}
 \end{align*}
-Wir setzen $x_i$ auf den Wert von $j$ für den
-$y_i^{\frac{p-1}{q^{i+1}}} = r_{q, j}$ ist.
-
-Abschließend erhalten wir die Kongruenz $x \Mod{q^k}$. Wenn wir dieses Verfahren
-für jeden Primfaktor von $p-1$ durchgeführt haben, nutzen wir den Chinesischen
-Restsatz um $x$ zu bestimmen. Algorithmus~\ref{alg:dlog_ph} beschreibt die
-Vorgehensweise in Pseudocode.
+Wir setzen $x_i$ auf den Wert von $j$ für den 
+$y_i^{\frac{p-1}{q^{i+1}}} = r_{q, j}$ ist. 
+ 
+Abschließend erhalten wir die Kongruenz $x \Mod{q^k}$. Wenn wir dieses Verfahren 
+für jeden Primfaktor von $p-1$ durchgeführt haben, nutzen wir den Chinesischen 
+Restsatz um $x$ zu bestimmen. Algorithmus~\ref{alg:dlog_ph} beschreibt die 
+Vorgehensweise in Pseudocode. 
 
 \begin{beispiel}[Pohlig-Hellman-Algorithmus]
   Wir betrachten $\Z_p^*$ mit $p = 1801$ und dem Erzeuger $g = 13$. Gesucht ist
