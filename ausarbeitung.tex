@@ -20,7 +20,6 @@
 \theoremstyle{remark}
 \newtheorem{beispiel}{Beispiel}
 
-%\usepackage{minted}
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -642,7 +641,8 @@ $y_i^{\frac{p-1}{q^{i+1}}} = r_{q, j}$ ist.
 
 Abschließend erhalten wir die Kongruenz $x \Mod{q^k}$. Wenn wir dieses Verfahren
 für jeden Primfaktor von $p-1$ durchgeführt haben, nutzen wir den Chinesischen
-Restsatz um $x$ zu bestimmen.
+Restsatz um $x$ zu bestimmen. Algorithmus~\ref{alg:dlog_ph} beschreibt die
+Vorgehensweise in Pseudocode.
 
 \begin{beispiel}[Pohlig-Hellman-Algorithmus]
   Wir betrachten $\Z_p^*$ mit $p = 1801$ und dem Erzeuger $g = 13$. Gesucht ist
