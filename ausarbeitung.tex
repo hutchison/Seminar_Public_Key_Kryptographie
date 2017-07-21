@@ -798,6 +798,41 @@ für jeden Primfaktor von $p-1$ durchgeführt haben, nutzen wir den Chinesischen
 Restsatz um $x$ zu bestimmen. Algorithmus~\ref{alg:dlog_ph} beschreibt die
 Vorgehensweise in Pseudocode.
 
+\begin{algorithm}
+  \caption{Pohlig-Hellman-Algorithmus}
+  \begin{algorithmic}\label{alg:dlog_ph}
+    \REQUIRE{$p \in \P, \left\langle g \right\rangle \in \Z_p^*, y \in \Z_p^*$}
+    \STATE{$F \leftarrow$ Primfaktorzerlegung$(p-1)$}
+    \COMMENT{z.\,B. als Menge von Tupeln $\{(q_1, k_1), (q_2, k_2), \ldots\}$}
+    \FORALL{$q \mid (p-1)$}
+      \FOR{$j = 0$ \TO $q-1$}
+        \STATE{$r_{q, j} \leftarrow g^{j(p-1)/q}$}
+        \COMMENT{Berechnung der Einheitswurzeln}
+      \ENDFOR{}
+    \ENDFOR{}
+    \STATE{berechne $g^{-1}$ mit dem erw. Euklidischen Algorithmus}
+    \STATE{$C \leftarrow \varnothing$}
+    \COMMENT{Die Menge, die später alle Kongruenzen enthält.}
+    \FORALL{$(q, k) \in F$}
+      \STATE{$z \leftarrow y$}
+      \FOR{$i = 0$ \TO $k-1$}
+        \STATE{$v \leftarrow z^{(p-1)/q^{i+1}} \Mod{p}$}
+        \STATE{$c_{q, i} \leftarrow j$ mit $r_{q,j} = v$}
+        \STATE{$z \leftarrow z \cdot \left(g^{-q^i}\right) \Mod{p}$}
+      \ENDFOR{}
+      \STATE{$C \leftarrow C \cup \left\{ \left(
+          \sum\limits_{i=0}^{k-1} c_{q, i} \cdot q^i,
+          q^k
+        \right) \right\}
+      $}
+      \COMMENT{Eine Kongruenz ist dabei ein Tupel $(a, n)$ und bedeutet $x
+      \equiv a \Mod{n}$}
+    \ENDFOR{}
+    \STATE{bestimme die Lösung $x$ mit dem Chinesischen Restsatz aus den
+    Kongruenzen in $C$}
+  \end{algorithmic}
+\end{algorithm}
+
 \begin{beispiel}[Pohlig-Hellman-Algorithmus]
   Wir betrachten $\Z_p^*$ mit $p = 1801$ und dem Erzeuger $g = 13$. Gesucht ist
   jenes $x$ mit $g^x \equiv 111 \Mod{p}$. Die Primfaktorzerlegung von $p-1$ ist
