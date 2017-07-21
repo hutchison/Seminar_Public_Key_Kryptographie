@@ -432,6 +432,8 @@ sind:
       & & & & \\
       $\cdot$ sende an Bob bzw. veröffentliche: & & & & \\
       $(g = 5, p = 17, A = 9)$ & & $\to$ & & \\\midrule
+    \end{tabularx}
+    \begin{tabularx}{\textwidth}{lXcXl}
       & & & & \textbf{Schritt 2}:\\
       & & & & \\
       & & & & $\cdot$ wähle geheimen Schlüssel:\\
@@ -522,7 +524,9 @@ Beide Kommunikationspartner haben die gleiche Nachricht: $m = m_{\text{Bob}} = m
       $\underline{A = 40}$ & & & & \\
       & & & & \\
       $\cdot$ sende an Bob bzw. veröffentliche: & & & & \\
-      $(g = 5, p = 47, A = 40)$ & & $\to$ & & \\\midrule
+      $(g = 5, p = 47, A = 40)$ & & $\to$ & &\\\midrule
+    \end{tabularx}
+    \begin{tabularx}{\textwidth}{lXcXl}
       & & & & \textbf{Schritt 2}:\\
       & & & & \\
       & & & & $\cdot$ wähle geheimen Schlüssel:\\
@@ -552,7 +556,7 @@ Beide Kommunikationspartner haben die gleiche Nachricht: $m = m_{\text{Bob}} = m
       & & & & $\cdot$ sende an Alice:\\
       & & $\leftarrow$ & & $(B, c)$\\\midrule
     \end{tabularx}
-    \begin{tabularx}{\textwidth}{lXcXl}\midrule
+    \begin{tabularx}{\textwidth}{lXcXl}
       \textbf{Schritt 3}: & & & & \\
       & & & & \\
       $\cdot$ entschlüssele Chiffretext: & & & & \\
@@ -570,7 +574,7 @@ Beide Kommunikationspartner haben die gleiche Nachricht: $m = m_{\text{Bob}} = m
       $(\text{KOMME MORGEN}) = M$ & & & & \\\midrule
     \end{tabularx}
   \end{center}
-  Die Kodierung des Klartextes nach Zahlen könnte z.B. auch einfach durch die ASCII-Tabelle realisiert werden. Außerdem kann man leicht sehen, dass hier gleiche Buchstaben auf gleiche Zahlen verschlüsselt werden. Daher sollte  jeder Buchstaben oder Buchstabenblock, falls man mehrere Buchstaben zusammenfasst, in Schritt 2 mit einem neu von Bob zu wählenden Schlüssel $b_j$ verschlüsselt werden, da sonst ein einfacher Angriff mittels Häufigkeitsverteilung möglich ist.
+  Die Kodierung des Klartextes nach Zahlen könnte z.B. auch einfach durch die ASCII-Tabelle realisiert werden. Außerdem kann man leicht sehen, dass hier gleiche Buchstaben auf gleiche Zahlen verschlüsselt werden. Daher sollte  jeder Buchstabe oder Buchstabenblock, falls man mehrere Buchstaben zusammenfasst, in Schritt 2 mit einem neu von Bob zu wählenden Schlüssel $b_j$ verschlüsselt werden, da sonst ein einfacher Angriff mittels Häufigkeitsverteilung möglich ist.
 \end{beispiel}
 
 
