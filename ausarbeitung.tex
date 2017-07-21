@@ -492,7 +492,7 @@ Abschnitt~\ref{def:erzeuger}) kongruent ist zu $m \equiv B^{(p-1)-a}\cdot c
 Beide Kommunikationspartner haben die gleiche Nachricht: $m = m_{\text{Bob}} =
 m_{\text{Alice}}$
 \begin{proof}
-	Mit der Satz~\ref{satz:potenzen_bei_kongruenzen} lässt sich zeigen, dass
+	Mit Satz~\ref{satz:potenzen_bei_kongruenzen} lässt sich zeigen, dass
 	\begin{align*}
       m_{\text{Alice}} & \equiv B^{-a} \cdot c \Mod{p}\\
       & \equiv (g^b)^{-a} \cdot c \Mod{p}\\
@@ -575,7 +575,9 @@ m_{\text{Alice}}$
       $m_j \equiv B^{-a} \cdot c_j \Mod{p}$ & & & & \\
       $m_j \equiv B^{(p-1)-a} \cdot c_j \Mod{p}$ & & & & \\
       $m_1 \equiv 15 \cdot 7 \Mod{47}$ & & & & \\
+      $m_1 \equiv 11$ & & & & \\
       $m_2 \equiv 15 \cdot 1 \Mod{47}$ & & & & \\
+      $m_2 \equiv 15$ & & & & \\
       $\dots$ & & & & \\
       $\text{dec(c)} \mapsto$ & & & & \\
       $\underline{(11, 15, 13, 13, 5, 27, 13, 15, 18, 7, 5, 14) = m}$ & & & & \\
@@ -705,8 +707,8 @@ exponentielle Komplexität $\mathcal{O}(2^n)$. Dazu ein Rechenbeispiel:
   richtigen Lösung aus der Menge der möglichen Lösungen auf die Bestimmung des
   diskreten Logarithmus hat. Angenommen, aufgrund göttlicher Fügung, rät eine
   Person oder ein Algorithmus zu Beginn der Berechnung des diskreten Logarithmus
-  zufällig eine Position $a$ auf dem Zahlenstrahl, die von der richtigen Lösung
-  $b$ lediglich um den Betrag $d$ abweicht, den 10-Milliardstel Teil ($=
+  zufällig eine Position $a$ (siehe Abb. \ref{fig:logRaten}) auf dem Zahlenstrahl, die von der richtigen Lösung
+  $b$ lediglich um den Betrag $d$ abweicht, dem 10-Milliardstel Teil ($=
   1/10^{10}$) von der gesamten Anzahl der möglichen Lösungen $\left| \Z_p^*
   \right| = (p-2)$, um dann (zufällig) weiter in die richtige Richtung nach der
   Lösung zu suchen. Dann wären mit der obigen Rechenleistung von 10 Milliarden
@@ -914,7 +916,7 @@ Vorgehensweise in Pseudocode.
     2. Auflage,
     2015
 
-  \bibitem{HAC97}
+  \bibitem{HAC96}
     Menezes, Alfred,
     Oorschot, Paul C.,
     Vanstone, Scott A.,
