@@ -5,6 +5,15 @@ from itertools import combinations
 
 
 def dlog_naive(modulus, root, value):
+    """
+    Berechnet den diskreten Logarithmus auf naive Weise.
+
+    >>> dlog_naive(13, 2, 5)
+    9
+    >>> dlog_naive(1801, 13, 111)
+    1768
+    """
+
     for x in range(1, modulus):
         if pow(root, x, modulus) == value:
             return x
@@ -13,6 +22,18 @@ def dlog_naive(modulus, root, value):
 
 
 def factorize(n):
+    """
+    Bestimmt die Primfaktorzerlegung von n und gibt ein Dictionary mit den
+    Primfaktoren und den dazugehörigen Exponenten zurück.
+
+    >>> factorize(2)
+    {2: 1}
+    >>> factorize(4)
+    {2: 2}
+    >>> factorize(100)
+    {2: 2, 5: 2}
+    """
+
     F = dict()
 
     while n > 1:
@@ -38,6 +59,20 @@ def roots_of_unity(modulus, root, factorization):
 
 
 def generating_list(p, xs):
+    """
+    Berechnet
+        x_0 + p * x_1 + p**2 * x_2 + …
+    für x_i ∈ xs.
+
+    Der Name lehnt sich an die Erzeugendenfunktionen (generating functions) an.
+
+    >>> generating_list(2, [])
+    0
+    >>> generating_list(2, [1])
+    1
+    >>> generating_list(2, [1, 2])
+    5
+    """
     r = 0
 
     for i, x in enumerate(xs):
@@ -47,6 +82,12 @@ def generating_list(p, xs):
 
 
 def dlog_ph(modulus, root, value):
+    """
+    Berechnet den diskreten Logarithmus nach dem Pohlig-Hellman-Algorithmus.
+
+    >>> dlog_naive(1801, 13, 111)
+    1768
+    """
     F = factorize(modulus-1)
     r = roots_of_unity(modulus, root, F)
     inv = modular_inverse(root, modulus)
@@ -90,6 +131,12 @@ def bold_text(text):
 
 
 def order(element, modulus):
+    """
+    Bestimmt die Ordnung eines Elements mod `modulus`.
+
+    >>> order(2, 3)
+    2
+    """
     for n in range(1, modulus):
         if pow(element, n, modulus) == 1:
             return n
@@ -123,6 +170,14 @@ def addition_table(modulus):
 
 
 def coprimes(n):
+    """
+    Bestimmt die Menge der zu n teilerfremden Zahlen.
+
+    >>> coprimes(3)
+    {1, 2}
+    >>> coprimes(4)
+    {1, 3}
+    """
     cs = set()
 
     for i in range(n):
@@ -133,6 +188,16 @@ def coprimes(n):
 
 
 def divisors(n):
+    """
+    Bestimmt die Menge aller Teiler von n.
+
+    >>> divisors(2)
+    {1, 2}
+    >>> divisors(4)
+    {1, 2, 4}
+    >>> divisors(6)
+    {1, 2, 3, 6}
+    """
     ds = set()
 
     for d in range(1, int(sqrt(n)) + 1):
@@ -144,10 +209,25 @@ def divisors(n):
 
 
 def are_coprime(a: int, b: int) -> bool:
+    """
+    Bestimmt, ob a und b teilerfremd sind.
+
+    >>> are_coprime(2, 3)
+    True
+    >>> are_coprime(2, 4)
+    False
+    """
     return gcd(a, b) == 1
 
 
 def extended_gcd(a: int, b: int) -> Tuple[int, int]:
+    """
+    Bestimmt zu a und b die Zahlen s und t, für die gcd(a, b) == a*s + b*t
+    gilt.
+
+    >>> extended_gcd(99, 78)
+    (-11, 14)
+    """
     if b == 0:
         return (1, 0)
     else:
@@ -170,6 +250,9 @@ def crt(congruences: List[Tuple[int, int]]) -> int:
         x ≡ a_1 mod m_1
         x ≡ a_2 mod m_2
         ⋮
+
+    >>> crt([(2, 3), (3, 4), (2, 5)])
+    47
     """
 
     """
@@ -232,6 +315,18 @@ def crt(congruences: List[Tuple[int, int]]) -> int:
 
 
 def euler_phi(n: int) -> int:
+    """
+    Die Eulersche φ-Funktion.
+
+    >>> euler_phi(2)
+    1
+    >>> euler_phi(3)
+    2
+    >>> euler_phi(4)
+    2
+    >>> euler_phi(13)
+    12
+    """
     k = 0
 
     for i in range(1, n+1):
@@ -263,10 +358,32 @@ def generators2(n):
 
 
 def is_prime(n):
+    """
+    Ein einfacher Primzahltest.
+
+    >>> is_prime(-1)
+    False
+    >>> is_prime(0)
+    False
+    >>> is_prime(1)
+    False
+    >>> is_prime(2)
+    True
+    >>> is_prime(3)
+    True
+    >>> is_prime(4)
+    False
+    >>> is_prime(5)
+    True
+    """
     if n < 2:
         return False
+    elif n == 2:
+        return True
+    elif n % 2 == 0:
+        return False
     else:
-        for d in range(2, int(sqrt(n))+1):
+        for d in range(3, int(sqrt(n))+1, 2):
             if n % d == 0:
                 return False
         else:
@@ -327,3 +444,8 @@ def encode_char(c):
 
 def encode_text(text):
     return [encode_char(c) for c in text]
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
