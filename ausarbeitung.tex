@@ -406,7 +406,9 @@ sind:
 \begin{beispiel}[Diffie-Hellman-Merkle Schlüsselaustausch]\label{bsp:dhke}
   Die zwei Kommunikationspartner Alice und Bob tauschen einen gemeinsamen
   geheimen Schlüssel $K$ über einen unsicheren Kanal aus (zu Anschauungszwecken
-  mit kleinen Primzahlen).
+  mit kleinen Primzahlen). Alice kann Schritt 1 womöglich lange vor dem 
+  Schlüsselaustausch durchführen und das Ergebnis auf einem Schlüsselserver, 
+  wie z.B. \url{https://sks-keyservers.net}, veröffentlichen.
   \begin{center}
     \begin{tabularx}{\textwidth}{lXr}
       \textbf{Alice} & & \textbf{Bob}\\
@@ -414,25 +416,35 @@ sind:
     \end{tabularx}
     \begin{tabularx}{\textwidth}{lXcXl}
       \textbf{Schritt 1:} & & & & \\
+      & & & & \\
       $\cdot$ wähle Primzahl: $\underline{p = 17}$ & & & & \\
+      & & & & \\
       $\cdot$ finde Erzeuger: $\underline{g = 5}$ & & & & \\
+      & & & & \\
       $\cdot$ wähle geheimen Schlüssel: & & & & \\
       $a \in \{1, \dots, p-2\}$ & & & & \\
       $\underline{a = 10}$ & & & & \\
+      & & & & \\
       $\cdot$ berechne öffentlichen Schlüssel: & & & & \\
       $A \equiv g^a \Mod{p}$ & & & & \\
       $A = 5^{10} \Mod{17}$ & & & & \\
       $\underline{A = 9}$ & & & & \\
-      $\cdot$ sende: $(g = 5, p = 17, A = 9)$ an Bob & & $\to$ & & \\\midrule
+      & & & & \\
+      $\cdot$ sende an Bob bzw. veröffentliche: & & & & \\
+      $(g = 5, p = 17, A = 9)$ & & $\to$ & & \\\midrule
       & & & & \textbf{Schritt 2}:\\
+      & & & & \\
       & & & & $\cdot$ wähle geheimen Schlüssel:\\
       & & & & $b \in \{1, \dots, p-2\}$\\
       & & & & $\underline{b=7}$\\
+      & & & & \\
       & & & & $\cdot$ berechne öffentlichen Schlüssel:\\
       & & & & $B \equiv g^b \Mod{p}$\\
       & & & & $B = 5^7 \Mod{17}$\\
       & & & & $\underline{B = 10}$\\
-      & & $\leftarrow$ & & $\cdot$ sende: $B$ an Alice\\\midrule
+      & & & & \\
+      & & & & $\cdot$ sende an Alice:\\
+      & & $\leftarrow$ & & $(B=10)$ \\\midrule
     \end{tabularx}
     \begin{tabularx}{\textwidth}{lXcXl}
       & & \textbf{Schritt 3}: & & \\
@@ -440,7 +452,7 @@ sind:
       $K_1 \equiv B^a \Mod{p}$ & & & & $K_2 \equiv A^b \Mod{p}$\\
       $K_1 = 10^{10} \Mod{17}$ & & & & $K_2 = 9^7 \Mod{17}$\\
       $\doubleunderline{K_1 = 2}$ & & & & $\doubleunderline{K_2 = 2}$\\
-      & & $\doubleunderline{K_1 = K = K_2}$ & &
+      & & $\doubleunderline{K_1 = K = K_2}$ & &\\\midrule
     \end{tabularx}
   \end{center}
   Der geheime Schlüssel $K$, den nur Alice und Bob kennen, ist für einen
@@ -453,7 +465,7 @@ sind:
 
 \subsection{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
 \label{sub:enc_with_dhke}
-Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen anderen Kommunikationspartner (Alice) über einen unsicheren Kanal durch Verschlüsselung mittels \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE). Bevor, möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte, muss diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem Schlüsselserver veröffentlichen, wie z.B. \url{https://sks-keyservers.net}. Des Weiteren gleichen sich die Verfahren des DHKE und die Verschlüsselung mittels DHKE, wobei Bob den öffentlichen Schlüssel von Alice beim Schlüsselserver erfragt. An der Stelle der Erzeugung des geheimen Schlüssels $K$ bei DHKE verschlüsselt Bob dann stattdessen die Nachricht $m$ zum Ciphertext $c$, mit $c \equiv A^b \cdot m \Mod{p}$, und sendet $c$ zusammen mit seinem öffentlichen Schlüssel $B$ an ein Postfach von Alice. Alice entschlüsselt die Nachricht dann mit $m \equiv  B^{-a}\cdot c  \Mod{p}$, was nach dem kleinen Satz von Fermat (siehe Abschnitt~\ref{def:erzeuger}) kongruent ist zu $m \equiv B^{(p-1)-a}\cdot c \Mod{p}$.
+Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen anderen Kommunikationspartner (Alice) über einen unsicheren Kanal durch Verschlüsselung mittels \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE). Bevor, möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte, muss diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem Schlüsselserver veröffentlichen, wie z.B. \url{https://sks-keyservers.net}. Des Weiteren gleichen sich die Verfahren des DHKE und die Verschlüsselung mittels DHKE, wobei Bob den öffentlichen Schlüssel von Alice beim Schlüsselserver erfragt. An der Stelle der Erzeugung des geheimen Schlüssels $K$ bei DHKE verschlüsselt Bob dann stattdessen die Nachricht $m$ zum Chiffretext $c$, mit $c \equiv A^b \cdot m \Mod{p}$, und sendet $c$ zusammen mit seinem öffentlichen Schlüssel $B$ an ein Postfach von Alice. Alice entschlüsselt die Nachricht dann mit $m \equiv  B^{-a}\cdot c  \Mod{p}$, was nach dem kleinen Satz von Fermat (siehe Abschnitt~\ref{def:erzeuger}) kongruent ist zu $m \equiv B^{(p-1)-a}\cdot c \Mod{p}$.
 
 \begin{figure}[H]
   \centering
@@ -479,6 +491,88 @@ Beide Kommunikationspartner haben die gleiche Nachricht: $m = m_{\text{Bob}} = m
       & \equiv m_{\text{Bob}}
     \end{align*}
 \end{proof}
+
+\subsubsection{Beispiel: Verschlüsselung mittels DHKE}
+\label{sub:enc_with_dhke_example}
+\begin{beispiel}[Verschlüsselung mittels Diffie-Hellman-Merkle Schlüsselaustausch]
+  Bob schickt eine geheime Nachricht $M$ über einen unsicheren Kanal an Alice.
+  Dazu muss er zuerst die Textnachricht als Zahlennachricht $m$ kodieren.
+  Alice kann Schritt 1 womöglich lange vor dem Senden der Nachricht durchführen und ihren 
+  öffentlichen Schlüssel auf einem Schlüsselserver, wie z.B.
+  \url{https://sks-keyservers.net}, veröffentlichen.
+  \begin{center}
+    \begin{tabularx}{\textwidth}{lXr}
+      \textbf{Alice} & & \textbf{Bob}\\
+      \midrule
+    \end{tabularx}
+    \begin{tabularx}{\textwidth}{lXcXl}
+      \textbf{Schritt 1:} & & & & \\
+      & & & & \\
+      $\cdot$ wähle Primzahl: $\underline{p = 47}$ & & & & \\
+      & & & & \\
+      $\cdot$ finde Erzeuger: $\underline{g = 5}$ & & & & \\
+      & & & & \\
+      $\cdot$ wähle geheimen Schlüssel: & & & & \\
+      $a \in \{1, \dots, p-2\}$ & & & & \\
+      $\underline{a = 9}$ & & & & \\
+      & & & & \\
+      $\cdot$ berechne öffentlichen Schlüssel: & & & & \\
+      $A \equiv g^a \Mod{p}$ & & & & \\
+      $A = 5^{9} \Mod{47}$ & & & & \\
+      $\underline{A = 40}$ & & & & \\
+      & & & & \\
+      $\cdot$ sende an Bob bzw. veröffentliche: & & & & \\
+      $(g = 5, p = 47, A = 40)$ & & $\to$ & & \\\midrule
+      & & & & \textbf{Schritt 2}:\\
+      & & & & \\
+      & & & & $\cdot$ wähle geheimen Schlüssel:\\
+      & & & & $b \in \{1, \dots, p-2\}$\\
+      & & & & $\underline{b=13}$\\
+      & & & & \\
+      & & & & $\cdot$ berechne öffentlichen Schlüssel:\\
+      & & & & $B \equiv g^b \Mod{p}$\\
+      & & & & $B = 5^{13} \Mod{47}$\\
+      & & & & $\underline{B = 43}$\\
+      & & & & \\
+      & & & & $\cdot$ kodiere Klartext als Zahlen:\\      
+      & & & & $\text{A} \mapsto 1, \text{B} \mapsto 2, \ldots, \text{Z} \mapsto 26, \textvisiblespace \mapsto 27$\\
+      & & & & $M =(\text{KOMME MORGEN}) \mapsto $\\
+      & & & & $\underline{(11, 15, 13, 13, 5, 27, 13, 15, 18, 7, 5, 14) = m}$\\
+      & & & & \\
+      & & & & $\cdot$ verschlüssele Klartext:\\
+      & & & & $c_j \equiv A^b \cdot m_j \Mod{p}$\\
+      & & & & $c_1 \equiv 22 \cdot 11 \Mod{47}$\\
+      & & & & $c_1 \equiv 7$\\
+      & & & & $c_2 \equiv 22 \cdot 15 \Mod{47}$\\
+      & & & & $c_2 \equiv 1$\\
+      & & & & $\dots$\\
+      & & & & $\text{enc(m)} \mapsto$\\
+      & & & & $\underline{(7, 1, 4, 4, 16, 30, 4, 1, 20, 13, 16, 26) = c}$\\
+      & & & & \\
+      & & & & $\cdot$ sende an Alice:\\
+      & & $\leftarrow$ & & $(B, c)$\\\midrule
+    \end{tabularx}
+    \begin{tabularx}{\textwidth}{lXcXl}\midrule
+      \textbf{Schritt 3}: & & & & \\
+      & & & & \\
+      $\cdot$ entschlüssele Chiffretext: & & & & \\
+      $m_j \equiv B^{-a} \cdot c_j \Mod{p}$ & & & & \\
+      $m_j \equiv B^{(p-1)-a} \cdot c_j \Mod{p}$ & & & & \\
+      $m_1 \equiv 15 \cdot 7 \Mod{47}$ & & & & \\
+      $m_2 \equiv 15 \cdot 1 \Mod{47}$ & & & & \\
+      $\dots$ & & & & \\
+      $\text{dec(c)} \mapsto$ & & & & \\
+      $\underline{(11, 15, 13, 13, 5, 27, 13, 15, 18, 7, 5, 14) = m}$ & & & & \\
+      & & & & \\
+      $\cdot$ dekodiere Zahlen zu Klartext: & & & & \\
+      $1 \mapsto \text{A}, 2 \mapsto \text{B}, \ldots, 26 \mapsto \text{Z}, 27 \mapsto \textvisiblespace$ & & & & \\
+      $m = (11, 15, 13, 13, 5, 27, 13, 15, 18, 7, 5, 14) \mapsto$ & & & & \\
+      $(\text{KOMME MORGEN}) = M$ & & & & \\\midrule
+    \end{tabularx}
+  \end{center}
+  Die Kodierung des Klartextes nach Zahlen könnte z.B. auch einfach durch die ASCII-Tabelle realisiert werden. Außerdem kann man leicht sehen, dass hier gleiche Buchstaben auf gleiche Zahlen verschlüsselt werden. Daher sollte  jeder Buchstaben oder Buchstabenblock, falls man mehrere Buchstaben zusammenfasst, in Schritt 2 mit einem neu von Bob zu wählenden Schlüssel $b_j$ verschlüsselt werden, da sonst ein einfacher Angriff mittels Häufigkeitsverteilung möglich ist.
+\end{beispiel}
+
 
 \section{Berechnung von diskreten Logarithmen}
 \label{sec:berechnung_von_diskreten_logarithmen}
