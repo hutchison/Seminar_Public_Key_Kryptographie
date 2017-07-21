@@ -59,7 +59,6 @@
 
 \usepackage{tabularx} % tabellen hannes
 \def\doubleunderline#1{\underline{\underline{#1}}} % doppelt unterstrichen: \doubleunderline{abc}
-\usepackage{changepage} % hannes
 
 \title{Diskrete Logarithmen}
 
@@ -334,43 +333,41 @@ benötigt werden.
 \subsection{Diffie-Hellman-Merkle Schlüsselaustausch (DHKE)}
 \label{sub:diffie_hellman_key_exchange}
 
-Der auf der Schwierigkeit des Diskreten-Logarithmus-Problems beruhende
-Diffie-Hellman-Merkle Schlüsselaustausch, englisch:
-\textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (\textbf{DHKE}),
-hat den folgenden Ablauf:
-Zwei Kommunikationspartner, hier Alice und Bob, kommunizieren über einen
-unsicheren Kanal und wollen einen Schlüssel für eine sichere Kommunikation, z.B.
-durch eine symmetrische Verschlüsselung, austauschen.
-
-Im ersten Schritt wählt Alice eine ausreichend große Primzahl $p$, welche den
-bekannten Fallstricken des Verfahrens ausweicht, z.B. mit $p = c \cdot q+1$, $c
-\in \N\backslash\{0\}$, $q$ prim, $q$ möglichst groß (etwa $p = 2 \cdot q + 1$).
-Ausreichend groß bedeutet hierbei, dass die Bitlänge $n$ der Primzahl $p$ so
-groß ist, dass die Berechnung des diskreten Logarithmus $\text{DL}(y,g,p)$ mit
-bekannten Algorithmen und aktueller Hardware auf absehbare Zeit nicht möglich
-sein wird (siehe Abschnitt~\ref{ssub:komplexitaet_naiver_algorithmus}). Zur Zeit
-(Jahr 2017) kann für $p$ eine Bitlänge von $n_p = 2048$ und für $q$ eine
-Bitlänge von $n_q = 256$ als
-sicher \todo{source:
-https://security.stackexchange.com/questions/112313/what-is-the-current-security-status-of-diffie-hellman-key-exchange}angenommen
-werden. Weiterhin sucht Alice einen \todo{ist die Formulierung bei Erzeuger
-korrekt?}Erzeuger $g \in \Z_p^*$, $(2 \leq g \leq p-2)$, welcher $g^k \Mod{p}$,
-$k \in \N \backslash \{0\}$, zyklisch ohne Untergruppen auf $\Z_p^*$ abbildet
-(siehe Abschnitt~\ref{def:erzeuger}). Dann wählt Alice ihren geheimen privaten
-Schlüssel $a \in \Z_p^*$, $(1 \leq a \leq p-2)$,  berechnet ihren öffentlichen
-Schlüssel $A$ mit $A \equiv g^a \Mod{p}$ und sendet ($g$, $p$, $A$) über den
-unsicheren Kanal an Bob.
-
-Im zweiten Schritt wählt Bob seinen geheimen privaten Schlüssel $b \in \Z_p^*$,
-$(1 \leq b \leq p-2)$, berechnet seinen öffentlichen Schlüssel $B$ mit $B \equiv
-g^b \Mod{p}$ und sendet $B$ über den unsicheren Kanal an Alice.
+Der auf der Schwierigkeit des Diskreten-Logarithmus-Problems beruhende 
+Diffie-Hellman-Merkle-Schlüsselaustausch, englisch: 
+\textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (\textbf{DHKE}), 
+hat den folgenden Ablauf: 
+Zwei Kommunikationspartner, hier Alice und Bob, kommunizieren über einen 
+unsicheren Kanal und wollen einen Schlüssel für eine sichere Kommunikation, 
+z.\,B. durch eine symmetrische Verschlüsselung, austauschen. 
+ 
+Im ersten Schritt wählt Alice eine ausreichend große Primzahl $p$, welche den 
+bekannten Fallstricken des Verfahrens ausweicht, z.\,B. mit $p = c \cdot q+1$, 
+$c \in \N \setminus \{ 0 \}$, $q$ prim, $q$ möglichst groß (etwa 
+$p = 2 \cdot q + 1$). 
+Ausreichend groß bedeutet hierbei, dass die Bitlänge $n$ der Primzahl $p$ 
+so groß ist, dass die Berechnung des diskreten Logarithmus $\text{DL}(y,g,p)$ 
+mit bekannten Algorithmen und aktueller Hardware auf absehbare Zeit nicht 
+möglich sein wird (siehe Abschnitt~\ref{ssub:komplexitaet_naiver_algorithmus}). 
+Zur Zeit kann für $p$ eine Bitlänge von $n_p = 2048$ und für $q$ eine Bitlänge 
+von $n_q = 256$ als sicher angenommen werden. 
+Weiterhin bestimmt Alice eine Primitivwurzel $g \in \Z_p^*$ (siehe 
+Abschnitt~\ref{def:erzeuger}). 
+Dann wählt Alice ihren geheimen privaten Schlüssel 
+$a \in \Z_p^*$, $(1 \leq a \leq p-2)$, berechnet ihren öffentlichen Schlüssel 
+$A$ mit $A \equiv g^a \mod p$ und sendet $(g, p, A)$ über den unsicheren Kanal 
+an Bob. 
+ 
+Im zweiten Schritt wählt Bob seinen geheimen privaten Schlüssel $b \in \Z_p^*$, 
+$(1 \leq b \leq p-2)$, berechnet seinen öffentlichen Schlüssel $B$ mit 
+$B \equiv g^b \mod p$ und sendet $B$ über den unsicheren Kanal an Alice. 
 Der gemeinsame geheime Schlüssel $K$ ergibt sich nun auf der Seite von Alice mit
 \begin{align*}
-  K \equiv B^a \Mod{p}
+	K \equiv B^a \Mod{p}
 \end{align*}
 und auf der Seite von Bob mit
 \begin{align*}
-  K \equiv A^b \Mod{p}
+	K \equiv A^b \Mod{p} \text{.}
 \end{align*}
 
 \begin{figure}[H]
@@ -385,8 +382,8 @@ und auf der Seite von Bob mit
 Zur Korrektheit des Diffie-Hellman-Merkle Schlüsselaustausches: Beide
 Kommunikationspartner haben den gleichen Schlüssel $K = K_1 = K_2$:
 
-Mit der Kongruenz aus Satz~\ref{satz:potenzen_bei_kongruenzen} lässt sich
-zeigen, dass die Schlüssel $K_1$ von Alice und $K_2$ von Bob kongruent sind:
+Mit der Kongruenz aus Satz~\ref{satz:potenzen_bei_kongruenzen} lässt sich zeigen, dass die Schlüssel $K_1$ von Alice und $K_2$ von Bob kongruent
+sind:
 \begin{align*}
   K_1 & \equiv B^a \Mod{p}\\
   & \equiv {(g^b)}^a \Mod{p}\\
@@ -449,21 +446,7 @@ zeigen, dass die Schlüssel $K_1$ von Alice und $K_2$ von Bob kongruent sind:
 
 \subsection{Verschlüsselung mittels Diffie-Hellman-Merkle-Schlüsselaustausch}
 \label{sub:enc_with_dhke}
-Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen
-anderen Kommunikationspartner (Alice) über einen unsicheren Kanal durch
-Verschlüsselung mittels
-\textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE). Bevor,
-möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte, muss
-diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem Schlüsselserver
-veröffentlichen, wie z.B. \url{https://sks-keyservers.net}. Des Weiteren
-gleichen sich die Verfahren des DHKE und die Verschlüsselung mittels DHKE, wobei
-Bob den öffentlichen Schlüssel von Alice beim Schlüsselserver erfragt. An der
-Stelle der Erzeugung des geheimen Schlüssels $K$ bei DHKE verschlüsselt Bob dann
-stattdessen die Nachricht $m$ zum Ciphertext $c$, mit $c \equiv A^b \cdot m
-\Mod{p}$, und sendet $c$ zusammen mit seinem öffentlichen Schlüssel $B$ an ein
-Postfach von Alice. Alice entschlüsselt die Nachricht dann mit $m \equiv
-B^{-a}\cdot c  \Mod{p}$, was nach dem kleinen Satz von Fermat (siehe Abschnitt
-\ref{def:erzeuger}) kongruent ist zu $m \equiv B^{(p-1)-a}\cdot c \Mod{p}$.
+Ein Kommunikationspartner (Bob) schickt eine geheime Nachricht $m$ an einen anderen Kommunikationspartner (Alice) über einen unsicheren Kanal durch Verschlüsselung mittels \textbf{D}iffie-\textbf{H}ellman-\textbf{K}ey-\textbf{E}xchange (DHKE). Bevor, möglicherweise lange bevor, Bob eine Nachricht an Alice schicken möchte, muss diese Ihren öffentlichen Schlüssel in geeigneter Weise auf einem Schlüsselserver veröffentlichen, wie z.B. \url{https://sks-keyservers.net}. Des Weiteren gleichen sich die Verfahren des DHKE und die Verschlüsselung mittels DHKE, wobei Bob den öffentlichen Schlüssel von Alice beim Schlüsselserver erfragt. An der Stelle der Erzeugung des geheimen Schlüssels $K$ bei DHKE verschlüsselt Bob dann stattdessen die Nachricht $m$ zum Ciphertext $c$, mit $c \equiv A^b \cdot m \Mod{p}$, und sendet $c$ zusammen mit seinem öffentlichen Schlüssel $B$ an ein Postfach von Alice. Alice entschlüsselt die Nachricht dann mit $m \equiv  B^{-a}\cdot c  \Mod{p}$, was nach dem kleinen Satz von Fermat (siehe Abschnitt \ref{def:erzeuger}) kongruent ist zu $m \equiv B^{(p-1)-a}\cdot c \Mod{p}$.
 
 \begin{figure}[H]
   \centering
@@ -505,12 +488,11 @@ Wir suchen den Exponenten $x \in \Z_p^*$ für den gilt:
   g^x \equiv y \Mod{p}
 \end{align*}
 Da $\Z_p^*$ nur endlich viele Element enthält, können wir für jedes $x$
-überprüfen, ob es die Kongruenz erfüllt. Algorithmus~\ref{alg:dlog_naive}
-beschreibt die Vorgehensweise in Pseudocode.
+überprüfen, ob es die Kongruenz erfüllt.
 
-\begin{algorithm}[H]
+\begin{algorithm}[H]\label{alg:dlog_naive}
   \caption{naiver Berechnungsalgorithmus}
-  \begin{algorithmic}\label{alg:dlog_naive}
+  \begin{algorithmic}
     \REQUIRE{$p \in \P, \left\langle g \right\rangle \in \Z_p^*, y \in \Z_p^*$}
     \FORALL{$x \in \left\{1, \ldots, p-1\right\}$}
       \IF{$g^x \equiv y \Mod{p}$}
@@ -569,14 +551,18 @@ exponentielle Komplexität $\mathcal{O}(2^n)$. Dazu ein Rechenbeispiel:
   mit dem naiven Algorithmus nach der Hälfte der Rechenschritte gefunden wird,
   ist diese Zeitspanne unrealistisch. Außerdem kann, z.\,B. bei Verwendung des
   Diskreten-Logarithmus-Problems in der Verschlüsselung, jede
-  nicht-exponentielle Verbesserung des Algorithmus durch eine kostengünstige
-  Vergrößerung der Bitlänge $n$ der Primzahl $p$ ausgeglichen werden. Sollte
-  sich z.\,B. die gegebene Rechenleistung um den Faktor $x$ vergrößern, so
+  nicht-exponentielle Verbesserung der Berechnung des diskreten Logarithmus durch eine kostengünstige Vergrößerung der Bitlänge $n$ der Primzahl $p$ ausgeglichen werden.
+  
+  Sollte sich z.\,B. die gegebene Rechenleistung um den Faktor $x$ vergrößern, so
   müsste die Bitlänge $n$ der Primzahl $p$ lediglich um den Betrag
   $d = \left\lfloor \log_2 x \right\rfloor + 1$ vergrößert werden:
   $n_{\text{neu}} = n_{\text{alt}} + d$. Würde die Rechenleistung sich also
   z.\,B. verzehnfachen, wäre also $x=10$, so würde eine konstante Vergrößerung
   der Bitlänge von $d=4$ dies wieder ausgleichen.
+  
+  Analoges gilt für den Fall, dass sich der Algorithmus zur Bestimmung des Diskreten Logarithmus in seiner Komplexität verringert, solange die Verringerung nicht exponentiell ist. Zum Beispiel ist die Komplexität des Baby-Step-Giant-Step-Algorithmus statt $\mathcal{O}(p)$ nur $\mathcal{O}(\sqrt{p})$, d.h. über die Bitlänge $n$ der Primzahl $p$ dargestellt, verringert sich die Komplexität von $\mathcal{O}(2^n)$ zu $\mathcal{O}(\sqrt{2^n})$. Wegen $\sqrt{2^n} = 2^{n/2}$ ergibt sich $\mathcal{O}(2^{n/2})$ und eine Verdoppelung der Bitlänge $n$ gleicht die Verbesserung des Algorithmus wieder aus.
+  
+  
 \end{beispiel}
 
 \subsection{Pohlig-Hellman-Algorithmus}
@@ -658,41 +644,6 @@ für jeden Primfaktor von $p-1$ durchgeführt haben, nutzen wir den Chinesischen
 Restsatz um $x$ zu bestimmen. Algorithmus~\ref{alg:dlog_ph} beschreibt die
 Vorgehensweise in Pseudocode.
 
-\begin{algorithm}
-  \caption{Pohlig-Hellman-Algorithmus}
-  \begin{algorithmic}\label{alg:dlog_ph}
-    \REQUIRE{$p \in \P, \left\langle g \right\rangle \in \Z_p^*, y \in \Z_p^*$}
-    \STATE{$F \leftarrow$ Primfaktorzerlegung$(p-1)$}
-    \COMMENT{z.\,B. als Menge von Tupeln $\{(q_1, k_1), (q_2, k_2), \ldots\}$}
-    \FORALL{$q \mid (p-1)$}
-      \FOR{$j = 0$ \TO $q-1$}
-        \STATE{$r_{q, j} \leftarrow g^{j(p-1)/q}$}
-        \COMMENT{Berechnung der Einheitswurzeln}
-      \ENDFOR{}
-    \ENDFOR{}
-    \STATE{berechne $g^{-1}$ mit dem erw. Euklidischen Algorithmus}
-    \STATE{$C \leftarrow \varnothing$}
-    \COMMENT{Die Menge, die später alle Kongruenzen enthält.}
-    \FORALL{$(q, k) \in F$}
-      \STATE{$z \leftarrow y$}
-      \FOR{$i = 0$ \TO $k-1$}
-        \STATE{$v \leftarrow z^{(p-1)/q^{i+1}} \Mod{p}$}
-        \STATE{$c_{q, i} \leftarrow j$ mit $r_{q,j} = v$}
-        \STATE{$z \leftarrow z \cdot \left(g^{-q^i}\right) \Mod{p}$}
-      \ENDFOR{}
-      \STATE{$C \leftarrow C \cup \left\{ \left(
-          \sum\limits_{i=0}^{k-1} c_{q, i} \cdot q^i,
-          q^k
-        \right) \right\}
-      $}
-      \COMMENT{Eine Kongruenz ist dabei ein Tupel $(a, n)$ und bedeutet $x
-      \equiv a \Mod{n}$}
-    \ENDFOR{}
-    \STATE{bestimme die Lösung $x$ mit dem Chinesischen Restsatz aus den
-    Kongruenzen in $C$}
-  \end{algorithmic}
-\end{algorithm}
-
 \begin{beispiel}[Pohlig-Hellman-Algorithmus]
   Wir betrachten $\Z_p^*$ mit $p = 1801$ und dem Erzeuger $g = 13$. Gesucht ist
   jenes $x$ mit $g^x \equiv 111 \Mod{p}$. Die Primfaktorzerlegung von $p-1$ ist
@@ -750,22 +701,5 @@ Vorgehensweise in Pseudocode.
   \end{align*}
   als Lösung. Die Probe $13^{1768} \equiv 111 \mod 1801$ bestätigt dies.
 \end{beispiel}
-
-\begin{thebibliography}{9}
-  \bibitem{koblitz94}
-    Neal Koblitz,
-    \textit{A course in number theory and cryptography},
-    Springer,
-    2. Auflage,
-    1994.
-
-  \bibitem{forster2015}
-    Otto Forster,
-    \textit{Algorithmische Zahlentheorie},
-    Springer Spektrum,
-    2. Auflage,
-    2015
-
-\end{thebibliography}
 
 \end{document}
